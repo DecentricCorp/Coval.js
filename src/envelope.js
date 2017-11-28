@@ -13,15 +13,15 @@ var Envelope = function(value, err, msg){
         toString: function () {
             return value.toString()
         },
-        err: errors || [],
-        msg: msgs || [],
+        err: errors,
+        msg: msgs,
         valueOf: function() {
             return value
         },
         payload : {
             value: value || "",
-            err: errors || [],
-            msg: msgs || []
+            err: errors,
+            msg: msgs
         }
     }
 }
