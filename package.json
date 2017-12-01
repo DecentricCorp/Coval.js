@@ -4,7 +4,9 @@
   "description": "testing shamir secret sharing theory",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "tsc src/*.ts --outDir ./build/",
+    "watch": "tsc src/*.ts --outDir ./build/ -w"
   },
   "author": "Shannon Code",
   "license": "MIT",
