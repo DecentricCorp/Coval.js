@@ -6,17 +6,30 @@ var Shamir;
 (function (Shamir) {
     var Key = /** @class */ (function () {
         function Key() {
-            this.envelope = new Envelope_1.Envelope();
         }
         Key.prototype.GetKey = function () {
+            var envelope = new Envelope_1.Envelope();
             if (!this.key) {
                 this.key = secrets.random(512);
             }
             else {
-                this.envelope.AddError("Key accessed twice!");
+                envelope.AddError("Key accessed twice!");
             }
-            this.envelope.AddValue(this.key);
-            return this.envelope;
+            envelope.AddValue(this.key);
+            return envelope;
+        };
+        Key.prototype.CreateShares = function () {
+            this.GetKey();
+            var shares = secrets.share(this.key, 2, 2);
+            var envelope = new Envelope_1.Envelope();
+            envelope.AddValue(shares);
+            return envelope;
+        };
+        Key.prototype.CombineShares = function (shares) {
+            var combined = secrets.combine(shares);
+            var envelope = new Envelope_1.Envelope();
+            envelope.AddValue(combined);
+            return envelope;
         };
         return Key;
     }());

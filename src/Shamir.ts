@@ -5,15 +5,33 @@ export module Shamir {
     export class Key {
         constructor() { }
         key: string
-        envelope: Envelope = new Envelope()
+        shares: string[]
+        
         public GetKey() {
+            let envelope = new Envelope()
             if (!this.key) {
                 this.key = secrets.random(512)
             } else {
-                this.envelope.AddError("Key accessed twice!")
+                envelope.AddError("Key accessed twice!")
             }
-            this.envelope.AddValue(this.key)
-            return this.envelope
+            envelope.AddValue(this.key)
+            return envelope
         }
+
+        public CreateShares() {
+            this.GetKey()
+            let shares = secrets.share(this.key, 2, 2)
+            let envelope = new Envelope()
+            envelope.AddValue(shares)
+            return envelope
+        }
+
+        public CombineShares(shares: string[]) {
+            let combined = secrets.combine( shares )
+            let envelope = new Envelope()
+            envelope.AddValue(combined)
+            return envelope
+        }
+
     }
 }
