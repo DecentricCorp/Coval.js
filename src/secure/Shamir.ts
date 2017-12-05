@@ -18,9 +18,9 @@ export module Shamir {
             return envelope
         }
 
-        public CreateShares() {
+        public CreateShares(count: number, threshold: number) {
             this.GetKey()
-            let shares = secrets.share(this.key, 2, 2)
+            let shares = secrets.share(this.key, count, threshold)
             let envelope = new Envelope()
             envelope.AddValue(shares)
             return envelope

@@ -2,7 +2,8 @@
 var chai = require('chai')
 var expect = chai.expect
 var should = chai.should()
-var Coval = require('../build/Coval')
+var Coval = require('../build/Coval').Coval
+    Coval = new Coval()
 var CovalSecure = new Coval.Secure()
 var Shamir = CovalSecure.Shamir
 var Protected = CovalSecure.Protected
@@ -63,18 +64,17 @@ describe('Shamir', function () {
   describe('CreateShares', function () {
     it('should split key into 2 shares', function () {
       var serverObject = new Shamir.Key()
-      var shares = serverObject.CreateShares().GetValue()
+      var shares = serverObject.CreateShares(2, 2).GetValue()
       expect(shares).to.not.be.empty
-      var key = serverObject.GetKey()
-      //expect(key.GetValue()).to.be.null
-      expect(key.Errors()[0].message).to.equal("Key accessed twice!")
+      expect(shares).to.be.an('Array')
     })
   })
   describe('CombineShares', function () {
     it('should combine shares', function(){
       var serverObject = new Shamir.Key()
-      var shares = serverObject.CreateShares().GetValue()
+      var shares = serverObject.CreateShares(2, 2).GetValue()
       var combined = serverObject.CombineShares(shares)
+      expect(combined.value).to.be.a('string')
     })    
   })
 })

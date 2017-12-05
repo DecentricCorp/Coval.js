@@ -7,6 +7,28 @@ var Diffie_1 = require("./secure/Diffie");
 var Envelope_1 = require("./transport/Envelope");
 var Dat_1 = require("./transport/Dat");
 var Multichain_1 = require("./transport/Multichain");
+var Unloq_1 = require("./partner/Unloq");
+var Changely_1 = require("./partner/Changely");
+var Shapeshift_1 = require("./partner/Shapeshift");
+var Vocal_1 = require("./Vocal");
+var Emblem_1 = require("./Emblem");
+/**
+ * Coval main export
+ *
+ * @export
+ * @class Coval
+ */
+var Coval = /** @class */ (function () {
+    function Coval() {
+        this.Secure = Secure;
+        this.Partner = Partner;
+        this.Transport = Transport;
+        this.Vocal = Vocal_1.Vocal;
+        this.Emblem = Emblem_1.Emblem;
+    }
+    return Coval;
+}());
+exports.Coval = Coval;
 /**
  * Coval Secure Class
  *
@@ -22,7 +44,21 @@ var Secure = /** @class */ (function () {
     }
     return Secure;
 }());
-exports.Secure = Secure;
+/**
+ * Partners of Coval
+ *
+ * @export
+ * @class Partner
+ */
+var Partner = /** @class */ (function () {
+    function Partner() {
+        this.Unloq = Unloq_1.Unloq;
+        this.Shapeshift = Shapeshift_1.Shapeshift;
+        this.Changely = Changely_1.Changely;
+    }
+    return Partner;
+}());
+exports.Partner = Partner;
 /**
  * Coval Transport Class
  *

@@ -18,9 +18,9 @@ var Shamir;
             envelope.AddValue(this.key);
             return envelope;
         };
-        Key.prototype.CreateShares = function () {
+        Key.prototype.CreateShares = function (count, threshold) {
             this.GetKey();
-            var shares = secrets.share(this.key, 2, 2);
+            var shares = secrets.share(this.key, count, threshold);
             var envelope = new Envelope_1.Envelope();
             envelope.AddValue(shares);
             return envelope;
