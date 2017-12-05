@@ -1,12 +1,12 @@
 "use strict"
-import * as _Envelope from "./Envelope"
+import {Envelope} from "../transport/Envelope"
 export class Protected {
-    Value: () => _Envelope.Envelope;
+    Value: () => Envelope;
     constructor(value: any) {
         var privateValue = value;
 
         this.Value = function () {
-            var envelope = new _Envelope.Envelope()
+            var envelope = new Envelope()
             envelope.AddValue(privateValue)
             if (!privateValue) {
                 envelope.AddError("Self destructed!")

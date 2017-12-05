@@ -1,6 +1,6 @@
 "use strict"
 import * as secrets from "secrets.js-grempe"
-import { Envelope } from "./Envelope"
+import { Envelope } from "../transport/Envelope"
 export module Shamir {
     export class Key {
         constructor() { }

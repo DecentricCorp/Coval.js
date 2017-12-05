@@ -1,11 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var _Envelope = require("./Envelope");
+var Envelope_1 = require("../transport/Envelope");
 var Protected = /** @class */ (function () {
     function Protected(value) {
         var privateValue = value;
         this.Value = function () {
-            var envelope = new _Envelope.Envelope();
+            var envelope = new Envelope_1.Envelope();
             envelope.AddValue(privateValue);
             if (!privateValue) {
                 envelope.AddError("Self destructed!");

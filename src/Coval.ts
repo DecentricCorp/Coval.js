@@ -1,6 +1,11 @@
-import * as _Shamir from "./Shamir"
-import * as _Envelope from "./Envelope"
-import * as _Protected from "./Protected"
+"use strict"
+import {Protected} from "./secure/Protected"
+import {Mnemonic} from "./secure/Mnemonic"
+import {Shamir} from "./secure/Shamir"
+import {Diffie} from "./secure/Diffie"
+import {Envelope} from "./transport/Envelope"
+import {Dat} from "./transport/Dat"
+import {Multichain} from "./transport/Multichain"
 /**
  * Coval Secure Class
  * 
@@ -8,8 +13,10 @@ import * as _Protected from "./Protected"
  * @class Secure
  */
 export class Secure {
-    public Shamir = _Shamir.Shamir
-    public Protected = _Protected.Protected
+    public Shamir = Shamir
+    public Protected = Protected
+    public Diffie = Diffie
+    public Mnemonic = Mnemonic
 }
 /**
  * Coval Transport Class
@@ -18,5 +25,7 @@ export class Secure {
  * @class Transport
  */
 export class Transport {
-    public Envelope = _Envelope.Envelope
+    public Envelope = Envelope
+    public Dat = Dat
+    public Multichain = Multichain
 }

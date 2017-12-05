@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var Error_1 = require("../build/Error");
+var Error_1 = require("../base/Error");
 var Errors = Error_1.CovalType.Errors;
 /**
  *
@@ -25,14 +25,14 @@ var Envelope = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Envelope.prototype.AddValue = function (value) {
-        Envelope.value = value;
+        this.value = value;
     };
     Envelope.prototype.GetValue = function () {
-        return Envelope.value;
+        return this.value;
     };
     Envelope.prototype.toString = function () {
         return {
-            value: Envelope.value,
+            value: this.value,
             errors: this.Errors()
         };
     };

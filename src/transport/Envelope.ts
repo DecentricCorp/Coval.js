@@ -1,4 +1,4 @@
-import {CovalType} from "../build/Error"
+import {CovalType} from "../base/Error"
 let Errors = CovalType.Errors
 /**
  * 
@@ -10,15 +10,15 @@ let Errors = CovalType.Errors
 export class Envelope extends Errors {
     public value: any
     public AddValue(value: any){
-        Envelope.value = value
+        this.value = value
     }
     public GetValue(){
-        return Envelope.value
+        return this.value
     }
 
     public toString() {
         return {
-            value: Envelope.value,
+            value: this.value,
             errors: this.Errors()
         }
     }
