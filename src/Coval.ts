@@ -11,6 +11,7 @@ import {Changely} from "./partner/Changely"
 import {Shapeshift} from "./partner/Shapeshift"
 import {Vocal} from "./Vocal"
 import {Emblem} from "./Emblem"
+import {Caesar} from "./secure/Caesar"
 /**
  * Coval main export
  * 
@@ -36,6 +37,7 @@ class Secure {
     public Protected = Protected
     public Diffie = Diffie
     public Mnemonic = Mnemonic
+    public Caesar = Caesar
 }
 /**
  * Partners of Coval

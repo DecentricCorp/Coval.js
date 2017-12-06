@@ -12,6 +12,7 @@ var Changely_1 = require("./partner/Changely");
 var Shapeshift_1 = require("./partner/Shapeshift");
 var Vocal_1 = require("./Vocal");
 var Emblem_1 = require("./Emblem");
+var Caesar_1 = require("./secure/Caesar");
 /**
  * Coval main export
  *
@@ -41,6 +42,7 @@ var Secure = /** @class */ (function () {
         this.Protected = Protected_1.Protected;
         this.Diffie = Diffie_1.Diffie;
         this.Mnemonic = Mnemonic_1.Mnemonic;
+        this.Caesar = Caesar_1.Caesar;
     }
     return Secure;
 }());

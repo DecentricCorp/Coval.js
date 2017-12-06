@@ -6,6 +6,7 @@ var Coval = require('../build/Coval').Coval
     Coval = new Coval()
 var CovalSecure = new Coval.Secure()
 var Shamir = CovalSecure.Shamir
+var Caesar = CovalSecure.Caesar
 var Protected = CovalSecure.Protected
 
 describe('Protected', function () {
@@ -77,4 +78,14 @@ describe('Shamir', function () {
       expect(combined.value).to.be.a('string')
     })    
   })
+})
+
+describe('Caesar', function(){
+  describe('genKey', function(){
+    it('should return private key', function(){
+      var caesar = new Caesar()
+      var pvt = caesar.CreatePrivate()
+      expect(pvt).to.be.an('object') 
+    })
+  })  
 })
