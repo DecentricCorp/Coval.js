@@ -3,7 +3,7 @@ var chai = require('chai')
 var expect = chai.expect
 var should = chai.should()
 var Coval = require('../build/Coval').Coval
-    Coval = new Coval()
+Coval = new Coval()
 var CovalSecure = new Coval.Secure()
 var Shamir = CovalSecure.Shamir
 var Caesar = CovalSecure.Caesar
@@ -71,21 +71,59 @@ describe('Shamir', function () {
     })
   })
   describe('CombineShares', function () {
-    it('should combine shares', function(){
+    it('should combine shares', function () {
       var serverObject = new Shamir.Key()
       var shares = serverObject.CreateShares(2, 2).GetValue()
       var combined = serverObject.CombineShares(shares)
       expect(combined.value).to.be.a('string')
-    })    
+    })
   })
 })
 
-describe('Caesar', function(){
-  describe('genKey', function(){
-    it('should return private key', function(){
+describe('Caesar', function () {
+  describe('genKey', function () {
+    it('should return private key', function () {
       var caesar = new Caesar()
       var pvt = caesar.CreatePrivate()
-      expect(pvt).to.be.an('object') 
+      expect(pvt).to.be.an('object')
     })
-  })  
+  })
+  describe('key time signatures', () => {
+
+    it('should sign msg successfully', () => {
+      var caesar = new Caesar()
+      var signer = caesar.CreateKtsSigner(2)
+      var sig = signer.sign('Hello World')
+      expect(sig).to.exist
+    })
+
+    /*
+     * verify kts is broken
+     */
+    /* it('should verify signed msg', ()=>{
+      var caesar = new Caesar()
+      var signer = caesar.CreateKtsSigner(1)
+      var signerPubkey = signer.getPublicKey()
+      var verifier = caesar.CreateKtsVerifier(signerPubkey)
+      var sig = signer.sign('Hello World')
+      //verifier.verify('H', sig)
+    }) */
+  })
+  describe('disk encryption', () => {
+    it('encrypted stream should decrypt to desired text', (done) => {
+      var caesar = new Caesar()
+      var pvt = caesar.CreateRandom()
+      var msgBuffer = new Buffer('Hello World!')
+
+      var encrypter = new caesar.CreateXtsEncrypter(pvt)
+      var decrypter = new caesar.CreateXtsDecrypter(pvt)
+
+      encrypter.write(msgBuffer, function (encrypted) {
+        decrypter.write(encrypted, msgBuffer.length, function (decrypted) {
+          expect(decrypted).to.equal(msgBuffer.toString())
+          done()
+        })
+      })
+    })
+  })
 })

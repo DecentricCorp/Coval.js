@@ -1,2 +1,2 @@
-# secret-share
-testing shamir secret sharing theory
+# Coval.js
+Coval strongly typed framework
