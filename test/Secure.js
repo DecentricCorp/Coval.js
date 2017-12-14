@@ -9,6 +9,7 @@ var Shamir = CovalSecure.Shamir
 var Caesar = CovalSecure.Caesar
 var HDKey = CovalSecure.HDKey
 var Diffie = CovalSecure.Diffie
+var Pre = CovalSecure.Pre
 var Protected = CovalSecure.Protected
 var standardHDKey, fromNs, toNs, to, from
 var requestMock = {
@@ -225,8 +226,8 @@ describe('Diffie', () => {
 
   describe('Get Shared Secret', () => {
     it('should compute secret from personal private and externally supplied public keys', function (done) {
-      this.timeout(1000000)
-      var strength = 2048
+      //this.timeout(1000000)
+      var strength = 128 /* 2048 */
       var alice = new Diffie(strength)
       var bob = new Diffie(strength, alice.GetPrime(), alice.GetGenerator())
       var aliceSecret = alice.GetSharedSecret(bob.GetPubKey()).toString('hex')
@@ -236,6 +237,18 @@ describe('Diffie', () => {
     })
   })
   
+})
+
+describe('Pre', function(){
+  it('should execute', function(done){
+    var pre = new Pre()
+    pre.Execute(function(msg){
+      expect(msg).to.contain('b\'Hello world\'')
+      done()
+    })
+    
+
+  })
 })
 
 function createReqMock(service, teamId, userId){

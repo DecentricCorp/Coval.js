@@ -14,6 +14,7 @@ var Vocal_1 = require("./Vocal");
 var Emblem_1 = require("./Emblem");
 var Caesar_1 = require("./secure/Caesar");
 var HDKey_1 = require("./secure/HDKey");
+var Pre_1 = require("./secure/Pre");
 /**
  * Coval main export
  *
@@ -45,6 +46,7 @@ var Secure = /** @class */ (function () {
         this.Mnemonic = Mnemonic_1.Mnemonic;
         this.Caesar = Caesar_1.Caesar;
         this.HDKey = HDKey_1.HDKey;
+        this.Pre = Pre_1.Pre;
     }
     return Secure;
 }());

@@ -61,3 +61,4 @@ typings/
 .vscode
 .vscode/settings.json
 .scannerwork
+build/python/myenv

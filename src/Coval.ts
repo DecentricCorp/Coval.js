@@ -13,6 +13,7 @@ import {Vocal} from "./Vocal"
 import {Emblem} from "./Emblem"
 import {Caesar} from "./secure/Caesar"
 import {HDKey} from "./secure/HDKey"
+import {Pre} from "./secure/Pre"
 /**
  * Coval main export
  * 
@@ -40,6 +41,7 @@ class Secure {
     public Mnemonic = Mnemonic
     public Caesar = Caesar
     public HDKey = HDKey
+    public Pre = Pre
 }
 /**
  * Partners of Coval

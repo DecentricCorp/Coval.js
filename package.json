@@ -14,6 +14,7 @@
     "@types/node": "^8.5.0",
     "caesar": "^1.1.12",
     "crypto-js": "^3.1.9-1",
+    "python-shell": "^0.4.0",
     "secrets.js-grempe": "git+https://github.com/grempe/secrets.js.git"
   },
   "devDependencies": {
