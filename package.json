@@ -11,11 +11,13 @@
   "author": "Shannon Code",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^8.5.0",
     "caesar": "^1.1.12",
-    "diffie-hellman": "^5.0.2",
+    "crypto-js": "^3.1.9-1",
     "secrets.js-grempe": "git+https://github.com/grempe/secrets.js.git"
   },
   "devDependencies": {
+    "@types/crypto-js": "^3.1.37",
     "chai": "^4.1.2",
     "mocha": "^4.0.1"
   }

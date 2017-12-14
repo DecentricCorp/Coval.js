@@ -12,6 +12,7 @@ import {Shapeshift} from "./partner/Shapeshift"
 import {Vocal} from "./Vocal"
 import {Emblem} from "./Emblem"
 import {Caesar} from "./secure/Caesar"
+import {HDKey} from "./secure/HDKey"
 /**
  * Coval main export
  * 
@@ -38,6 +39,7 @@ class Secure {
     public Diffie = Diffie
     public Mnemonic = Mnemonic
     public Caesar = Caesar
+    public HDKey = HDKey
 }
 /**
  * Partners of Coval
