@@ -243,7 +243,6 @@ describe('Pre', function(){
   it('should execute', function(done){
     var pre = new Pre()
     pre.Execute(function(msg){
-      console.log('--------- Returned from Python script', JSON.stringify(msg, null, 4))
       expect(msg).to.contain('b\'Hello world\'')
       done()
     })
