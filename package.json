@@ -5,8 +5,8 @@
   "main": "build/Coval.js",
   "scripts": {
     "test": "mocha",
-    "build": "tsc src/*.ts --outDir ./build/",
-    "watch": "tsc src/*.ts --outDir ./build/ -w"
+    "build": "tsc src/**/*.ts --outDir ./build/",
+    "watch": "tsc src/**/*.ts --outDir ./build/ -w"
   },
   "author": "Shannon Code",
   "license": "MIT",
@@ -14,7 +14,8 @@
     "@types/node": "^8.5.0",
     "caesar": "^1.1.12",
     "crypto-js": "^3.1.9-1",
-    "lightrail": "^0.1.2",
+    "dotenv": "^4.0.0",
+    "lightrail-client": "^1.3.0",
     "python-shell": "^0.4.0",
     "secrets.js-grempe": "git+https://github.com/grempe/secrets.js.git"
   },

@@ -14,6 +14,7 @@ import {Emblem} from "./Emblem"
 import {Caesar} from "./secure/Caesar"
 import {HDKey} from "./secure/HDKey"
 import {Pre} from "./secure/Pre"
+import { Lightrail } from "./partner/Lightrail"
 /**
  * Coval main export
  * 
@@ -53,6 +54,7 @@ export class Partner {
     public Unloq = Unloq
     public Shapeshift = Shapeshift
     public Changely = Changely
+    public Lightrail = Lightrail
 }
 /**
  * Coval Transport Class
