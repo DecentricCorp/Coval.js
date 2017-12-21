@@ -64,3 +64,4 @@ typings/
 build/python/myenv
 build/python/nkms
 build/python/npre
+.DS_Store
