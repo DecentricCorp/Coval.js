@@ -6,55 +6,62 @@ var UnloqLib = require("../build/partner/Unloq").Unloq
 var path = require("path")
 var td = require('testdouble')
 var MOCK = true
-require("dotenv").config({path: path.join(__dirname, "..", "build", "test.env")})
+require("dotenv").config({
+    path: path.join(__dirname, "..", "build", "test.env")
+})
 
 describe('Unloq', () => {
-    it('should instantiate with provided api key', function(done) {
+    it('should instantiate with provided api key', function (done) {
         this.timeout(100000)
         var Unloq = new UnloqLib(process.env.UNLOQ_KEY)
         expect(Unloq.config.unloq.key).to.equal(process.env.UNLOQ_KEY)
-        done()        
+        done()
     })
 
-    it('should instantiate without api key', function(done) {
+    it('should instantiate without api key', function (done) {
         this.timeout(100000)
         var Unloq = new UnloqLib()
         expect(Unloq.config.unloq.key).to.not.exist
-        done()        
+        done()
     })
 
-    describe('Authenticate', ()=>{
+    describe('Authenticate', () => {
         it('should fail gracefully on incorrect email')
         it('should fail gracefully on no api key')
-        it('should sucessfully authenticate with unloq', function(done) {
-            this.timeout(10000)            
+        it('should sucessfully authenticate with unloq', function (done) {
+            this.timeout(10000)
             var Unloq = new UnloqLib(process.env.UNLOQ_KEY)
             if (MOCK) {
                 td.replace(Unloq.Api, 'authenticate')
                 td.when(Unloq.Api.authenticate(td.matchers.anything())).thenResolve(mocks.accessToken)
                 td.replace(Unloq.Api, 'tokenData')
-                td.when(Unloq.Api.tokenData(td.matchers.anything(),td.matchers.anything())).thenResolve(mocks.userData)
+                td.when(Unloq.Api.tokenData(td.matchers.anything(), td.matchers.anything())).thenResolve(mocks.userData)
             }
-            Unloq.Authenticate('shannon+13@synrg.tech', function(userObject){
+            Unloq.Authenticate('shannon+13@synrg.tech', function (userObject) {
                 expect(userObject.unloq_id).to.equal(mocks.userData.unloq_id)
                 done()
             })
         })
     })
-    describe('Authorize', ()=>{
-        it('should allow for sucessful authorization', ()=>{
+    describe('Authorize', () => {
+        it('should allow for sucessful authorization', () => {
             var Unloq = new UnloqLib(process.env.UNLOQ_KEY)
-            Unloq.Authorize(mocks.userData.unloq_id, function(result){
-                console.log('---------- back from auth', result)
+            if (MOCK) {
+                td.replace(Unloq, 'Authorize', function(id, cb){
+                    return cb(mocks.authorize)
+                })
+            }
+            Unloq.Authorize(mocks.userData.unloq_id, function (result) {
+                expect(result.result.approval_id).to.not.be.null
             })
         })
     })
-        
+
 })
 
 let mocks = {
-    accessToken: { 
-        unloq_id: '1568', 
+    accessToken: {
+        unloq_id: '1568',
         token: 'AUAHdpBlSpU0IUAdxlPC9UdvqG16k3qxeqoQx4U6ukzO88oC6FoHa1kcut1JK2XhADNSN3sLjl9ZOgG0s07UZ388jEAyvXvQGEsUaSSaNfc9UBZnItFuI3G7qoRarEL9LsFQ'
     },
     userData: {
@@ -66,5 +73,13 @@ let mocks = {
         first_name: 'shannon',
         last_name: 'code',
         token_type: 'AUTHENTICATE'
+    },
+    authorize: {
+        "type": "api.application.approval.authorize",
+        "result": {
+            "approval_id": "d8c6dddd-e543-4427-b85e-05cba8d084f2-DjsPAslV",
+            "unloq_id": "1568",
+            "ip_device": "104.182.53.122"
+        }
     }
 }
