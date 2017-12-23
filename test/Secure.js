@@ -239,7 +239,7 @@ describe('Diffie', () => {
   
 })
 
-describe('Pre', function(){
+describe('NuCypher', function(){
   it('should execute', function(done){
     var pre = new Pre()
     pre.Execute(function(msg){
@@ -247,8 +247,15 @@ describe('Pre', function(){
       expect(msg).to.contain('b\'Hello world\'')
       done()
     })
-    
+  })
 
+  it('should generate keypair', function(done) {
+    var pre = new Pre('genkey.py')
+    pre.GenKey(function(msg){
+      expect(msg.priv).to.not.be.null
+      expect(msg.pub).to.not.be.null
+      done()
+    })
   })
 })
 
