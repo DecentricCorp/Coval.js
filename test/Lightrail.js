@@ -65,7 +65,6 @@ describe('Lightrail', () => {
             var user = Lightrail.CreateContact(Lightrail.ContactParams("test", "user", "e@mail.com"))
             user.then((response)=>{
                 expect(response.contactId).to.exist
-                console.log('------------ Contact', response)
                 done()
             })            
         })

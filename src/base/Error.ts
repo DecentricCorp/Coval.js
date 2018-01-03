@@ -1,6 +1,8 @@
 "use strict"
-export module CovalType {
-    class Error {
+
+import {Logs} from "../base/Log"
+//export module CovalType {
+    class Error{
         /**
          * Creates an instance of Error.
          * @param {string} message 
@@ -41,4 +43,4 @@ export module CovalType {
     interface IErrors {
         errors: Array<Error>
     }
-}
+//}

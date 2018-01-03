@@ -10,8 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var Error_1 = require("../base/Error");
-var Errors = Error_1.CovalType.Errors;
+var Msgs_1 = require("../base/Msgs");
 /**
  *
  *
@@ -33,9 +32,10 @@ var Envelope = /** @class */ (function (_super) {
     Envelope.prototype.toString = function () {
         return {
             value: this.value,
-            errors: this.Errors()
+            errors: this.Errors(),
+            logs: this.Logs().logs
         };
     };
     return Envelope;
-}(Errors));
+}(Msgs_1.Msgs));
 exports.Envelope = Envelope;

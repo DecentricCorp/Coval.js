@@ -1,5 +1,5 @@
-import {CovalType} from "../base/Error"
-let Errors = CovalType.Errors
+import { Logs } from "../base/Log";
+import { Msgs } from "../base/Msgs";
 /**
  * 
  * 
@@ -7,7 +7,7 @@ let Errors = CovalType.Errors
  * @class Envelope
  * @extends {Errors}
  */
-export class Envelope extends Errors {
+export class Envelope extends Msgs {
     public value: any
     public AddValue(value: any){
         this.value = value
@@ -19,7 +19,8 @@ export class Envelope extends Errors {
     public toString() {
         return {
             value: this.value,
-            errors: this.Errors()
+            errors: this.Errors(),
+            logs: this.Logs().logs
         }
     }
 }
