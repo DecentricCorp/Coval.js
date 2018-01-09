@@ -1,0 +1,3 @@
+[submodule "build/python"]
+	path = build/python
+	url = https://github.com/DecentricCorp/Coval.py.git
