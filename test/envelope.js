@@ -22,7 +22,6 @@ describe('Envelope', function() {
           var envelope = new Envelope()
           envelope.AddValue("a")
           envelope.AddError("some error")
-          //console.log("------- envelope stringified", envelope)
           envelope.toString().should.deep.equal({
             value: "a",
             errors: [ {"message": "some error"}],

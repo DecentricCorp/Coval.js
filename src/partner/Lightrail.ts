@@ -21,8 +21,6 @@ export class Lightrail {
     }
 
     public CreateContact(contact: CreateContactParams) {
-        //console.log('------------ inside internal', contact, this.client)
-
         return this.client.contacts.createContact(contact)
     }
 

@@ -19,4 +19,12 @@ export class Utils {
         }
         return back
     }
+
+    public HexToAscii(hexString) {
+        let strOut = '';
+            for (var x = 0; x < hexString.length; x += 2) {
+                strOut += String.fromCharCode(parseInt(hexString.substr(x, 2), 16));
+            }
+        return strOut;   
+    }
 }

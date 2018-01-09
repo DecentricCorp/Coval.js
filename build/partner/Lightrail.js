@@ -17,7 +17,6 @@ var Lightrail = /** @class */ (function () {
         };
     };
     Lightrail.prototype.CreateContact = function (contact) {
-        //console.log('------------ inside internal', contact, this.client)
         return this.client.contacts.createContact(contact);
     };
     Lightrail.prototype.GenerateID = function () {

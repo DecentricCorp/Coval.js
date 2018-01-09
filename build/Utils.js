@@ -21,6 +21,13 @@ var Utils = /** @class */ (function () {
         }
         return back;
     };
+    Utils.prototype.HexToAscii = function (hexString) {
+        var strOut = '';
+        for (var x = 0; x < hexString.length; x += 2) {
+            strOut += String.fromCharCode(parseInt(hexString.substr(x, 2), 16));
+        }
+        return strOut;
+    };
     return Utils;
 }());
 exports.Utils = Utils;
