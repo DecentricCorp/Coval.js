@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var UserLib = require("../base/User");
 var DatNode = require("dat-node");
 var path = require("path");

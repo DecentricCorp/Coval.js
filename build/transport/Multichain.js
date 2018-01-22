@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var MultichainLib = require("multichain-node");
 var UtilLib = require("../Utils");
 var HDKeyLib = require("../secure/HDKey");

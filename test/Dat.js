@@ -48,8 +48,10 @@ describe('Dat', () => {
         })
 
         it('should error when no shares exist for key', function(done) {
+            this.timeout(10000)
             var dat1 = new Dat()            
                 var envelope = dat1.Download("../../test/dat-download", "a2f49b400f28b4090e186e7a9dad580cac8dcca3db1865be181ef8f61fa24df3", function(logs){
+                    console.log('----------- logs', logs)
                     dat1.network.destroy()
                     expect(logs).to.contain("No users currently online for that key.")                    
                     done()

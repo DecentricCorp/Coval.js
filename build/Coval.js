@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Protected_1 = require("./secure/Protected");
 var Mnemonic_1 = require("./secure/Mnemonic");
 var Shamir_1 = require("./secure/Shamir");
@@ -15,6 +15,7 @@ var Emblem_1 = require("./Emblem");
 var Caesar_1 = require("./secure/Caesar");
 var HDKey_1 = require("./secure/HDKey");
 var Pre_1 = require("./secure/Pre");
+var Lightrail_1 = require("./partner/Lightrail");
 /**
  * Coval main export
  *
@@ -61,6 +62,7 @@ var Partner = /** @class */ (function () {
         this.Unloq = Unloq_1.Unloq;
         this.Shapeshift = Shapeshift_1.Shapeshift;
         this.Changely = Changely_1.Changely;
+        this.Lightrail = Lightrail_1.Lightrail;
     }
     return Partner;
 }());

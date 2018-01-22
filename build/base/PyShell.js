@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var PythonShell = require("python-shell");
 var PyShell = /** @class */ (function () {
     function PyShell(script, options) {

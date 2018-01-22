@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var secrets = require("secrets.js-grempe");
 var Envelope_1 = require("../transport/Envelope");
 var Shamir;

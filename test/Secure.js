@@ -241,16 +241,18 @@ describe('Diffie', () => {
 
 describe('NuCypher', function(){
   it('should execute', function(done){
+    this.timeout(10000)
     var pre = new Pre()
-    pre.Execute(function(msg){
-      //console.log('--------- Returned from Python script', JSON.stringify(msg, null, 4))
-      expect(msg).to.contain('b\'Hello world\'')
+    pre.Execute(function(msg, err){
+      console.log('--------- Returned from Python script', JSON.stringify(msg, null, 4), err)
+      expect(msg).to.contain('b\'Hello Bob\'')
       done()
     })
   })
 
   it('should generate keypair', function(done) {
-    var pre = new Pre('genkey.py')
+    this.timeout(10000)
+    var pre = new Pre('genkey_umbral.py')
     pre.GenKey(function(msg){
       expect(msg.priv).to.not.be.null
       expect(msg.pub).to.not.be.null

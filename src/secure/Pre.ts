@@ -12,10 +12,10 @@ export class Pre {
      }
 
     public Execute(callback){
-        let options = new PyShellOptions(Mode.Text, 'build/python/myenv/bin/python')
+        let options = new PyShellOptions(Mode.Text, '/usr/local/bin/python3')
         let pyshell = new PyShell('build/python/'+ this.script, options)
         pyshell.Run('build/python/'+ this.script, function(err, msg){
-           return callback(msg)
+           return callback(msg, err)
         })
     }
 

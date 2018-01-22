@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var crypto = require("crypto");
 var Diffie = /** @class */ (function () {
     function Diffie(strength, prime, generator, key) {
