@@ -1,8 +1,8 @@
 - Actors
     - [ZK]            is an ephemeral agent that knows very little
     - [ID_Provider]   is a storage space that keeps unique keys for each user
-                    becomes an agent using stored keys
-                    requires an auth token
+        - becomes an agent using stored keys
+        - requires an auth token
     - (Identity)      is a third party that provides ID verification and storage
     - (Ledger)        is multichain instance
     - (Sender)        is a user operated agent/wallet
