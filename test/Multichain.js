@@ -113,7 +113,7 @@ describe('Multichain', () => {
                 multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
                     multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.key,"virtual", 1, function(err, signed){
                         multichain.SendSignedTransaction(signed.hex.toString("hex"), function(err, txid){
-                            console.log('-------- txid', txid)
+                            // console.log('-------- txid', txid)
                             done()
                         })
                     })

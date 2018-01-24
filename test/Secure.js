@@ -244,7 +244,7 @@ describe('NuCypher', function(){
     this.timeout(10000)
     var pre = new Pre()
     pre.Execute(function(msg, err){
-      console.log('--------- Returned from Python script', JSON.stringify(msg, null, 4), err)
+      // console.log('--------- Returned from Python script', JSON.stringify(msg, null, 4), err)
       expect(msg).to.contain('b\'Hello Bob\'')
       done()
     })
