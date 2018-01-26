@@ -16,14 +16,10 @@ export class Dat<B> {
     public user: UserLib.IUser
     constructor(UserType) {
         if (UserType) {
-            this.user = this.As(UserType)
+            this.user = UserLib.As(UserType)
         } else {
             this.user = new UserLib.User()
         }
-    }
-
-    As<UserType extends UserLib.User>(UserObject: new () => UserType): UserType {
-        return new UserObject()
     }
 
     Share(sharePath: string, callback, ignores?: string[]) {

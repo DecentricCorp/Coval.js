@@ -2,12 +2,19 @@
 import * as Un from "unloq"
 import * as crypto from "crypto"
 import * as uuid from "node-uuid"
-export class Unloq {
+
+export interface IIdentity {
+    type: string
+}
+
+export class Unloq implements IIdentity {
+    public type: string;
     Api: any;
     client: any
     constructor(public key?) {
         this.client = Un
         this.Api = new this.client.Api(this.config.unloq)
+        this.type = "Unloq"
     }
     public config = {
         port: 3200,

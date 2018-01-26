@@ -6,6 +6,9 @@ var Emblem = /** @class */ (function () {
         this.dats = [];
         this.claimed = false;
     }
+    /**
+     * @deprecated
+     */
     Emblem.prototype.AddDat = function (dat) {
         var envelope = new Envelope_1.Envelope();
         var found = this.dats.filter(function (d) { return d.user.type === dat.user.type; });
@@ -18,6 +21,9 @@ var Emblem = /** @class */ (function () {
         }
         return envelope;
     };
+    /**
+     * @deprecated
+     */
     Emblem.prototype.HasRequiredDats = function () {
         var serverDat = this.dats.filter(function (d) { return d.user.type === 'server'; });
         var clientDat = this.dats.filter(function (d) { return d.user.type === 'client'; });

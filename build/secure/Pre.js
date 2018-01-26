@@ -14,7 +14,7 @@ var Pre = /** @class */ (function () {
         var options = new PyShell_1.PyShellOptions(PyShell_1.Mode.Text, '/usr/local/bin/python3');
         var pyshell = new PyShell_1.PyShell('build/python/' + this.script, options);
         pyshell.Run('build/python/' + this.script, function (err, msg) {
-            return callback(msg);
+            return callback(msg, err);
         });
     };
     Pre.prototype.GenKey = function (callback) {

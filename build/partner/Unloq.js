@@ -15,6 +15,7 @@ var Unloq = /** @class */ (function () {
         };
         this.client = Un;
         this.Api = new this.client.Api(this.config.unloq);
+        this.type = "Unloq";
     }
     Unloq.prototype.Authenticate = function (email, callback) {
         var API = this.Api;

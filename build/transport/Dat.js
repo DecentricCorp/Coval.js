@@ -11,15 +11,12 @@ var Dat = /** @class */ (function () {
     function Dat(UserType) {
         this.dat = [];
         if (UserType) {
-            this.user = this.As(UserType);
+            this.user = UserLib.As(UserType);
         }
         else {
             this.user = new UserLib.User();
         }
     }
-    Dat.prototype.As = function (UserObject) {
-        return new UserObject();
-    };
     Dat.prototype.Share = function (sharePath, callback, ignores) {
         this.src = path.join(__dirname, sharePath);
         var src = this.src;

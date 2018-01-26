@@ -13,10 +13,10 @@ describe('User', function(){
             expect(dat.user.type).to.equal("client")
         })
 
-        it('Should identify as unloq when cast as unloq', function(){
-            var dat = new Dat(UserLib.Unloq)
-            expect(dat.user.constructor.name).to.equal("Unloq")
-            expect(dat.user.type).to.equal("unloq")
+        it('Should identify as unloq when cast as identity', function(){
+            var dat = new Dat(UserLib.Identity)
+            expect(dat.user.constructor.name).to.equal("Identity")
+            expect(dat.user.type).to.equal("identity")
         })
 
         it('Should identify as server when cast as server', function(){

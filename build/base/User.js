@@ -17,6 +17,17 @@ var User = /** @class */ (function () {
     return User;
 }());
 exports.User = User;
+var IdentityProvider = /** @class */ (function () {
+    function IdentityProvider(_type) {
+        this.type = _type || "generic";
+    }
+    return IdentityProvider;
+}());
+exports.IdentityProvider = IdentityProvider;
+function As(UserObject, IdentityType, Opts) {
+    return new UserObject(IdentityType, Opts);
+}
+exports.As = As;
 var Client = /** @class */ (function (_super) {
     __extends(Client, _super);
     function Client() {
@@ -33,11 +44,18 @@ var Server = /** @class */ (function (_super) {
     return Server;
 }(User));
 exports.Server = Server;
-var Unloq = /** @class */ (function (_super) {
-    __extends(Unloq, _super);
-    function Unloq() {
-        return _super.call(this, "unloq") || this;
+var Identity = /** @class */ (function (_super) {
+    __extends(Identity, _super);
+    function Identity(IdentityType, Opts) {
+        var _this = _super.call(this, "identity") || this;
+        if (IdentityType) {
+            _this.identity = _this.As(IdentityType, Opts);
+        }
+        return _this;
     }
-    return Unloq;
+    Identity.prototype.As = function (IdentityObject, Opts) {
+        return new IdentityObject(Opts);
+    };
+    return Identity;
 }(User));
-exports.Unloq = Unloq;
+exports.Identity = Identity;
