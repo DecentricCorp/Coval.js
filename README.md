@@ -11,7 +11,7 @@ Instructions below describe the commands to clone the main repo along with the s
 ## Clone with Submodules
 `git clone https://github.com/DecentricCorp/Coval.js.git  --recurse-submodules`
 
-## Pull main project with submodules
+## Pull main project with submodules (When updating master for Coval.js)
 `git pull --recurse-submodules`
 
 ### NOTE: If you checked out the main repo without the submodule recurse command

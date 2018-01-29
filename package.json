@@ -7,7 +7,8 @@
     "test": "mocha",
     "build": "tsc --outDir ./build/ --module system",
     "watch": "tsc --outDir ./build/ -w",
-    "postinstall": "mv ./build/python/test.env ./build/test.env"
+    "pretest": "cp ./build/python/test.env ./build/test.env",
+    "postinstall": "cp ./build/python/test.env ./build/test.env"
   },
   "author": "Shannon Code",
   "license": "MIT",
