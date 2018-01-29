@@ -1,6 +1,12 @@
 # Coval.js
 Coval strongly typed cryptocurrency framework
 
+# To install and test
+`git clone https://github.com/DecentricCorp/Coval.js.git`
+`cd Coval.js`
+`npm install`
+`npm test`
+
 ## Test Results
 
 - Dat
