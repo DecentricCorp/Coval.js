@@ -13,7 +13,7 @@
   "author": "Shannon Code",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^8.5.9",
+    "@types/node": "^9.4.0",
     "bitcore": "^0.11.7",
     "caesar": "^1.1.12",
     "crypto-js": "^3.1.9-1",
@@ -24,16 +24,16 @@
     "multichain-node": "^2.1.6-version1.0.2",
     "node-uuid": "^1.4.8",
     "python-shell": "^0.4.0",
+    "random-access-memory": "^2.4.0",
+    "request": "^2.83.0",
     "secrets.js-grempe": "git+https://github.com/grempe/secrets.js.git",
-    "shannon-entropy": "0.0.3",
-    "systemjs": "^0.20.19",
     "tsc": "^1.20150623.0",
     "unloq": "^0.9.4"
   },
   "devDependencies": {
     "@types/crypto-js": "^3.1.38",
     "chai": "^4.1.2",
-    "mocha": "^4.0.1",
+    "mocha": "^5.0.0",
     "testdouble": "^3.3.3"
   }
 }
