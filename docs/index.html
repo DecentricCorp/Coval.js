@@ -1,0 +1,417 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>coval.js</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">coval.js</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> coval.js</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="coval-js">Coval.js</h1>
+				<p>Coval strongly typed cryptocurrency framework</p>
+				<h1 id="build">Build</h1>
+				<p>Coval.js requires a private submodule called Coval.py
+				This repo is located: ./build/python </p>
+				<p>Instructions below describe the commands to clone the main repo along with the submodule(s) if you have access, as well as how to update the main repo + submodule(s)</p>
+				<h2 id="clone-with-submodules">Clone with Submodules</h2>
+				<p><code>git clone https://github.com/DecentricCorp/Coval.js.git  --recurse-submodules</code></p>
+				<h2 id="pull-main-project-with-submodules-when-updating-master-for-coval-js-">Pull main project with submodules (When updating master for Coval.js)</h2>
+				<p><code>git pull --recurse-submodules</code></p>
+				<h3 id="note-if-you-checked-out-the-main-repo-without-the-submodule-recurse-command">NOTE: If you checked out the main repo without the submodule recurse command</h3>
+				<p><code>git submodule update --init --recursive</code></p>
+				<h2 id="test-results">Test Results</h2>
+				<ul>
+					<li><p>Dat</p>
+						<ul>
+							<li>Share<ul>
+									<li>✓ should resolve provided path correcty (87ms)<ul>
+											<li>✓ should allow for multiple shares with unique keys</li>
+											<li>✓ should allow for downloading a share (104ms)</li>
+											<li>✓ should error when no shares exist for key (235ms)</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul>
+							<li><p>Emblem</p>
+								<ul>
+									<li>Add Dat<ul>
+											<li>✓ should sucessfully add dat to emblem</li>
+											<li>✓ should only allow single dat of any type to be added</li>
+										</ul>
+									</li>
+									<li>HasRequiredDats<ul>
+											<li>✓ should be false when required dats are not fulfilled</li>
+											<li>✓ should be true when required dats are fulfilled</li>
+										</ul>
+									</li>
+									<li>Claimed<ul>
+											<li>✓ should return false until claimed</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>Envelope</p>
+								<ul>
+									<li>✓ should be able to assign value</li>
+									<li>✓ err should return errors</li>
+									<li>✓ payload should return entire envelope object</li>
+									<li>✓ should correctly report having errors</li>
+								</ul>
+							</li>
+							<li><p>Lightrail</p>
+								<ul>
+									<li>✓ should instantiate without options</li>
+									<li>✓ should instantiate with some options</li>
+									<li>✓ should instantiate with some all options</li>
+									<li>✓ should allow creation of new contacts</li>
+									<li>✓ should load with apiKey from environment</li>
+									<li>✓ should create new user (447ms)</li>
+									<li>should handle lost connection gracefully</li>
+								</ul>
+							</li>
+							<li><p>PyShellOptions</p>
+								<ul>
+									<li>✓ is created sucessfully</li>
+									<li>✓ should execute simple python script (62ms)</li>
+									<li>✓ should execute interactive python script (43ms)</li>
+								</ul>
+							</li>
+							<li><p>Protected</p>
+								<ul>
+									<li>✓ should not be able to access internal value</li>
+									<li>✓ should return expected value</li>
+									<li>✓ should not allow value to be accessed twice</li>
+									<li>✓ should record error when read attempted twice</li>
+								</ul>
+							</li>
+							<li><p>Shamir</p>
+								<ul>
+									<li>GetKey<ul>
+											<li>✓ should not be null</li>
+											<li>✓ should return unique keys when called on unique objects</li>
+											<li>✓ should log error when accessing key twice</li>
+										</ul>
+									</li>
+									<li>CreateShares<ul>
+											<li>✓ should split key into 2 shares</li>
+										</ul>
+									</li>
+									<li>CombineShares<ul>
+											<li>✓ should combine shares</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>Caesar</p>
+								<ul>
+									<li>genKey<ul>
+											<li>✓ should return private key (194ms)</li>
+										</ul>
+									</li>
+									<li>key time signatures<ul>
+											<li>✓ should sign msg successfully (555ms)</li>
+										</ul>
+									</li>
+									<li>disk encryption<ul>
+											<li>✓ encrypted stream should decrypt to desired text</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>HDKey</p>
+								<ul>
+									<li>hdkey<ul>
+											<li>✓ Standard HD Key returns key and correctly derived address</li>
+											<li>✓ Specific namespace should return expected address/keys</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>Diffie</p>
+								<ul>
+									<li>✓ should be able to recreate key object from provided bits</li>
+									<li>Get Pubkey<ul>
+											<li>✓ should generate a key</li>
+											<li>✓ should produce different pubkeys for unique objects</li>
+											<li>✓ should produce same pubkey when called on same object</li>
+										</ul>
+									</li>
+									<li>Get Shared Secret<ul>
+											<li>✓ should compute secret from personal private and externally supplied public keys</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>NuCypher</p>
+								<ul>
+									<li>✓ should execute (491ms)</li>
+									<li>✓ should generate keypair (254ms)</li>
+								</ul>
+							</li>
+							<li><p>Unloq</p>
+								<ul>
+									<li>✓ should instantiate with provided api key</li>
+									<li>✓ should instantiate without api key</li>
+									<li>Authenticate<ul>
+											<li>should fail gracefully on incorrect email</li>
+											<li>should fail gracefully on no api key</li>
+											<li>✓ should sucessfully authenticate with unloq</li>
+										</ul>
+									</li>
+									<li>Authorize<ul>
+											<li>✓ should allow for sucessful authorization</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>User</p>
+								<ul>
+									<li>Dat<ul>
+											<li>✓ Should identify as client when cast as client</li>
+											<li>✓ Should identify as unloq when cast as unloq</li>
+											<li>✓ Should identify as server when cast as server</li>
+											<li>✓ Should identify as generic when not cast</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>Utils</p>
+								<ul>
+									<li>Hex<ul>
+											<li>Encode<ul>
+													<li>✓ should correctly encode simple string to hex</li>
+													<li>✓ should correctly encode empty space to hex</li>
+												</ul>
+											</li>
+											<li>Decode<ul>
+													<li>✓ should correctly decode simple string</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul>
+					<li>54 passing (3s)<ul>
+							<li>3 pending</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_agent_.html">"<wbr>Agent"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_coval_.html">"<wbr>Coval"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_emblem_.html">"<wbr>Emblem"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_.html">"<wbr>Utils"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vocal_.html">"<wbr>Vocal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_base_error_.html">"base/<wbr>Error"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_base_log_.html">"base/<wbr>Log"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_base_msgs_.html">"base/<wbr>Msgs"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_base_pyshell_.html">"base/<wbr>PyShell"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_base_user_.html">"base/<wbr>User"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_partner_changely_.html">"partner/<wbr>Changely"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_partner_lightrail_.html">"partner/<wbr>Lightrail"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_partner_shapeshift_.html">"partner/<wbr>Shapeshift"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_partner_unloq_.html">"partner/<wbr>Unloq"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_secure_caesar_.html">"secure/<wbr>Caesar"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_secure_diffie_.html">"secure/<wbr>Diffie"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_secure_hdkey_.html">"secure/HDKey"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_secure_mnemonic_.html">"secure/<wbr>Mnemonic"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_secure_pre_.html">"secure/<wbr>Pre"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_secure_protected_.html">"secure/<wbr>Protected"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_secure_shamir_.html">"secure/<wbr>Shamir"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_transport_dat_.html">"transport/<wbr>Dat"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_transport_envelope_.html">"transport/<wbr>Envelope"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_transport_multichain_.html">"transport/<wbr>Multichain"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

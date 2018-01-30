@@ -8,6 +8,7 @@
     "test": "mocha",
     "build": "tsc",
     "watch": "tsc -w",
+    "docs": "typedoc --out docs/ src/",
     "prepublish": "npm run build",
     "pretest": "cp ./build/python/test.env ./build/test.env",
     "postinstall": "cp ./build/python/test.env ./build/test.env"
