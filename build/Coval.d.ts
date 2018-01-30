@@ -14,6 +14,7 @@ import { Caesar } from "./secure/Caesar";
 import { HDKey } from "./secure/HDKey";
 import { Pre } from "./secure/Pre";
 import { Lightrail } from "./partner/Lightrail";
+import { Agent } from './Agent';
 /**
  * Coval main export
  *
@@ -26,6 +27,7 @@ export declare class Coval {
     Transport: typeof Transport;
     Vocal: typeof Vocal;
     Emblem: typeof Emblem;
+    Agent: typeof Agent;
 }
 /**
  * Coval Secure Class

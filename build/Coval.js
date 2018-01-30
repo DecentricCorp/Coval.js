@@ -16,6 +16,7 @@ var Caesar_1 = require("./secure/Caesar");
 var HDKey_1 = require("./secure/HDKey");
 var Pre_1 = require("./secure/Pre");
 var Lightrail_1 = require("./partner/Lightrail");
+var Agent_1 = require("./Agent");
 /**
  * Coval main export
  *
@@ -29,6 +30,7 @@ var Coval = /** @class */ (function () {
         this.Transport = Transport;
         this.Vocal = Vocal_1.Vocal;
         this.Emblem = Emblem_1.Emblem;
+        this.Agent = Agent_1.Agent;
     }
     return Coval;
 }());

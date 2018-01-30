@@ -15,6 +15,7 @@ import {Caesar} from "./secure/Caesar"
 import {HDKey} from "./secure/HDKey"
 import {Pre} from "./secure/Pre"
 import { Lightrail } from "./partner/Lightrail"
+import { Agent } from './Agent';
 /**
  * Coval main export
  * 
@@ -26,7 +27,8 @@ export class Coval {
     public Partner = Partner
     public Transport = Transport
     public Vocal = Vocal
-    public Emblem = Emblem    
+    public Emblem = Emblem
+    public Agent = Agent  
 }
 
 /**

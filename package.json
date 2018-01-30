@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "testing shamir secret sharing theory",
   "main": "build/Coval.js",
+  "typings": "build/Coval.d.ts",
   "scripts": {
     "test": "mocha",
     "build": "tsc",
     "watch": "tsc -w",
+    "prepublish": "npm run build",
     "pretest": "cp ./build/python/test.env ./build/test.env",
     "postinstall": "cp ./build/python/test.env ./build/test.env"
   },
