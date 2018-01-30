@@ -21,7 +21,7 @@ var Error_1 = require("./base/Error");
 var Log_1 = require("./base/Log");
 var Msgs_1 = require("./base/Msgs");
 var PyShell_1 = require("./base/PyShell");
-var User_1 = require("./base/User");
+var User = require("./base/User");
 /**
  * Coval main export
  *
@@ -40,7 +40,7 @@ var Coval = /** @class */ (function () {
         this.Log = Log_1.Log;
         this.Msgs = Msgs_1.Msgs;
         this.PyShell = PyShell_1.PyShell;
-        this.User = User_1.User;
+        this.User = User;
     }
     return Coval;
 }());

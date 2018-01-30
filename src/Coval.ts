@@ -20,7 +20,7 @@ import { BaseError } from './base/Error'
 import { Log } from './base/Log';
 import { Msgs } from './base/Msgs';
 import { PyShell } from './base/PyShell';
-import { User } from './base/User';
+import * as User from './base/User';
 /**
  * Coval main export
  * 
