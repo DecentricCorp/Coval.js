@@ -3,3 +3,5 @@ scripts
   - npm install codecov -g
 after_success:
   - codecov
+before_install:
+  - echo -e "machine github.com\n  login genecyber\n  password $GH_TOKEN" >> ~/.netrc
