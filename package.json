@@ -5,7 +5,8 @@
   "main": "build/Coval.js",
   "typings": "build/Coval.d.ts",
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha",
+    "coverage": "nyc report --reporter=json > coverage/coverage.json",
     "build": "tsc",
     "watch": "tsc -w",
     "docs": "typedoc --out docs/ src/",
@@ -37,6 +38,7 @@
     "@types/crypto-js": "^3.1.38",
     "chai": "^4.1.2",
     "mocha": "^5.0.0",
+    "nyc": "^11.4.1",
     "testdouble": "^3.3.3",
     "typescript": "^2.6.2"
   }
