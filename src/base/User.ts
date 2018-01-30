@@ -41,7 +41,7 @@ export class Client extends User {
 }
 
 export class Server extends User implements IEncryptionUser {
-    key: Shamir.Key;
+    key
     utils: UtilLib.Utils;
     identity_type: any;
     auth_token: any;
@@ -54,19 +54,19 @@ export class Server extends User implements IEncryptionUser {
         this.utils = new UtilLib.Utils()
         this.key = new Shamir.Key()
     }
-    public Authenticate(token) {
+    Authenticate(token) {
         this.auth_token = token
     }
 
-    public Generate(size?) {
+    Generate(size?) {
         return this.key.GetKey(size || 256)
     }
 
-    public Split(count: number, threshold: number, size?) {
+    Split(count: number, threshold: number, size?) {
         return this.key.CreateShares(count, threshold, size)
     }
 
-    public Combine(shares) {
+    Combine(shares) {
         return this.key.CombineShares(shares)
     }
 }

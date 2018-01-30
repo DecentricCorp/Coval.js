@@ -1,18 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 //export module CovalType {
-var Error = /** @class */ (function () {
+var BaseError = /** @class */ (function () {
     /**
      * Creates an instance of Error.
      * @param {string} message
      * @memberof Error
      */
-    function Error(message) {
+    function BaseError(message) {
         this.message = message;
         this.message = message;
     }
-    return Error;
+    return BaseError;
 }());
+exports.BaseError = BaseError;
 var Errors = /** @class */ (function () {
     function Errors() {
         this.errors = [];
@@ -31,7 +32,7 @@ var Errors = /** @class */ (function () {
         this.errors.push(error);
     };
     Errors.prototype.AddError = function (error) {
-        this._internalAddError(new Error(error));
+        this._internalAddError(new BaseError(error));
     };
     return Errors;
 }());

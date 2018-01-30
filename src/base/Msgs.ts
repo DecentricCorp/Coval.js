@@ -3,7 +3,7 @@ import { Logs } from './Log';
 "use strict"
 
 export class Msgs extends Errors {
-    Logs = function() {
+    EnvLogs() {
         return new Logs()
     }
 }

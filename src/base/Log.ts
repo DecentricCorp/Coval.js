@@ -1,34 +1,24 @@
 "use strict"
 export class Log {
-    /**
-     * Creates an instance of Log.
-     * @param {string} message 
-     * @memberof Log
-     */
     constructor(public message: string ) {
         this.message = message
     }
 }
 
 export class Logs implements ILogs {
-    logs: Log[] = []
+    public env_logs = []
     
-    public Logs() {
-        return this.logs
+    public _Logs() {
+        return this.env_logs
     }
     public HasLogs() {
-        return this.logs.length > 0
+        return this.env_logs.length > 0
     }
-    /**
-     * Internal because Error interface is 
-     * @param log 
-     */
-    private _internalAddError(log: Log){
-        this.logs.push(log)
+    private _internalAddError(_log: Log){
+        this.env_logs.push(_log)
     }
-    public AddError(log: string){
-        
-        this._internalAddError(new Log(log))
+    public AddError(_log: string){        
+        this._internalAddError(new Log(_log))
     }
 }
 
@@ -37,6 +27,6 @@ export class Logs implements ILogs {
  * Collection of Error
  * @interface ILogs
  */
-interface ILogs {
-    logs: Array<Log>
+export interface ILogs {
+    env_logs: Array<Log>
 }

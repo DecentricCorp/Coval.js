@@ -2,7 +2,7 @@
 
 import {Logs} from "../base/Log"
 //export module CovalType {
-    class Error{
+    export class BaseError {
         /**
          * Creates an instance of Error.
          * @param {string} message 
@@ -14,7 +14,7 @@ import {Logs} from "../base/Log"
     }
 
     export class Errors implements IErrors {
-        errors: Error[] = []
+        errors = []
         
         public Errors() {
             return this.errors
@@ -26,12 +26,12 @@ import {Logs} from "../base/Log"
          * Internal because Error interface is 
          * @param error 
          */
-        private _internalAddError(error: Error){
+        private _internalAddError(error: BaseError){
             this.errors.push(error)
         }
         public AddError(error: string){
             
-            this._internalAddError(new Error(error))
+            this._internalAddError(new BaseError(error))
         }
     }
 
@@ -40,7 +40,7 @@ import {Logs} from "../base/Log"
      * Collection of Error
      * @interface IErrors
      */
-    interface IErrors {
-        errors: Array<Error>
+    export interface IErrors {
+        errors: Array<BaseError>
     }
 //}

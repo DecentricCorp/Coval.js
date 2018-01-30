@@ -1,16 +1,11 @@
-import { Logs } from "../base/Log";
+import "../base/Log";
+import "../base/Msgs";
 import { Msgs } from "../base/Msgs";
-/**
- * 
- * 
- * @export
- * @class Envelope
- * @extends {Errors}
- */
+
 export class Envelope extends Msgs {
     public value: any
-    public AddValue(value: any){
-        this.value = value
+    public AddValue(_value: any){
+        this.value = _value
     }
     public GetValue(){
         return this.value
@@ -20,7 +15,7 @@ export class Envelope extends Msgs {
         return {
             value: this.value,
             errors: this.Errors(),
-            logs: this.Logs().logs
+            logs: this.EnvLogs().env_logs
         }
     }
 }

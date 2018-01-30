@@ -16,12 +16,11 @@ var Log_1 = require("./Log");
 var Msgs = /** @class */ (function (_super) {
     __extends(Msgs, _super);
     function Msgs() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.Logs = function () {
-            return new Log_1.Logs();
-        };
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
+    Msgs.prototype.EnvLogs = function () {
+        return new Log_1.Logs();
+    };
     return Msgs;
 }(Error_1.Errors));
 exports.Msgs = Msgs;

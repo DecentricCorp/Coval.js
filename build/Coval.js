@@ -51,6 +51,7 @@ var Secure = /** @class */ (function () {
     }
     return Secure;
 }());
+exports.Secure = Secure;
 /**
  * Partners of Coval
  *

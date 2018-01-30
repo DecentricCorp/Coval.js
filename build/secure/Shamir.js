@@ -8,15 +8,15 @@ var Shamir;
         function Key() {
         }
         Key.prototype.GetKey = function (length) {
-            var envelope = new Envelope_1.Envelope();
+            var _envelope = new Envelope_1.Envelope();
             if (!this.key) {
                 this.key = secrets.random(length || 512);
             }
             else {
-                envelope.AddError("Key accessed twice!");
+                _envelope.AddError("Key accessed twice!");
             }
-            envelope.AddValue(this.key);
-            return envelope;
+            _envelope.AddValue(this.key);
+            return _envelope;
         };
         Key.prototype.CreateShares = function (count, threshold, length) {
             if (!this.key) {

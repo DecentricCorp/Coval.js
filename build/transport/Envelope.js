@@ -10,21 +10,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+require("../base/Log");
+require("../base/Msgs");
 var Msgs_1 = require("../base/Msgs");
-/**
- *
- *
- * @export
- * @class Envelope
- * @extends {Errors}
- */
 var Envelope = /** @class */ (function (_super) {
     __extends(Envelope, _super);
     function Envelope() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Envelope.prototype.AddValue = function (value) {
-        this.value = value;
+    Envelope.prototype.AddValue = function (_value) {
+        this.value = _value;
     };
     Envelope.prototype.GetValue = function () {
         return this.value;
@@ -33,7 +28,7 @@ var Envelope = /** @class */ (function (_super) {
         return {
             value: this.value,
             errors: this.Errors(),
-            logs: this.Logs().logs
+            logs: this.EnvLogs().env_logs
         };
     };
     return Envelope;
