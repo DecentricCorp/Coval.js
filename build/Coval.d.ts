@@ -1,7 +1,3 @@
-import { Protected } from "./secure/Protected";
-import { Mnemonic } from "./secure/Mnemonic";
-import { Shamir } from "./secure/Shamir";
-import { Diffie } from "./secure/Diffie";
 import { Envelope } from "./transport/Envelope";
 import { Dat } from "./transport/Dat";
 import { Multichain } from "./transport/Multichain";
@@ -10,9 +6,6 @@ import { Changely } from "./partner/Changely";
 import { Shapeshift } from "./partner/Shapeshift";
 import { Vocal } from "./Vocal";
 import { Emblem } from "./Emblem";
-import { Caesar } from "./secure/Caesar";
-import { HDKey } from "./secure/HDKey";
-import { Pre } from "./secure/Pre";
 import { Lightrail } from "./partner/Lightrail";
 import { Agent } from './Agent';
 /**
@@ -22,27 +15,12 @@ import { Agent } from './Agent';
  * @class Coval
  */
 export declare class Coval {
-    Secure: typeof Secure;
-    Partner: typeof Partner;
-    Transport: typeof Transport;
+    Secure: any;
+    Partner: Partner;
+    Transport: Transport;
     Vocal: typeof Vocal;
     Emblem: typeof Emblem;
     Agent: typeof Agent;
-}
-/**
- * Coval Secure Class
- *
- * @export
- * @class Secure
- */
-export declare class Secure {
-    Shamir: typeof Shamir;
-    Protected: typeof Protected;
-    Diffie: typeof Diffie;
-    Mnemonic: typeof Mnemonic;
-    Caesar: typeof Caesar;
-    HDKey: typeof HDKey;
-    Pre: typeof Pre;
 }
 /**
  * Partners of Coval

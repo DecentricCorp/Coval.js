@@ -4,13 +4,12 @@ var expect = chai.expect
 var should = chai.should()
 var Coval = require('../build/Coval').Coval
 Coval = new Coval()
-var CovalSecure = new Coval.Secure()
-var Shamir = CovalSecure.Shamir
-var Caesar = CovalSecure.Caesar
-var HDKey = CovalSecure.HDKey
-var Diffie = CovalSecure.Diffie
-var Pre = CovalSecure.Pre
-var Protected = CovalSecure.Protected
+var Shamir = Coval.Secure.Shamir
+var Caesar = Coval.Secure.Caesar
+var HDKey = Coval.Secure.HDKey
+var Diffie = Coval.Secure.Diffie
+var Pre = Coval.Secure.Pre
+var Protected = Coval.Secure.Protected
 var standardHDKey, fromNs, toNs, to, from
 var requestMock = {
     req: {

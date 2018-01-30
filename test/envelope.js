@@ -2,8 +2,7 @@
 let chai = require('chai')
 let expect = chai.expect
 var Coval = require('../build/Coval')
-var CovalTransport = new Coval.Transport()
-var Envelope = CovalTransport.Envelope
+var Envelope = require('../build/transport/Envelope').Envelope
 describe('Envelope', function() {
     
         it('should be able to assign value', function(){

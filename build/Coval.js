@@ -25,9 +25,9 @@ var Agent_1 = require("./Agent");
  */
 var Coval = /** @class */ (function () {
     function Coval() {
-        this.Secure = Secure;
-        this.Partner = Partner;
-        this.Transport = Transport;
+        this.Secure = new Secures();
+        this.Partner = new Partners();
+        this.Transport = new Transports();
         this.Vocal = Vocal_1.Vocal;
         this.Emblem = Emblem_1.Emblem;
         this.Agent = Agent_1.Agent;
@@ -41,8 +41,8 @@ exports.Coval = Coval;
  * @export
  * @class Secure
  */
-var Secure = /** @class */ (function () {
-    function Secure() {
+var Secures = /** @class */ (function () {
+    function Secures() {
         this.Shamir = Shamir_1.Shamir;
         this.Protected = Protected_1.Protected;
         this.Diffie = Diffie_1.Diffie;
@@ -51,37 +51,36 @@ var Secure = /** @class */ (function () {
         this.HDKey = HDKey_1.HDKey;
         this.Pre = Pre_1.Pre;
     }
-    return Secure;
+    return Secures;
 }());
-exports.Secure = Secure;
 /**
  * Partners of Coval
  *
  * @export
  * @class Partner
  */
-var Partner = /** @class */ (function () {
-    function Partner() {
+var Partners = /** @class */ (function () {
+    function Partners() {
         this.Unloq = Unloq_1.Unloq;
         this.Shapeshift = Shapeshift_1.Shapeshift;
         this.Changely = Changely_1.Changely;
         this.Lightrail = Lightrail_1.Lightrail;
     }
-    return Partner;
+    return Partners;
 }());
-exports.Partner = Partner;
+exports.Partners = Partners;
 /**
  * Coval Transport Class
  *
  * @export
  * @class Transport
  */
-var Transport = /** @class */ (function () {
-    function Transport() {
+var Transports = /** @class */ (function () {
+    function Transports() {
         this.Envelope = Envelope_1.Envelope;
         this.Dat = Dat_1.Dat;
         this.Multichain = Multichain_1.Multichain;
     }
-    return Transport;
+    return Transports;
 }());
-exports.Transport = Transport;
+exports.Transports = Transports;

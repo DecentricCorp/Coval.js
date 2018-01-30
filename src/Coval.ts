@@ -23,12 +23,12 @@ import { Agent } from './Agent';
  * @class Coval
  */
 export class Coval {
-    public Secure = Secure
-    public Partner = Partner
-    public Transport = Transport
+    public Secure = new Secures()
+    public Partner = new Partners()
+    public Transport = new Transports()
     public Vocal = Vocal
     public Emblem = Emblem
-    public Agent = Agent  
+    public Agent = Agent
 }
 
 /**
@@ -37,7 +37,7 @@ export class Coval {
  * @export
  * @class Secure
  */
-export class Secure {
+class Secures {
     public Shamir = Shamir
     public Protected = Protected
     public Diffie = Diffie
@@ -52,7 +52,7 @@ export class Secure {
  * @export
  * @class Partner
  */
-export class Partner {
+export class Partners {
     public Unloq = Unloq
     public Shapeshift = Shapeshift
     public Changely = Changely
@@ -64,7 +64,7 @@ export class Partner {
  * @export
  * @class Transport
  */
-export class Transport {
+export class Transports {
     public Envelope = Envelope
     public Dat = Dat
     public Multichain = Multichain
