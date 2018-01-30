@@ -34,9 +34,6 @@ export class Coval {
     public Vocal = Vocal
     public Emblem = Emblem
     public Agent = Agent
-}
-
-export class Bases {
     public Error = BaseError
     public Log = Log
     public Msgs = Msgs
