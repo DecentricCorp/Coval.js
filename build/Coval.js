@@ -17,6 +17,11 @@ var HDKey_1 = require("./secure/HDKey");
 var Pre_1 = require("./secure/Pre");
 var Lightrail_1 = require("./partner/Lightrail");
 var Agent_1 = require("./Agent");
+var Error_1 = require("./base/Error");
+var Log_1 = require("./base/Log");
+var Msgs_1 = require("./base/Msgs");
+var PyShell_1 = require("./base/PyShell");
+var User_1 = require("./base/User");
 /**
  * Coval main export
  *
@@ -35,6 +40,17 @@ var Coval = /** @class */ (function () {
     return Coval;
 }());
 exports.Coval = Coval;
+var Bases = /** @class */ (function () {
+    function Bases() {
+        this.Error = Error_1.BaseError;
+        this.Log = Log_1.Log;
+        this.Msgs = Msgs_1.Msgs;
+        this.PyShell = PyShell_1.PyShell;
+        this.User = User_1.User;
+    }
+    return Bases;
+}());
+exports.Bases = Bases;
 /**
  * Coval Secure Class
  *

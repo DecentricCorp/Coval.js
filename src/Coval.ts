@@ -15,7 +15,12 @@ import {Caesar} from "./secure/Caesar"
 import {HDKey} from "./secure/HDKey"
 import {Pre} from "./secure/Pre"
 import { Lightrail } from "./partner/Lightrail"
-import { Agent } from './Agent';
+import { Agent } from './Agent'
+import { BaseError } from './base/Error'
+import { Log } from './base/Log';
+import { Msgs } from './base/Msgs';
+import { PyShell } from './base/PyShell';
+import { User } from './base/User';
 /**
  * Coval main export
  * 
@@ -29,6 +34,14 @@ export class Coval {
     public Vocal = Vocal
     public Emblem = Emblem
     public Agent = Agent
+}
+
+export class Bases {
+    public Error = BaseError
+    public Log = Log
+    public Msgs = Msgs
+    public PyShell = PyShell
+    public User = User
 }
 
 /**

@@ -15,6 +15,11 @@ import { HDKey } from "./secure/HDKey";
 import { Pre } from "./secure/Pre";
 import { Lightrail } from "./partner/Lightrail";
 import { Agent } from './Agent';
+import { BaseError } from './base/Error';
+import { Log } from './base/Log';
+import { Msgs } from './base/Msgs';
+import { PyShell } from './base/PyShell';
+import { User } from './base/User';
 /**
  * Coval main export
  *
@@ -28,6 +33,13 @@ export declare class Coval {
     Vocal: typeof Vocal;
     Emblem: typeof Emblem;
     Agent: typeof Agent;
+}
+export declare class Bases {
+    Error: typeof BaseError;
+    Log: typeof Log;
+    Msgs: typeof Msgs;
+    PyShell: typeof PyShell;
+    User: typeof User;
 }
 /**
  * Coval Secure Class
