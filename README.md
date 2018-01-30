@@ -17,3 +17,5 @@ Instructions below describe the commands to clone the main repo along with the s
 ### NOTE: If you checked out the main repo without the submodule recurse command
 
 `git submodule update --init --recursive`
+
+-Shannon
