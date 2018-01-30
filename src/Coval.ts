@@ -37,7 +37,7 @@ export class Coval {
  * @export
  * @class Secure
  */
-class Secures {
+export class Secures {
     public Shamir = Shamir
     public Protected = Protected
     public Diffie = Diffie
