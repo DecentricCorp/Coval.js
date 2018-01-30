@@ -1,7 +1,7 @@
 {
-  "name": "secret-share",
-  "version": "1.0.0",
-  "description": "testing shamir secret sharing theory",
+  "name": "coval.js",
+  "version": "0.1.0",
+  "description": "Circuits of Value Framework",
   "main": "build/Coval.js",
   "typings": "build/Coval.d.ts",
   "scripts": {
@@ -30,7 +30,6 @@
     "random-access-memory": "^2.4.0",
     "request": "^2.83.0",
     "secrets.js-grempe": "git+https://github.com/grempe/secrets.js.git",
-    "tsc": "^1.20150623.0",
     "unloq": "^0.9.4"
   },
   "devDependencies": {
