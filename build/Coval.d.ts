@@ -33,8 +33,6 @@ export declare class Coval {
     Vocal: typeof Vocal;
     Emblem: typeof Emblem;
     Agent: typeof Agent;
-}
-export declare class Bases {
     Error: typeof BaseError;
     Log: typeof Log;
     Msgs: typeof Msgs;

@@ -36,21 +36,15 @@ var Coval = /** @class */ (function () {
         this.Vocal = Vocal_1.Vocal;
         this.Emblem = Emblem_1.Emblem;
         this.Agent = Agent_1.Agent;
-    }
-    return Coval;
-}());
-exports.Coval = Coval;
-var Bases = /** @class */ (function () {
-    function Bases() {
         this.Error = Error_1.BaseError;
         this.Log = Log_1.Log;
         this.Msgs = Msgs_1.Msgs;
         this.PyShell = PyShell_1.PyShell;
         this.User = User_1.User;
     }
-    return Bases;
+    return Coval;
 }());
-exports.Bases = Bases;
+exports.Coval = Coval;
 /**
  * Coval Secure Class
  *
