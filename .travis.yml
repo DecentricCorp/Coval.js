@@ -4,4 +4,4 @@ scripts
 after_success:
   - codecov
 before_install:
-  - echo -e "machine github.com\n  login $GH_TOKEN" >> ~/.netrc
+- echo -e "machine github.com\n  login $GH_TOKEN" >> ~/.netrc
