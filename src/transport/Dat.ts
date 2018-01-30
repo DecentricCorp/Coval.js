@@ -6,7 +6,8 @@ import * as path from "path"
 import * as fs from "fs"
 import * as ram from "random-access-memory"
 import * as mirror from "mirror-folder"
-import {Envelope} from "../transport/Envelope"
+import { Envelope } from "../transport/Envelope"
+import { UserType } from '../base/User';
 
 export class Dat<B> {
     destination: string;
@@ -14,11 +15,11 @@ export class Dat<B> {
     src: string;
     dat: any = [];
     public user: UserLib.IUser
-    constructor(UserType) {
-        if (UserType) {
-            this.user = UserLib.As(UserType)
+    constructor(_UserType) {
+        if (_UserType) {
+            this.user = UserLib.As(_UserType)
         } else {
-            this.user = new UserLib.User()
+            this.user = new UserLib.User(UserType.Generic)
         }
     }
 

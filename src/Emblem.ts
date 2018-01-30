@@ -1,6 +1,6 @@
 "use strict"
 import { Dat } from "./transport/Dat";
-import { IUser } from "./base/User";
+import { IUser, UserType } from './base/User';
 import { Envelope } from "./transport/Envelope";
 
 
@@ -26,8 +26,8 @@ export class Emblem {
      * @deprecated 
      */
     public HasRequiredDats() {
-        let serverDat = this.dats.filter((d) => {return d.user.type === 'server'})
-        let clientDat = this.dats.filter((d) => {return d.user.type === 'client'})
+        let serverDat = this.dats.filter((d) => {return d.user.type === UserType.Server})
+        let clientDat = this.dats.filter((d) => {return d.user.type === UserType.Client})
         return serverDat.length > 0 && clientDat.length > 0
     }
 

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var User_1 = require("./base/User");
 var Envelope_1 = require("./transport/Envelope");
 var Emblem = /** @class */ (function () {
     function Emblem() {
@@ -25,8 +26,8 @@ var Emblem = /** @class */ (function () {
      * @deprecated
      */
     Emblem.prototype.HasRequiredDats = function () {
-        var serverDat = this.dats.filter(function (d) { return d.user.type === 'server'; });
-        var clientDat = this.dats.filter(function (d) { return d.user.type === 'client'; });
+        var serverDat = this.dats.filter(function (d) { return d.user.type === User_1.UserType.Server; });
+        var clientDat = this.dats.filter(function (d) { return d.user.type === User_1.UserType.Client; });
         return serverDat.length > 0 && clientDat.length > 0;
     };
     return Emblem;

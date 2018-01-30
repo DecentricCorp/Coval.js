@@ -7,14 +7,15 @@ var fs = require("fs");
 var ram = require("random-access-memory");
 var mirror = require("mirror-folder");
 var Envelope_1 = require("../transport/Envelope");
+var User_1 = require("../base/User");
 var Dat = /** @class */ (function () {
-    function Dat(UserType) {
+    function Dat(_UserType) {
         this.dat = [];
-        if (UserType) {
-            this.user = UserLib.As(UserType);
+        if (_UserType) {
+            this.user = UserLib.As(_UserType);
         }
         else {
-            this.user = new UserLib.User();
+            this.user = new UserLib.User(User_1.UserType.Generic);
         }
     }
     Dat.prototype.Share = function (sharePath, callback, ignores) {

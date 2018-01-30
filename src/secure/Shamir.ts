@@ -7,10 +7,10 @@ export module Shamir {
         key: string
         shares: string[]
         
-        public GetKey() {
+        public GetKey(length?) {
             let envelope = new Envelope()
             if (!this.key) {
-                this.key = secrets.random(512)
+                this.key = secrets.random(length || 512)
             } else {
                 envelope.AddError("Key accessed twice!")
             }
@@ -18,8 +18,10 @@ export module Shamir {
             return envelope
         }
 
-        public CreateShares(count: number, threshold: number) {
-            this.GetKey()
+        public CreateShares(count: number, threshold: number, length?) {
+            if (!this.key) {
+                this.GetKey(length || 512)
+            }
             let shares = secrets.share(this.key, count, threshold)
             let envelope = new Envelope()
             envelope.AddValue(shares)

@@ -10,9 +10,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var UtilLib = require("../Utils");
+var Shamir_1 = require("../secure/Shamir");
 var User = /** @class */ (function () {
-    function User(_type) {
-        this.type = _type || "generic";
+    function User(_UserType, Opts) {
+        this.type = _UserType;
     }
     return User;
 }());
@@ -31,23 +33,41 @@ exports.As = As;
 var Client = /** @class */ (function (_super) {
     __extends(Client, _super);
     function Client() {
-        return _super.call(this, "client") || this;
+        return _super.call(this, UserType.Client) || this;
     }
     return Client;
 }(User));
 exports.Client = Client;
 var Server = /** @class */ (function (_super) {
     __extends(Server, _super);
-    function Server() {
-        return _super.call(this, "server") || this;
+    function Server(IdentityType, Opts) {
+        var _this = _super.call(this, UserType.Server) || this;
+        if (IdentityType) {
+            _this.identity_type = IdentityType;
+        }
+        _this.utils = new UtilLib.Utils();
+        _this.key = new Shamir_1.Shamir.Key();
+        return _this;
     }
+    Server.prototype.Authenticate = function (token) {
+        this.auth_token = token;
+    };
+    Server.prototype.Generate = function (size) {
+        return this.key.GetKey(size || 256);
+    };
+    Server.prototype.Split = function (count, threshold, size) {
+        return this.key.CreateShares(count, threshold, size);
+    };
+    Server.prototype.Combine = function (shares) {
+        return this.key.CombineShares(shares);
+    };
     return Server;
 }(User));
 exports.Server = Server;
 var Identity = /** @class */ (function (_super) {
     __extends(Identity, _super);
     function Identity(IdentityType, Opts) {
-        var _this = _super.call(this, "identity") || this;
+        var _this = _super.call(this, UserType.Identity) || this;
         if (IdentityType) {
             _this.identity = _this.As(IdentityType, Opts);
         }
@@ -59,3 +79,10 @@ var Identity = /** @class */ (function (_super) {
     return Identity;
 }(User));
 exports.Identity = Identity;
+var UserType;
+(function (UserType) {
+    UserType[UserType["Server"] = 0] = "Server";
+    UserType[UserType["Identity"] = 1] = "Identity";
+    UserType[UserType["Client"] = 2] = "Client";
+    UserType[UserType["Generic"] = 3] = "Generic";
+})(UserType = exports.UserType || (exports.UserType = {}));

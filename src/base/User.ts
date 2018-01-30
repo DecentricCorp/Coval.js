@@ -1,9 +1,13 @@
-import { IIdentity } from '../partner/Unloq';
 "use strict"
+import { IIdentity } from '../partner/Unloq';
+import * as UtilLib from "../Utils"
+import { Shamir } from '../secure/Shamir'
+
+
 export class User implements IUser {
-    type: string
-    constructor(_type?: string) {
-        this.type = _type || "generic"
+    type: UserType
+    constructor(_UserType?: UserType, Opts?) {
+        this.type = _UserType
     }    
 }
 
@@ -15,30 +19,62 @@ export class IdentityProvider implements IIdentity {
     
 }
 
-export function As<UserType extends User>(UserObject: new (IdentityType, Opts) => UserType, IdentityType?, Opts?): UserType {
+export function As<DynamicUserType extends User>(UserObject: new (IdentityType?, Opts?) => DynamicUserType, IdentityType?, Opts?): DynamicUserType {
     return new UserObject(IdentityType, Opts)
 }
 
 export interface IUser {
-    type: string
+    type: UserType
+}
+
+export interface IEncryptionUser {
+    Authenticate(token)
+    Generate(size?)
+    Split(count: number, threshold: number, size?)
+    Combine(shares)
 }
 
 export class Client extends User {
     constructor(){
-        super("client")
-    }    
+        super(UserType.Client)
+    }
 }
 
-export class Server extends User {
-    constructor(){
-        super("server")
+export class Server extends User implements IEncryptionUser {
+    key: Shamir.Key;
+    utils: UtilLib.Utils;
+    identity_type: any;
+    auth_token: any;
+    
+    constructor(IdentityType?, Opts?){
+        super(UserType.Server)
+        if (IdentityType) {
+            this.identity_type = IdentityType
+        }
+        this.utils = new UtilLib.Utils()
+        this.key = new Shamir.Key()
+    }
+    public Authenticate(token) {
+        this.auth_token = token
+    }
+
+    public Generate(size?) {
+        return this.key.GetKey(size || 256)
+    }
+
+    public Split(count: number, threshold: number, size?) {
+        return this.key.CreateShares(count, threshold, size)
+    }
+
+    public Combine(shares) {
+        return this.key.CombineShares(shares)
     }
 }
 
 export class Identity<B> extends User {
     identity
     constructor(IdentityType, Opts){
-        super("identity")
+        super(UserType.Identity)
         if (IdentityType) {
             this.identity = this.As(IdentityType, Opts)
         }
@@ -47,6 +83,13 @@ export class Identity<B> extends User {
     As<IdentityType extends IdentityProvider>(IdentityObject: new (Opts) => IdentityType, Opts?): IdentityType {
         return new IdentityObject(Opts)
     }
+}
+
+export enum UserType {
+    Server = 0,
+    Identity,
+    Client,
+    Generic
 }
 
 
