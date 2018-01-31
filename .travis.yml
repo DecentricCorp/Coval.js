@@ -3,6 +3,7 @@ node_js:
   - "node"
 before_install:
  - which python3
+ - ln -s /opt/pyenv/shims/python3 /usr/local/bin/python3
 scripts:
   - npm install codecov -g
 after_success:
