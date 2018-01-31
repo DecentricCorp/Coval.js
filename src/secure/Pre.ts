@@ -13,9 +13,14 @@ export class Pre {
 
     public Execute(callback){
         let options = new PyShellOptions(Mode.Text, '/usr/local/bin/python3')
-        let pyshell = new PyShell(path.combine(__dirname, '..', '..', '/build/python/') + this.script, options)
-        pyshell.Run('build/python/'+ this.script, function(err, msg){
-           return callback(msg, err)
+        //var target = path.join(__dirname, '..', '..', '/build/python', this.script )
+        var target = './build/python/pre.py'
+        let pyshell = new PyShell(target, options)
+        
+        console.log('---------------- TARGET', target)
+        console.log('---------------- DIR', __dirname)
+        pyshell.Run(target, function(err, msg){
+            return callback(msg, err)
         })
     }
 

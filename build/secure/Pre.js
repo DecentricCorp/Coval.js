@@ -13,14 +13,17 @@ var Pre = /** @class */ (function () {
     }
     Pre.prototype.Execute = function (callback) {
         var options = new PyShell_1.PyShellOptions(PyShell_1.Mode.Text, '/usr/local/bin/python3');
-        var pyshell = new PyShell_1.PyShell(path.combine(__dirname, '..', '..', '/build/python/') + this.script, options);
-        pyshell.Run('build/python/' + this.script, function (err, msg) {
+        //var target = path.join(__dirname, '..', '..', '/build/python', this.script )
+        var target = './build/python/pre.py';
+        var pyshell = new PyShell_1.PyShell(target, options);
+        console.log('---------------- TARGET', target);
+        console.log('---------------- DIR', __dirname);
+        pyshell.Run(target, function (err, msg) {
             return callback(msg, err);
         });
     };
     Pre.prototype.GenKey = function (callback) {
         this.Execute(function (msg) {
-            //console.log('------- unparsed msg', msg[0], JSON.stringify(msg[0]))
             return callback(JSON.parse(JSON.stringify(msg[0])));
         });
     };
