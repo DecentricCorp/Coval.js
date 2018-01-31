@@ -69,3 +69,4 @@ build/python/npre/__pycache__
 build/python/npre/__init__.py
 build/python/test.env
 build/python/npre/util/__pycache__
+build/test.env

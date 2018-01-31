@@ -10,7 +10,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "docs": "typedoc --out docs/ src/",
-    "prepublish": "npm run build",
+    "prepublish-disabled": "npm run build",
     "pretest-disabled": "cp ./build/python/test.env ./build/test.env",
     "postinstall-disabled": "cp ./build/python/test.env ./build/test.env"
   },

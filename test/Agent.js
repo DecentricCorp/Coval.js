@@ -36,7 +36,6 @@ describe('Agent', () => {
   
     it('Should identify as generic when not cast', function(){
         var agent = new Agent()
-        
         expect(agent.user.constructor.name).to.equal("User")
         expect(agent.user.type).to.equal(UserType.Generic)
     })
