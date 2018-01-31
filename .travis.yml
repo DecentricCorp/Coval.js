@@ -1,6 +1,6 @@
 language: node_js
 before_install:
- - pip install msgpack-python
+ - sudo pip install msgpack-python
 scripts:
   - npm install codecov -g
 after_success:
