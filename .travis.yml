@@ -2,10 +2,13 @@ language: node_js
 node_js:
   - "node"
 before_install:
- - sudo pip install msgpack-python
+ - sudo apt-get install python3
 scripts:
   - npm install codecov -g
 after_success:
   - codecov
 python:
   - "3.0"
+sudo: 
+  - true
+
