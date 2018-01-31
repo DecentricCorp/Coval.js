@@ -11,8 +11,8 @@
     "watch": "tsc -w",
     "docs": "typedoc --out docs/ src/",
     "prepublish": "npm run build",
-    "pretest": "cp ./build/python/test.env ./build/test.env",
-    "postinstall": "cp ./build/python/test.env ./build/test.env"
+    "pretest-disabled": "cp ./build/python/test.env ./build/test.env",
+    "postinstall-disabled": "cp ./build/python/test.env ./build/test.env"
   },
   "author": "Shannon Code",
   "license": "MIT",
