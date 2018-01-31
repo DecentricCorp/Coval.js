@@ -61,9 +61,6 @@ typings/
 .vscode
 .vscode/settings.json
 .scannerwork
-build/python/myenv
-build/python/nkms
-build/python/npre
 .DS_Store
 build/python/npre/__pycache__
 build/python/npre/__init__.py
