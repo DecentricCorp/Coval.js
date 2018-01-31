@@ -65,7 +65,6 @@ build/python/myenv
 build/python/nkms
 build/python/npre
 .DS_Store
-build/test.env
 build/python/npre/__pycache__
 build/python/npre/__init__.py
 build/python/test.env
