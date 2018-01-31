@@ -1,7 +1,7 @@
 language: node_js
-before_install:
-- echo -e "machine github.com\n  login $GH_TOKEN" >> ~/.netrc
 scripts:
   - npm install codecov -g
 after_success:
   - codecov
+python:
+  - "2.7"
