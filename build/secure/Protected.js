@@ -17,3 +17,4 @@ var Protected = /** @class */ (function () {
     return Protected;
 }());
 exports.Protected = Protected;
+//# sourceMappingURL=Protected.js.map

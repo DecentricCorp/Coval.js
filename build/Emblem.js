@@ -33,3 +33,4 @@ var Emblem = /** @class */ (function () {
     return Emblem;
 }());
 exports.Emblem = Emblem;
+//# sourceMappingURL=Emblem.js.map

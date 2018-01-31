@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var path = require("path");
 var PyShell_1 = require("../base/PyShell");
 var Pre = /** @class */ (function () {
     function Pre(script) {
@@ -12,7 +13,7 @@ var Pre = /** @class */ (function () {
     }
     Pre.prototype.Execute = function (callback) {
         var options = new PyShell_1.PyShellOptions(PyShell_1.Mode.Text, '/usr/local/bin/python3');
-        var pyshell = new PyShell_1.PyShell('build/python/' + this.script, options);
+        var pyshell = new PyShell_1.PyShell(path.combine(__dirname, '..', '..', '/build/python/') + this.script, options);
         pyshell.Run('build/python/' + this.script, function (err, msg) {
             return callback(msg, err);
         });
@@ -26,3 +27,4 @@ var Pre = /** @class */ (function () {
     return Pre;
 }());
 exports.Pre = Pre;
+//# sourceMappingURL=Pre.js.map

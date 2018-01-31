@@ -34,3 +34,4 @@ var Envelope = /** @class */ (function (_super) {
     return Envelope;
 }(Msgs_1.Msgs));
 exports.Envelope = Envelope;
+//# sourceMappingURL=Envelope.js.map

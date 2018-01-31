@@ -6,3 +6,4 @@ var Vocal = /** @class */ (function () {
     return Vocal;
 }());
 exports.Vocal = Vocal;
+//# sourceMappingURL=Vocal.js.map

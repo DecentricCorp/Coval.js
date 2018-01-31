@@ -109,3 +109,4 @@ function GeneratePayloadFromSeed(seed, index, cb) {
     var address = d.privateKey.toAddress().toString();
     return cb(address, pk);
 }
+//# sourceMappingURL=HDKey.js.map

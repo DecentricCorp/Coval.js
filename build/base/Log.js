@@ -27,3 +27,4 @@ var Logs = /** @class */ (function () {
     return Logs;
 }());
 exports.Logs = Logs;
+//# sourceMappingURL=Log.js.map

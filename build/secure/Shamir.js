@@ -37,3 +37,4 @@ var Shamir;
     }());
     Shamir.Key = Key;
 })(Shamir = exports.Shamir || (exports.Shamir = {}));
+//# sourceMappingURL=Shamir.js.map

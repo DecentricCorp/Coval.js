@@ -6,3 +6,4 @@ var Changely = /** @class */ (function () {
     return Changely;
 }());
 exports.Changely = Changely;
+//# sourceMappingURL=Changely.js.map

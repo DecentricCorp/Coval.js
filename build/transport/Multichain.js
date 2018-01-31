@@ -140,3 +140,4 @@ var MultichainConnection = /** @class */ (function () {
     return MultichainConnection;
 }());
 exports.MultichainConnection = MultichainConnection;
+//# sourceMappingURL=Multichain.js.map

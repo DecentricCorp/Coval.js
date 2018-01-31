@@ -1,5 +1,5 @@
 "use strict"
-
+var path = require( "path" )
 import {PyShell, PyShellOptions, Mode} from "../base/PyShell"
 export class Pre {
     script: any;
@@ -13,7 +13,7 @@ export class Pre {
 
     public Execute(callback){
         let options = new PyShellOptions(Mode.Text, '/usr/local/bin/python3')
-        let pyshell = new PyShell('build/python/'+ this.script, options)
+        let pyshell = new PyShell(path.combine(__dirname, '..', '..', '/build/python/') + this.script, options)
         pyshell.Run('build/python/'+ this.script, function(err, msg){
            return callback(msg, err)
         })
@@ -21,7 +21,6 @@ export class Pre {
 
     public GenKey(callback){
         this.Execute(function(msg){
-            //console.log('------- unparsed msg', msg[0], JSON.stringify(msg[0]))
             return callback(JSON.parse(JSON.stringify(msg[0])))
         })
     }

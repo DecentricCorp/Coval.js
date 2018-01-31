@@ -95,3 +95,4 @@ var Transports = /** @class */ (function () {
     return Transports;
 }());
 exports.Transports = Transports;
+//# sourceMappingURL=Coval.js.map

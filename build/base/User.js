@@ -86,3 +86,4 @@ var UserType;
     UserType[UserType["Client"] = 2] = "Client";
     UserType[UserType["Generic"] = 3] = "Generic";
 })(UserType = exports.UserType || (exports.UserType = {}));
+//# sourceMappingURL=User.js.map

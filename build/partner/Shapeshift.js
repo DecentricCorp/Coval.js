@@ -6,3 +6,4 @@ var Shapeshift = /** @class */ (function () {
     return Shapeshift;
 }());
 exports.Shapeshift = Shapeshift;
+//# sourceMappingURL=Shapeshift.js.map
