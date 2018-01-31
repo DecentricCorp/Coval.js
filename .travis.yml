@@ -8,4 +8,4 @@ scripts:
 after_success:
   - codecov
 python:
-  - "2.7"
+  - "3.0"
