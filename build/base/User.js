@@ -49,6 +49,9 @@ var Server = /** @class */ (function (_super) {
         _this.key = new Shamir_1.Shamir.Key();
         return _this;
     }
+    Server.prototype.SetKey = function (key) {
+        this.key = key;
+    };
     Server.prototype.Authenticate = function (token) {
         this.auth_token = token;
     };

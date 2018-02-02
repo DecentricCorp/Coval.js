@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* import * as CaesarLib from 'caesar' */
 var Caesar = /** @class */ (function () {
     function Caesar() {
     }

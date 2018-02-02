@@ -17,6 +17,7 @@ export interface IEncryptionUser {
     Generate(size?: any): any;
     Split(count: number, threshold: number, size?: any): any;
     Combine(shares: any): any;
+    SetKey(key: any): any;
 }
 export declare class Client extends User {
     constructor();
@@ -27,6 +28,7 @@ export declare class Server extends User implements IEncryptionUser {
     identity_type: any;
     auth_token: any;
     constructor(IdentityType?: any, Opts?: any);
+    SetKey(key: any): void;
     Authenticate(token: any): void;
     Generate(size?: any): any;
     Split(count: number, threshold: number, size?: any): any;

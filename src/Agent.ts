@@ -4,6 +4,7 @@ import * as UserLib from "./base/User"
 import { User, IUser, UserType, IEncryptionUser } from './base/User';
 
 export class Agent<B> implements IEncryptionUser {
+    
     public user
     constructor(_UserType, IdentityType?, Opts?) {
         
@@ -15,6 +16,14 @@ export class Agent<B> implements IEncryptionUser {
             }
         } else {
             this.user = new UserLib.User(UserType.Generic)
+        }
+    }
+
+    SetKey(key: any) {
+        if (this.user.type == UserType.Server) {
+            return this.user.SetKey(key)
+        } else {
+            throw new Error("Method not implemented.")
         }
     }
 
