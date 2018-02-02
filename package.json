@@ -20,7 +20,6 @@
     "@types/node": "^9.4.0",
     "@types/superagent": "^3.5.7",
     "bitcore": "^0.11.7",
-    "caesar": "^1.1.12",
     "crypto-js": "^3.1.9-1",
     "dat-node": "^3.5.6",
     "dotenv": "^4.0.0",
