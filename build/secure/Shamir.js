@@ -18,6 +18,9 @@ var Shamir;
             _envelope.AddValue(this.key);
             return _envelope;
         };
+        Key.prototype.SetKey = function (key) {
+            this.key = key;
+        };
         Key.prototype.CreateShares = function (count, threshold, length) {
             if (!this.key) {
                 this.GetKey(length || 512);

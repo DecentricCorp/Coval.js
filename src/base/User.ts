@@ -57,7 +57,7 @@ export class Server extends User implements IEncryptionUser {
     }
 
     SetKey(key) {
-        this.key = key
+        this.key.SetKey(key)
     }
 
     Authenticate(token) {

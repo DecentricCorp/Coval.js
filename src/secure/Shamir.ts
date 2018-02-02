@@ -18,6 +18,10 @@ export module Shamir {
             return _envelope
         }
 
+        public SetKey(key) {
+            this.key = key
+        }
+
         public CreateShares(count: number, threshold: number, length?) {
             if (!this.key) {
                 this.GetKey(length || 512)
