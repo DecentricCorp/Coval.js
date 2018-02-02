@@ -16,6 +16,14 @@ var Agent = /** @class */ (function () {
             this.user = new UserLib.User(User_1.UserType.Generic);
         }
     }
+    Agent.prototype.SetKey = function (key) {
+        if (this.user.type == User_1.UserType.Server) {
+            return this.user.SetKey(key);
+        }
+        else {
+            throw new Error("Method not implemented.");
+        }
+    };
     Agent.prototype.Authenticate = function (token) {
         if (this.user.type == User_1.UserType.Server) {
             return this.user.Authenticate(token);
