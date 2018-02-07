@@ -113,7 +113,7 @@ describe('Multichain', () => {
                 multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
                     multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.key,"virtual", 1, function(err, signed){
                         multichain.SendSignedTransaction(signed.hex.toString("hex"), function(err, txid){
-                            // console.log('-------- txid', txid)
+                            expect(txid).to.exist
                             done()
                         })
                     })
@@ -138,7 +138,7 @@ function makeConnectedMultichainObject() {
 
 let mock = {
     info: { 
-        version: '1.0 beta 2',
+        version: '1.0.3',
         nodeversion: 10000202,
         protocolversion: 10008,
         chainname: 'Jumper',
