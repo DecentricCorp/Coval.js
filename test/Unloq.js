@@ -47,7 +47,7 @@ describe('Unloq', () => {
         it('Allows for successful authorization', () => {
             var Unloq = new UnloqLib(process.env.UNLOQ_KEY)
             if (MOCK) {
-                td.replace(Unloq, 'Authorize', function(id, cb){
+                td.replace(Unloq, 'Authorize', function (id, cb) {
                     return cb(mocks.authorize)
                 })
             }
