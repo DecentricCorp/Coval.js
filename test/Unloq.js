@@ -11,14 +11,14 @@ require("dotenv").config({
 })
 
 describe('Unloq', () => {
-    it('should instantiate with provided api key', function (done) {
+    it('Instantiates with provided api key', function (done) {
         this.timeout(100000)
         var Unloq = new UnloqLib(process.env.UNLOQ_KEY)
         expect(Unloq.config.unloq.key).to.equal(process.env.UNLOQ_KEY)
         done()
     })
 
-    it('should instantiate without api key', function (done) {
+    it('Instantiates without an api key', function (done) {
         this.timeout(100000)
         var Unloq = new UnloqLib()
         expect(Unloq.config.unloq.key).to.not.exist
@@ -26,9 +26,9 @@ describe('Unloq', () => {
     })
 
     describe('Authenticate', () => {
-        it('should fail gracefully on incorrect email')
-        it('should fail gracefully on no api key')
-        it('should sucessfully authenticate with unloq', function (done) {
+        it('Fails gracefully on incorrect email')
+        it('Fails gracefully on no api key')
+        it('Successfully authenticates with unloq', function (done) {
             this.timeout(10000)
             var Unloq = new UnloqLib(process.env.UNLOQ_KEY)
             if (MOCK) {
@@ -44,7 +44,7 @@ describe('Unloq', () => {
         })
     })
     describe('Authorize', () => {
-        it('should allow for sucessful authorization', () => {
+        it('Allows for successful authorization', () => {
             var Unloq = new UnloqLib(process.env.UNLOQ_KEY)
             if (MOCK) {
                 td.replace(Unloq, 'Authorize', function(id, cb){
