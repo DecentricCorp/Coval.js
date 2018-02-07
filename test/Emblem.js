@@ -8,14 +8,14 @@ var Dat = require('../build/transport/Dat').Dat
 
 describe('Emblem', function(){
     describe('Add Dat', function(){
-        it('should sucessfully add dat to emblem', function(){
+        it('Successfully adds dat to emblem', function(){
             var emblem = new Emblem()
             var dat = new Dat(UserLib.Client)
             var msg = emblem.AddDat(dat)
             expect(emblem.dats).to.have.lengthOf(1)
             expect(msg.GetValue()).to.equal('Sucessfully added dat')
         })
-        it('should only allow single dat of any type to be added', function(){
+        it('Only allows a single dat of any type to be added', function(){
             var emblem = new Emblem()
             var dat1 = new Dat(UserLib.Client)
             var dat2 = new Dat(UserLib.Client)
@@ -27,7 +27,7 @@ describe('Emblem', function(){
         })
     })   
     describe('HasRequiredDats', function(){
-        it('should be false when required dats are not fulfilled', function(){
+        it('Is false when required dats are not fulfilled', function(){
             var emblem = new Emblem()
             var dat = new Dat(UserLib.Client)
             expect(emblem.dats).to.have.lengthOf(0)
@@ -35,7 +35,7 @@ describe('Emblem', function(){
             emblem.AddDat(dat)
             expect(emblem.HasRequiredDats()).to.false
         })
-        it('should be true when required dats are fulfilled', function(){
+        it('Is true when required dats are fulfilled', function(){
             var emblem = new Emblem()
             var dat1 = new Dat(UserLib.Client)
             var dat2 = new Dat(UserLib.Server)
@@ -45,7 +45,7 @@ describe('Emblem', function(){
         })
     })
     describe('Claimed', ()=>{
-        it('should return false until claimed', ()=>{
+        it('Returns false until claimed', ()=>{
             var emblem = new Emblem()
             expect(emblem.claimed).to.be.false
         })
