@@ -8,7 +8,7 @@ var fs = require("fs")
 
 describe('Dat', () => {
     describe('Share', () => {
-        it('should resolve provided path correcty', function(done) {
+        it('Resolves a provided path correctly', function(done) {
             var dat = new Dat()
             dat.Share("../../test/dat-share", function(key, logs){
                 dat.network.destroy()
@@ -17,7 +17,7 @@ describe('Dat', () => {
             })
         })
 
-        it('should allow for multiple shares with unique keys', function(done) {
+        it('Allows for multiple shares with unique keys', function(done) {
             var dat1 = new Dat()
             var dat2 = new Dat()
             dat1.Share("../../test/dat-share", function(key, logs){
@@ -32,7 +32,7 @@ describe('Dat', () => {
             })
         })
 
-        it('should allow for downloading a share', function(done) {
+        it('Allows for downloading a share', function(done) {
             var dat1 = new Dat()
             var dat2 = new Dat()
             dat1.Share("../../test/dat-share", function(key, logs){
@@ -47,7 +47,7 @@ describe('Dat', () => {
             })
         })
 
-        it('should error when no shares exist for key', function(done) {
+        it('Returns an error when no shares exist for key', function(done) {
             this.timeout(10000)
             var dat1 = new Dat()            
                 var envelope = dat1.Download("../../test/dat-download", "a2f49b400f28b4090e186e7a9dad580cac8dcca3db1865be181ef8f61fa24df3", function(logs){
