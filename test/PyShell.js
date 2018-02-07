@@ -27,7 +27,7 @@ describe('PyShellOptions', () => {
         })
     })
 
-    it('executes an interactive python script', function (done) {
+    it.skip('executes an interactive python script', function (done) {
         var pyshell = new PyShell('test/interactive.py')
         pyshell.Send('Shannon Code', function (msg) {
             expect(msg).to.contain('What is your name?')
