@@ -8,25 +8,25 @@ var should = chai.should()
 
 describe('User', function(){
     describe('Dat', () => {
-        it('Should identify as client when cast as client', function(){
+        it('Identifies as a client when cast as client', function(){
             var dat = new Dat(UserLib.Client)
             expect(dat.user.constructor.name).to.equal("Client")
             expect(dat.user.type).to.equal(UserType.Client)
         })
 
-        it('Should identify as unloq when cast as identity', function(){
+        it('Identifies as unloq when cast as identity', function(){
             var dat = new Dat(UserLib.Identity)
             expect(dat.user.constructor.name).to.equal("Identity")
             expect(dat.user.type).to.equal(UserType.Identity)
         })
 
-        it('Should identify as server when cast as server', function(){
+        it('Identifies as a server when cast as server', function(){
             var dat = new Dat(UserLib.Server)
             expect(dat.user.constructor.name).to.equal("Server")
             expect(dat.user.type).to.equal(UserType.Server)
         })
 
-        it('Should identify as generic when not cast', function(){
+        it('Identifies as generic when not cast', function(){
             var dat = new Dat()
             expect(dat.user.constructor.name).to.equal("User")
             expect(dat.user.type).to.equal(UserType.Generic)
