@@ -7,7 +7,7 @@ var path = require("path")
 require("dotenv").config({path: path.join(__dirname, "..", "build", "test.env")})
 
 describe('Lightrail', () => {
-    it('should instantiate without options', ()=>{
+    it('Instantiates without options', ()=>{
         var Lightrail = new LightrailLib().client
         expect(Lightrail).to.exist
         expect(Lightrail.configuration).to.deep.equal({ 
@@ -18,7 +18,7 @@ describe('Lightrail', () => {
             additionalHeaders: {} })
     })
 
-    it('should instantiate with some options', () => {
+    it('Instantiates with some options', () => {
         var Lightrail = new LightrailLib({apiKey: "123"}).client
         expect(Lightrail.configuration).to.deep.equal({ 
             apiKey: "123",
@@ -28,7 +28,7 @@ describe('Lightrail', () => {
             additionalHeaders: {} })
     })
 
-    it('should instantiate with some all options', () => {
+    it('Instantiates with all options', () => {
         var Lightrail = new LightrailLib({ 
                 apiKey: "123",
                 restRoot: 'https://api.lightrail.com/v1/',
@@ -44,7 +44,7 @@ describe('Lightrail', () => {
             additionalHeaders: {} })
     })
 
-    it('should allow creation of new contacts', ()=>{
+    it('Allows creation of new contacts', ()=>{
         var Lightrail = new LightrailLib()
         var params = Lightrail.ContactParams("test", "user", "e@mail.com")
         expect(params).to.deep.equal({
@@ -54,13 +54,13 @@ describe('Lightrail', () => {
             lastName: 'user' })
     })
 
-    it('should load with apiKey from environment', ()=>{
+    it('Loads with an apiKey from the environment', ()=>{
         var Lightrail = new LightrailLib({apiKey: process.env.LIGHTRAIL_API_KEY}).client
         expect(Lightrail.configuration.apiKey).to.exist
     })
 
     describe('Create Contact', () => {
-        it('should create new user', function(done) {
+        it('Creates a new user', function(done) {
             var Lightrail = new LightrailLib({apiKey: process.env.LIGHTRAIL_API_KEY})
             var user = Lightrail.CreateContact(Lightrail.ContactParams("test", "user", "e@mail.com"))
             user.then((response)=>{
@@ -69,7 +69,7 @@ describe('Lightrail', () => {
             })            
         })
 
-        it('should handle lost connection gracefully')
+        it('Handles a lost connection gracefully')
     })
         
 })
