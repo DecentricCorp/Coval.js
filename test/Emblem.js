@@ -45,7 +45,7 @@ describe('Emblem', function () {
         })
     })
     describe('Claimed', () => {
-        it('returns false until claimed', () => {
+        it('new emblem returns false until claimed', () => {
             var emblem = new Emblem()
             expect(emblem.claimed).to.be.false
         })
