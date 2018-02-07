@@ -7,7 +7,7 @@ var path = require("path")
 require("dotenv").config({path: path.join(__dirname, "..", "build", "test.env")})
 
 describe('Multichain', () => {
-    it('should connect to valid multichain instance', () => {
+    it('Connects to a valid multichain instance', () => {
         var multichain = makeConnectedMultichainObject()
         multichain.Info(function(err, info){
             expect(err).to.not.exist
@@ -16,18 +16,18 @@ describe('Multichain', () => {
         })        
     })
 
-    it('should allow instantiation without connection object', () => {
+    it('Allows instantiation without a connection object', () => {
         var multichain = new Multichain()
         expect(multichain).to.exist
     })
 
-    it('should allow for loading connection after construction of object', () => {
+    it('Allows for loading a connection after construction of an object', () => {
         var multichain = new Multichain()
         multichain.Connect(makeConnectionFromEnv())
     })
 
     describe('Streams', () => {
-        it('should return list of streams', function(done) {
+        it('Returns a list of streams', function(done) {
             var multichain = makeConnectedMultichainObject()
             multichain.Streams(function(err, streams){
                 expect(err).to.not.exist
@@ -37,7 +37,7 @@ describe('Multichain', () => {
             })
         })
         describe('StreamItemsByKey', () => {
-            it('should return stream items by key', function(done) {
+            it('Returns a stream items by key', function(done) {
                 var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function(err, items){
                     expect(err).to.not.exist
@@ -47,7 +47,7 @@ describe('Multichain', () => {
                 })
             })
     
-            it('should return empty list when key not found', function(done) {
+            it('Returns an empty list when key not found', function(done) {
                 var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function(err, items){
                     expect(err).to.not.exist
@@ -56,7 +56,7 @@ describe('Multichain', () => {
                 })
             })
     
-            it('should return error when stream not found', function(done) {
+            it('Returns an error when stream not found', function(done) {
                 var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function(err, items){
                     expect(err).to.exist
@@ -67,14 +67,14 @@ describe('Multichain', () => {
         })
 
         describe('StreamItemsByPublisher', () => {
-            it('should return stream items by publisher')
-            it('should return error when stream not found')
+            it('Returns a stream of items by publisher')
+            it('Returns an error when stream not found')
         })
         
     })
 
     describe('Address', () => {
-        it('should import address', function(done) {
+        it('Imports an address', function(done) {
             var multichain = makeConnectedMultichainObject()
             multichain.ImportAddress(mock.import.from.address, "TestFromAddress", function(err, result){
                 expect(err).to.not.exist
@@ -84,21 +84,21 @@ describe('Multichain', () => {
                 })
             })
         })
-        it('should allow granting of permissions', () => {
+        it('Allows granting of permissions', () => {
             var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
                 expect(err).to.not.exist
                 expect(result).to.exist
             })
         })
-        it('should allow revoking of permissions', () => {
+        it('Allows revoking of permissions', () => {
             var multichain = makeConnectedMultichainObject()
             multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
                 expect(err).to.not.exist
                 expect(result).to.exist
             })
         })
-        it('should allow creation of raw signed tx', function(done) {
+        it('Allows creation of raw signed tx', function(done) {
             var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
                 multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.key,"virtual", 1, function(err, raw){
@@ -107,7 +107,7 @@ describe('Multichain', () => {
                 })
             })
         })
-        it('should allow sending of raw signed tx', function(done) {
+        it('Allows sending of raw signed tx', function(done) {
             var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function(err, result){
                 multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
