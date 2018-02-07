@@ -5,7 +5,7 @@ var Coval = require('../build/Coval')
 var Envelope = require('../build/transport/Envelope').Envelope
 describe('Envelope', function () {
 
-  it('Is able to assign value', function () {
+  it('is able to assign value', function () {
     var envelope = new Envelope()
     envelope.AddValue('a')
     envelope.GetValue().should.equal("a")
@@ -28,7 +28,7 @@ describe('Envelope', function () {
     })
   })
 
-  it('Correctly reports having errors', function () {
+  it('correctly reports having errors', function () {
     var envelope = new Envelope()
     expect(envelope.HasErrors()).to.be.false
     envelope.AddError("an error")

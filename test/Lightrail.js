@@ -7,7 +7,7 @@ var path = require("path")
 require("dotenv").config({ path: path.join(__dirname, "..", "build", "test.env") })
 
 describe('Lightrail', () => {
-    it('Instantiates without options', () => {
+    it('instantiates without options', () => {
         var Lightrail = new LightrailLib().client
         expect(Lightrail).to.exist
         expect(Lightrail.configuration).to.deep.equal({
@@ -19,7 +19,7 @@ describe('Lightrail', () => {
         })
     })
 
-    it('Instantiates with some options', () => {
+    it('instantiates with some options', () => {
         var Lightrail = new LightrailLib({ apiKey: "123" }).client
         expect(Lightrail.configuration).to.deep.equal({
             apiKey: "123",
@@ -30,7 +30,7 @@ describe('Lightrail', () => {
         })
     })
 
-    it('Instantiates with all options', () => {
+    it('instantiates with all options', () => {
         var Lightrail = new LightrailLib({
             apiKey: "123",
             restRoot: 'https://api.lightrail.com/v1/',
@@ -48,7 +48,7 @@ describe('Lightrail', () => {
         })
     })
 
-    it('Allows creation of new contacts', () => {
+    it('allows creation of new contacts', () => {
         var Lightrail = new LightrailLib()
         var params = Lightrail.ContactParams("test", "user", "e@mail.com")
         expect(params).to.deep.equal({
@@ -59,13 +59,13 @@ describe('Lightrail', () => {
         })
     })
 
-    it('Loads with an apiKey from the environment', () => {
+    it('loads with an apiKey from the environment', () => {
         var Lightrail = new LightrailLib({ apiKey: process.env.LIGHTRAIL_API_KEY }).client
         expect(Lightrail.configuration.apiKey).to.exist
     })
 
     describe('Create Contact', () => {
-        it('Creates a new user', function (done) {
+        it('creates a new user', function (done) {
             var Lightrail = new LightrailLib({ apiKey: process.env.LIGHTRAIL_API_KEY })
             var user = Lightrail.CreateContact(Lightrail.ContactParams("test", "user", "e@mail.com"))
             user.then((response) => {
@@ -74,6 +74,6 @@ describe('Lightrail', () => {
             })
         })
 
-        it('Handles a lost connection gracefully')
+        it('handles a lost connection gracefully')
     })
 })
