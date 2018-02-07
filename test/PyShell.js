@@ -7,7 +7,7 @@ let PyShellOptions = PyShellLib.PyShellOptions
 let PyShellMode = PyShellLib.Mode
 
 describe('PyShellOptions', () => {
-    it('is created sucessfully', () => {
+    it('Is created sucessfully', () => {
         var options = new PyShellOptions(PyShellMode.Text, 'path/to/python', ['-u'], 'path/to/my/scripts', ['value1', 'value2', 'value3'] )
         expect(options).to.deep.equal(
             {
@@ -19,7 +19,7 @@ describe('PyShellOptions', () => {
             }
         )
     })
-    it('should execute simple python script', function(done) {    
+    it('Executes a simple python script', function(done) {    
         var pyshell = new PyShell()
         pyshell.Run('test/test.py', function(err, msg){
             expect(msg).to.contain('test execution')
@@ -27,7 +27,7 @@ describe('PyShellOptions', () => {
         })
     })
 
-    it('should execute interactive python script', function(done) {    
+    it('Executes an interactive python script', function(done) {    
         var pyshell = new PyShell('test/interactive.py')
         pyshell.Send('Shannon Code', function(msg){
             expect(msg).to.contain('What is your name?')
