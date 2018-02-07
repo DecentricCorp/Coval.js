@@ -47,7 +47,7 @@ describe('Multichain', () => {
                 })
             })
 
-            it('returns an empty list when key not found', function (done) {
+            it('returns an empty list with no error when key not found', function (done) {
                 var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function (err, items) {
                     expect(err).to.not.exist

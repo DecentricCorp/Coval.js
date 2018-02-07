@@ -7,7 +7,7 @@ var path = require("path")
 require("dotenv").config({ path: path.join(__dirname, "..", "build", "test.env") })
 
 describe('Lightrail', () => {
-    it('instantiates without options', () => {
+    it('instantiates successfully with default configuration', () => {
         var Lightrail = new LightrailLib().client
         expect(Lightrail).to.exist
         expect(Lightrail.configuration).to.deep.equal({
@@ -19,7 +19,7 @@ describe('Lightrail', () => {
         })
     })
 
-    it('instantiates with some options', () => {
+    it('instantiates with one option passed', () => {
         var Lightrail = new LightrailLib({ apiKey: "123" }).client
         expect(Lightrail.configuration).to.deep.equal({
             apiKey: "123",
@@ -30,7 +30,7 @@ describe('Lightrail', () => {
         })
     })
 
-    it('instantiates with all options', () => {
+    it('instantiates with all options passed', () => {
         var Lightrail = new LightrailLib({
             apiKey: "123",
             restRoot: 'https://api.lightrail.com/v1/',
@@ -48,7 +48,7 @@ describe('Lightrail', () => {
         })
     })
 
-    it('allows creation of new contacts', () => {
+    it('allows creation of a new contact', () => {
         var Lightrail = new LightrailLib()
         var params = Lightrail.ContactParams("test", "user", "e@mail.com")
         expect(params).to.deep.equal({
@@ -59,7 +59,7 @@ describe('Lightrail', () => {
         })
     })
 
-    it('loads with an apiKey from the environment', () => {
+    it('loads with an apiKey from an environment variable', () => {
         var Lightrail = new LightrailLib({ apiKey: process.env.LIGHTRAIL_API_KEY }).client
         expect(Lightrail.configuration.apiKey).to.exist
     })

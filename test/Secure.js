@@ -50,13 +50,13 @@ describe('Protected', function () {
     expect(_protected.Value().GetValue()).to.equal(3)
   })
 
-  it('prevents value to be accessed twice', function () {
+  it('prevents value access after initial access', function () {
     var _protected = new Protected("this msg will self destruct")
     expect(_protected.Value().GetValue()).to.equal("this msg will self destruct")
     expect(_protected.Value().GetValue()).to.equal(null)
   })
 
-  it('records an error on second read attempt', function () {
+  it('records an error on second access attempt', function () {
     var _protected = new Protected("this msg will self destruct")
     var readOnce = _protected.Value().GetValue()
     var readAgain = _protected.Value()

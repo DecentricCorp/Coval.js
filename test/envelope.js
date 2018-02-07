@@ -5,7 +5,7 @@ var Coval = require('../build/Coval')
 var Envelope = require('../build/transport/Envelope').Envelope
 describe('Envelope', function () {
 
-  it('is able to assign value', function () {
+  it('assigns a value', function () {
     var envelope = new Envelope()
     envelope.AddValue('a')
     envelope.GetValue().should.equal("a")

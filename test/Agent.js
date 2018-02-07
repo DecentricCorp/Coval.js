@@ -20,7 +20,7 @@ describe('Agent', () => {
         expect(agent.user.type).to.equal(UserType.Identity)
     })
 
-    it('identifies as an Unloq identity when cast as a Unloq identity', function () {
+    it('identifies as an Unloq identity when cast as an Unloq identity', function () {
         var agent = new Agent(UserLib.Identity, Unloq, process.env.UNLOQ_KEY)
         expect(agent.user.constructor.name).to.equal("Identity")
         expect(agent.user.type).to.equal(UserType.Identity)
