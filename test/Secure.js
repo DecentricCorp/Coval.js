@@ -198,7 +198,7 @@ describe('Diffie', () => {
 
   })
   describe('Get Pubkey', () => {
-    it('generates a key', function () {
+    it('Generates a key', function () {
       var dh = new Diffie(128)
       var pubKey = dh.GetPubKey()
       expect(pubKey).to.exist

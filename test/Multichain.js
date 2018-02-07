@@ -37,7 +37,7 @@ describe('Multichain', () => {
             })
         })
         describe('StreamItemsByKey', () => {
-            it('Returns a stream items by key', function(done) {
+            it('Returns a stream of items by key', function(done) {
                 var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function(err, items){
                     expect(err).to.not.exist

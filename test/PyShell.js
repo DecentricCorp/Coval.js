@@ -7,7 +7,7 @@ let PyShellOptions = PyShellLib.PyShellOptions
 let PyShellMode = PyShellLib.Mode
 
 describe('PyShellOptions', () => {
-    it('Is created sucessfully', () => {
+    it('Is created successfully', () => {
         var options = new PyShellOptions(PyShellMode.Text, 'path/to/python', ['-u'], 'path/to/my/scripts', ['value1', 'value2', 'value3'] )
         expect(options).to.deep.equal(
             {
