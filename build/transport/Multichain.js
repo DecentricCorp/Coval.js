@@ -77,7 +77,7 @@ var Multichain = /** @class */ (function () {
         });
     };
     Multichain.prototype.ImportAddress = function (address, name, callback) {
-        this.multichain.importAddress([{ address: address, label: name, rescan: 'false' }], function (a, b) {
+        this.multichain.importAddress({ address: address, label: name, rescan: false }, function (a, b) {
             return callback(a, b);
         });
     };
