@@ -1,8 +1,12 @@
 "use strict"
 import * as bitcore from "bitcore"
+import * as coininfo from "coininfo"
 import * as CryptoJS from "crypto-js"
 import * as _Utils from "../Utils"
 import {Envelope} from "../transport/Envelope"
+import * as CoinKey from "coinkey"
+let bitcoin = coininfo.bitcoin.main
+let bitcoinBitcoreLib = bitcoin.toBitcore()
 
 
 let APIKey = /* process.env.APIKey ||  */"3031323334353637383931323334353637383930"
