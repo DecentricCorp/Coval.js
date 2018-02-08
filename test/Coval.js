@@ -5,5 +5,5 @@ var should = chai.should()
 var CovalLib = require("../build/Coval")
 
 describe('Coval.js', () => {
-    it('should enforce https everywhere')
+    it('enforces https everywhere')
 })
