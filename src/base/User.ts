@@ -32,6 +32,7 @@ export interface IEncryptionUser {
     Generate(size?)
     Split(count: number, threshold: number, size?)
     Combine(shares)
+    SetKey(key)
 }
 
 export class Client extends User {
@@ -54,6 +55,11 @@ export class Server extends User implements IEncryptionUser {
         this.utils = new UtilLib.Utils()
         this.key = new Shamir.Key()
     }
+
+    SetKey(key) {
+        this.key.SetKey(key)
+    }
+
     Authenticate(token) {
         this.auth_token = token
     }

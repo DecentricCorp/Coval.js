@@ -65,4 +65,21 @@ describe('Agent', () => {
             agent.Generate()
         }).to.throw('Method not implemented.')
     })
+
+    it('Should allow providing a key', function(){
+        var agent = new Agent(UserLib.Server)
+        var pk = '88ab17c73a58992ff6fe06aa5258095acb2f73ff872d73ae6f403eeb1248a007'
+        agent.SetKey(pk)
+        expect(agent.user.key.key).to.equal(pk)
+    })
+
+    it('Should split splitting of provided key', function(){
+        var agent = new Agent(UserLib.Server)
+        var pk = '88ab17c73a58992ff6fe06aa5258095acb2f73ff872d73ae6f403eeb1248a007'
+        agent.SetKey(pk)
+        var shares = agent.Split(2, 2, 256)
+        var combined = agent.Combine(shares.value)
+        expect(agent.user.key.key).to.equal(pk)
+        expect(combined.value).to.equal(pk)
+    })
 })

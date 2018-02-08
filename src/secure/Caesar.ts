@@ -1,10 +1,10 @@
 "use strict"
 declare const Buffer
-import * as CaesarLib from 'caesar'
+/* import * as CaesarLib from 'caesar' */
 export class Caesar {
     constructor() { }
 
-    public CreatePrivate() {
+    /* public CreatePrivate() {
         return CaesarLib.key.createPrivate()
     }
 
@@ -30,12 +30,12 @@ export class Caesar {
 
     public CreateXtsDecrypter(key) {
         return new XtsDecrypter(key)
-    }
+    } */
 }
 
 export class XtsEncryptor {
     public encrypter
-    constructor(key) {
+    /* constructor(key) {
         this.encrypter = new CaesarLib.message.XTSEncrypter(key)
     }
     public write(buffer, cb) {
@@ -43,13 +43,13 @@ export class XtsEncryptor {
         this.encrypter.on('data', (chunk) => {
             cb(chunk)
         })
-    }
+    } */
 }
 
 export class XtsDecrypter {
     public decrypter
     private decryptedChunks: string = '';
-    constructor(key) {
+    /* constructor(key) {
         this.decrypter = new CaesarLib.message.XTSDecrypter(key)
     }
     registeredActivity = false
@@ -72,10 +72,5 @@ export class XtsDecrypter {
             this.registeredActivity = true
         }
         this.decrypter.write(buffer)
-    }
-
-
-
-
-
+    } */
 }
