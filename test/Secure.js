@@ -232,7 +232,7 @@ describe('Diffie', () => {
   })
 })
 
-describe('NuCypher', function () {
+describe.skip('NuCypher', function () {
   it('executes', function (done) {
     this.timeout(10000)
     var pre = new Pre()
