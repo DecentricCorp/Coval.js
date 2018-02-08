@@ -39,19 +39,19 @@ describe('Agent', () => {
         expect(agent.user.type).to.equal(UserType.Generic)
     })
 
-    it('allows a server to generate a random envelope', function () {
+    it('allows a server to generate a random seed', function () {
         var agent = new Agent(UserLib.Server)
         var data = agent.user.Generate()
         expect(data).to.exist
     })
-
-    it('allows a server to split a random envelope', function () {
+    
+    it('allows a server of type server can generate shares with no key provided', function () {
         var agent = new Agent(UserLib.Server)
         var data = agent.user.Split(2, 2, 256)
         expect(data).to.exist
     })
 
-    it('allows a server to split and reassemble a random envelope', function () {
+    it('allows a server of type server can reassemble shares into expected seed', function () {
         var agent = new Agent(UserLib.Server)
         var key = agent.Generate()
         var shares = agent.Split(2, 2, 256)
@@ -59,7 +59,7 @@ describe('Agent', () => {
         expect(combined.value).to.equal(key.value)
     })
 
-    it('prevents a generic agent from generating a random envelope', function () {
+    it('prevents a generic agent type from generating a random seed', function () {
         var agent = new Agent()
         expect(function () {
             agent.Generate()
