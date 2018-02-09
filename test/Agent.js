@@ -2,6 +2,7 @@
 var UserLib = require('../build/base/User')
 var UserType = UserLib.UserType
 var Agent = require('../build/Agent').Agent
+var Envelope = require('../build/transport/Envelope').Envelope
 var Unloq = require('../build/partner/Unloq').Unloq
 var chai = require('chai')
 var expect = chai.expect
