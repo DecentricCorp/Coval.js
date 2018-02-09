@@ -6,7 +6,6 @@ var Envelope = require('../build/transport/Envelope').Envelope
 var Unloq = require('../build/partner/Unloq').Unloq
 var chai = require('chai')
 var expect = chai.expect
-var should = chai.should()
 
 describe('Agent', () => {
     it('identifies as a client when cast as client', function () {
