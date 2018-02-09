@@ -20,6 +20,7 @@ import { Log } from './base/Log';
 import { Msgs } from './base/Msgs';
 import { PyShell } from './base/PyShell';
 import * as User from './base/User';
+import { ManyKeys } from './secure/ManyKeys';
 /**
  * Coval main export
  *
@@ -53,6 +54,7 @@ export declare class Secures {
     Caesar: typeof Caesar;
     HDKey: typeof HDKey;
     Pre: typeof Pre;
+    ManyKeys: typeof ManyKeys;
 }
 /**
  * Partners of Coval
