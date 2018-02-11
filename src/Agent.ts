@@ -2,8 +2,7 @@
 
 import * as UserLib from "./base/User"
 import { User, IUser, UserType, IEncryptionUser } from './base/User';
-
-export class Agent<B> implements IEncryptionUser {
+export class Agent<B> implements IAgent {
     
     public user
     constructor(_UserType, IdentityType?, Opts?) {
@@ -19,40 +18,11 @@ export class Agent<B> implements IEncryptionUser {
         }
     }
 
-    SetKey(key: any) {
-        if (this.user.type == UserType.Server) {
-            return this.user.SetKey(key)
-        } else {
-            throw new Error("Method not implemented.")
-        }
+    CallServerless(target: any, opts: any) {
+        throw new Error("Method not implemented.");
     }
+}
 
-    Authenticate(token: any) {
-        if (this.user.type == UserType.Server) {
-            return this.user.Authenticate(token)
-        } else {
-            throw new Error("Method not implemented.");
-        }
-    }
-    Generate(size?: any) {
-        if (this.user.type == UserType.Server) {
-            return this.user.Generate(size)
-        } else {
-            throw new Error("Method not implemented.");
-        }
-    }
-    Split(count: number, threshold: number, size?: any) {
-        if (this.user.type == UserType.Server) {
-            return this.user.Split(count, threshold, size)
-        } else {
-            throw new Error("Method not implemented.");
-        }
-    }
-    Combine(shares: any) {
-        if (this.user.type == UserType.Server) {
-            return this.user.Combine(shares)
-        } else {
-            throw new Error("Method not implemented.");
-        }
-    }
+export interface IAgent {
+    CallServerless(target, opts)
 }

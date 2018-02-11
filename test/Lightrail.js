@@ -66,6 +66,7 @@ describe('Lightrail', () => {
 
     describe('Create Contact', () => {
         it('creates a new user', function (done) {
+            this.timeout(6000)
             var Lightrail = new LightrailLib({ apiKey: process.env.LIGHTRAIL_API_KEY })
             var user = Lightrail.CreateContact(Lightrail.ContactParams("test", "user", "e@mail.com"))
             user.then((response) => {

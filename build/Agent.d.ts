@@ -1,10 +1,8 @@
-import { IEncryptionUser } from './base/User';
-export declare class Agent<B> implements IEncryptionUser {
+export declare class Agent<B> implements IAgent {
     user: any;
     constructor(_UserType: any, IdentityType?: any, Opts?: any);
-    SetKey(key: any): any;
-    Authenticate(token: any): any;
-    Generate(size?: any): any;
-    Split(count: number, threshold: number, size?: any): any;
-    Combine(shares: any): any;
+    CallServerless(target: any, opts: any): void;
+}
+export interface IAgent {
+    CallServerless(target: any, opts: any): any;
 }

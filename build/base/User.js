@@ -12,6 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var UtilLib = require("../Utils");
 var Shamir_1 = require("../secure/Shamir");
+var Multichain_1 = require("../transport/Multichain");
 var User = /** @class */ (function () {
     function User(_UserType, Opts) {
         this.type = _UserType;
@@ -49,6 +50,12 @@ var Server = /** @class */ (function (_super) {
         _this.key = new Shamir_1.Shamir.Key();
         return _this;
     }
+    Server.prototype.IssueEmblemAsset = function (to, assetName) {
+        var multichain = new Multichain_1.Multichain();
+        return multichain.IssueEmblem(to, assetName, function (err, tx) {
+            return tx;
+        });
+    };
     Server.prototype.SetKey = function (key) {
         this.key.SetKey(key);
     };

@@ -101,7 +101,7 @@ describe('Multichain', () => {
         it('allows creation of raw signed tx', function (done) {
             var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
-                multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.key, "virtual", 1, function (err, raw) {
+                multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (err, raw) {
                     expect(raw.complete).to.be.true
                     done()
                 })
@@ -111,13 +111,75 @@ describe('Multichain', () => {
             var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function(err, result){
                 multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
-                    multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.key,"virtual", 1, function(err, signed){
+                    multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address,"virtual", 1, function(err, signed){
                         multichain.SendSignedTransaction(signed.hex.toString("hex"), function(err, txid){
                             expect(txid).to.exist
                             done()
                         })
                     })
                 })
+            })
+        })
+    })
+
+    describe('Asset', () => {
+        var rnd, asset, emblem
+        before(function() {
+            rnd = Math.floor(Math.random() * (1000000 - 1) + 1)
+            asset = "testasset"+rnd.toString()
+            emblem = "emblem-"+rnd.toString()
+            console.log('-=-=-=-- asset name', asset)
+        })
+        it('issues asset to internal user', ()=> {
+            var multichain = makeConnectedMultichainObject()
+            multichain.Issue(mock.multichain.address, asset, 2, function(err, tx){
+                expect(err).to.not.exist
+            })
+        })
+        it('issues more of an asset to external user', ()=> {
+            var multichain = makeConnectedMultichainObject()
+            multichain.IssueMore(mock.import.from.address, asset, 1, function(err, tx){
+                expect(err).to.not.exist
+            })
+        })
+        it('sends asset from internal user to burn address', ()=> {
+            var multichain = makeConnectedMultichainObject()
+            multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function(err, tx){
+                console.log('--------- send internal err', err)
+                expect(err).to.not.exist
+            })
+        })
+        it('sends asset from an externally signed tx to burn address', function(done) {
+            var multichain = makeConnectedMultichainObject()
+            multichain.CreateAndSignSend(mock.import.from.key, mock.info.burnaddress, asset, 1, function(err, signed){
+                multichain.SendSignedTransaction(signed.hex.toString("hex"), function(err, txid){
+                    expect(txid).to.exist
+                    done()
+                })
+            })
+        })
+        it.skip('creates an exchange tx', function(done) {
+            //https://www.multichain.com/qa/5660/issue-locking-unspent-output
+            this.timeout(100000)
+            var multichain = makeConnectedMultichainObject()
+            multichain.CreateExchange(mock.multichain.address, asset, "virtual", function(err, raw){
+                console.log('-------- create err', err)
+                expect(err).to.not.exist
+                console.log('-------- create raw', raw)
+                multichain.FinalizeExchange(raw.prepared, raw.unlocks.txid, raw.unlocks.vout, raw.asking, function(err, complete){
+                    console.log('---------Final err', err)
+                    console.log('-------- Complete', complete)
+                })
+                
+            })
+        })
+        it('issues emblem to specified address', function(done) {
+            var multichain = makeConnectedMultichainObject()
+            multichain.IssueEmblem(mock.import.to.address, emblem, function(err, txid){
+                console.log('----------- Issue Emblem', err, txid)
+                expect(err).to.not.exist
+                expect(txid).to.exist
+                done()
             })
         })
     })
@@ -137,6 +199,9 @@ function makeConnectedMultichainObject() {
 }
 
 let mock = {
+    multichain: {
+        address: '1Ej2dEzyGd4o47XQRxkRNMkJE8TMNNaher'
+    },
     info: { 
         version: '1.0.3',
         nodeversion: 10000202,

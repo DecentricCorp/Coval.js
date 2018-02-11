@@ -5,7 +5,8 @@
   "main": "build/Coval.js",
   "typings": "build/Coval.d.ts",
   "scripts": {
-    "test": "nyc mocha --exit",
+    "test-disabled": "nyc mocha --exit",
+    "test":"mocha --exit",
     "coverage": "nyc report --reporter=json > coverage/coverage.json",
     "build": "tsc",
     "watch": "tsc -w",

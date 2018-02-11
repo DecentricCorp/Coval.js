@@ -16,45 +16,8 @@ var Agent = /** @class */ (function () {
             this.user = new UserLib.User(User_1.UserType.Generic);
         }
     }
-    Agent.prototype.SetKey = function (key) {
-        if (this.user.type == User_1.UserType.Server) {
-            return this.user.SetKey(key);
-        }
-        else {
-            throw new Error("Method not implemented.");
-        }
-    };
-    Agent.prototype.Authenticate = function (token) {
-        if (this.user.type == User_1.UserType.Server) {
-            return this.user.Authenticate(token);
-        }
-        else {
-            throw new Error("Method not implemented.");
-        }
-    };
-    Agent.prototype.Generate = function (size) {
-        if (this.user.type == User_1.UserType.Server) {
-            return this.user.Generate(size);
-        }
-        else {
-            throw new Error("Method not implemented.");
-        }
-    };
-    Agent.prototype.Split = function (count, threshold, size) {
-        if (this.user.type == User_1.UserType.Server) {
-            return this.user.Split(count, threshold, size);
-        }
-        else {
-            throw new Error("Method not implemented.");
-        }
-    };
-    Agent.prototype.Combine = function (shares) {
-        if (this.user.type == User_1.UserType.Server) {
-            return this.user.Combine(shares);
-        }
-        else {
-            throw new Error("Method not implemented.");
-        }
+    Agent.prototype.CallServerless = function (target, opts) {
+        throw new Error("Method not implemented.");
     };
     return Agent;
 }());

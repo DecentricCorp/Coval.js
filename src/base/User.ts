@@ -2,6 +2,7 @@
 import { IIdentity } from '../partner/Unloq';
 import * as UtilLib from "../Utils"
 import { Shamir } from '../secure/Shamir'
+import { Multichain } from '../transport/Multichain';
 
 
 export class User implements IUser {
@@ -35,13 +36,18 @@ export interface IEncryptionUser {
     SetKey(key)
 }
 
+export interface IMultichainAdmin {
+    IssueEmblemAsset(to, assetName)
+}
+
 export class Client extends User {
     constructor(){
         super(UserType.Client)
     }
 }
 
-export class Server extends User implements IEncryptionUser {
+export class Server extends User implements IEncryptionUser, IMultichainAdmin {
+    
     key
     utils: UtilLib.Utils;
     identity_type: any;
@@ -54,6 +60,13 @@ export class Server extends User implements IEncryptionUser {
         }
         this.utils = new UtilLib.Utils()
         this.key = new Shamir.Key()
+    }
+
+    IssueEmblemAsset(to: any, assetName: any) {
+        var multichain = new Multichain()
+            return multichain.IssueEmblem(to, assetName, function(err, tx){
+                return tx
+            })
     }
 
     SetKey(key) {

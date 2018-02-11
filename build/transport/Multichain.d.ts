@@ -6,7 +6,9 @@ export declare class Multichain {
         [x: string]: any;
     };
     Utils: any;
-    constructor(address: string, connection?: MultichainConnection, asset?: string, permissions?: string[]);
+    constructor(address?: string, connection?: MultichainConnection, asset?: string, permissions?: string[]);
+    makeConnectionFromEnv(): MultichainConnection;
+    makeConnectedMultichainObject(): Multichain;
     Info(callback: any): void;
     Connect(connection: MultichainConnection): void;
     Streams(callback: any): void;
@@ -18,8 +20,16 @@ export declare class Multichain {
     ImportPrivKey(key: any, callback: any): void;
     SendSignedTransaction(signed: any, callback: any): void;
     CreateAndSignSend(from: any, to: any, asset: any, qty: any, callback: any): void;
+    SignRaw(from: any, hex: any, callback: any): void;
     GetAssetBalance(address: any, asset: any, callback: any): void;
     SendAssetFrom(from: any, to: any, amount: any, asset: any, callback: any): void;
+    Issue(to: any, name: any, qty: any, callback: any): void;
+    IssueMore(to: any, name: any, qty: any, callback: any): void;
+    CreateExchange(from: any, asset: any, asking: any, callback: any): void;
+    FinalizeExchange(hex: any, txid: any, vout: any, assets: any, callback: any): void;
+    PrepareUnlockFrom(from: any, assets: any, callback: any): void;
+    PrepareUnlock(assets: any, callback: any): void;
+    IssueEmblem(to: any, assetName: any, callback: any): void;
 }
 export declare class MultichainConnection {
     port: Number;

@@ -19,15 +19,19 @@ export interface IEncryptionUser {
     Combine(shares: any): any;
     SetKey(key: any): any;
 }
+export interface IMultichainAdmin {
+    IssueEmblemAsset(to: any, assetName: any): any;
+}
 export declare class Client extends User {
     constructor();
 }
-export declare class Server extends User implements IEncryptionUser {
+export declare class Server extends User implements IEncryptionUser, IMultichainAdmin {
     key: any;
     utils: UtilLib.Utils;
     identity_type: any;
     auth_token: any;
     constructor(IdentityType?: any, Opts?: any);
+    IssueEmblemAsset(to: any, assetName: any): void;
     SetKey(key: any): void;
     Authenticate(token: any): void;
     Generate(size?: any): any;
