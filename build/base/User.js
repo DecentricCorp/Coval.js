@@ -48,11 +48,11 @@ var Server = /** @class */ (function (_super) {
         }
         _this.utils = new UtilLib.Utils();
         _this.key = new Shamir_1.Shamir.Key();
+        _this.multichain = new Multichain_1.Multichain();
         return _this;
     }
     Server.prototype.IssueEmblemAsset = function (to, assetName) {
-        var multichain = new Multichain_1.Multichain();
-        return multichain.IssueEmblem(to, assetName, function (err, tx) {
+        return this.multichain.IssueEmblem(to, assetName, function (err, tx) {
             return tx;
         });
     };

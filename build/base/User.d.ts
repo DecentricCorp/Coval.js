@@ -1,5 +1,6 @@
 import { IIdentity } from '../partner/Unloq';
 import * as UtilLib from "../Utils";
+import { Multichain } from '../transport/Multichain';
 export declare class User implements IUser {
     type: UserType;
     constructor(_UserType?: UserType, Opts?: any);
@@ -26,6 +27,7 @@ export declare class Client extends User {
     constructor();
 }
 export declare class Server extends User implements IEncryptionUser, IMultichainAdmin {
+    multichain: Multichain;
     key: any;
     utils: UtilLib.Utils;
     identity_type: any;

@@ -176,7 +176,7 @@ describe('Multichain', () => {
         it('issues emblem to specified address', function(done) {
             var multichain = makeConnectedMultichainObject()
             multichain.IssueEmblem(mock.import.to.address, emblem, function(err, txid){
-                console.log('----------- Issue Emblem', err, txid)
+                //console.log('----------- Issue Emblem', err, txid)
                 expect(err).to.not.exist
                 expect(txid).to.exist
                 done()

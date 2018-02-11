@@ -48,6 +48,7 @@ export class Client extends User {
 
 export class Server extends User implements IEncryptionUser, IMultichainAdmin {
     
+    multichain: Multichain;
     key
     utils: UtilLib.Utils;
     identity_type: any;
@@ -60,13 +61,13 @@ export class Server extends User implements IEncryptionUser, IMultichainAdmin {
         }
         this.utils = new UtilLib.Utils()
         this.key = new Shamir.Key()
+        this.multichain = new Multichain()
     }
 
     IssueEmblemAsset(to: any, assetName: any) {
-        var multichain = new Multichain()
-            return multichain.IssueEmblem(to, assetName, function(err, tx){
-                return tx
-            })
+        return this.multichain.IssueEmblem(to, assetName, function(err, tx){
+            return tx
+        })
     }
 
     SetKey(key) {
