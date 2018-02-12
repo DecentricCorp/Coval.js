@@ -5,7 +5,6 @@ const UserType = UserLib.UserType
 const Dat = require('../build/transport/Dat').Dat
 const chai = require('chai')
 const expect = chai.expect
-const should = chai.should()
 
 describe('User', function () {
     describe('of type Server', () => {
