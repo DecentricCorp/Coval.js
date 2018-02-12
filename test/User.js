@@ -28,10 +28,11 @@ describe('User', function () {
         })
 
         it('reassembles shares into expected seed', function () {
-            const key = server.Generate()
-            const shares = server.Split(2, 2, 256)
-            const combined = server.Combine(shares.value)
-            expect(combined.value).to.equal(key.value)
+            const shares = ['801e4ea44ba397a97d964ac51a5fc99fd0e697e240f8f7404ae415bcdc7cdb0e75998e7e075f611303ea4d3bef0a016fe1b',
+                            '802d5c9886972f433afc845a257e52fe71f571c714a4d00be3085a98d707195c85c6da248f66555f593e47b23dd6bf41c3f']
+            server.SetKey(private_key)
+            const combined = server.Combine(shares)
+            expect(combined.value).to.equal(private_key)
         })
 
         it('prevents passing a non-number to generate', function () {
