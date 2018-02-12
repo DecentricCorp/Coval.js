@@ -1,11 +1,11 @@
 "use strict"
-var Envelope = require('../build/transport/Envelope').Envelope
-var UserLib = require('../build/base/User')
-var UserType = UserLib.UserType
-var Dat = require('../build/transport/Dat').Dat
-var chai = require('chai')
-var expect = chai.expect
-var should = chai.should()
+const Envelope = require('../build/transport/Envelope').Envelope
+const UserLib = require('../build/base/User')
+const UserType = UserLib.UserType
+const Dat = require('../build/transport/Dat').Dat
+const chai = require('chai')
+const expect = chai.expect
+const should = chai.should()
 
 describe('User', function () {
     describe('of type Server', () => {
@@ -17,20 +17,20 @@ describe('User', function () {
         })
 
         it('generates a random seed', function () {
-            var data = server.Generate()
+            const data = server.Generate()
             expect(data).to.be.an.instanceOf(Envelope)
             expect(data).to.exist
         })
 
         it('generates shares with no key provided', function () {
-            var data = server.Split(2, 2, 256)
+            const data = server.Split(2, 2, 256)
             expect(data).to.exist
         })
 
         it('reassembles shares into expected seed', function () {
-            var key = server.Generate()
-            var shares = server.Split(2, 2, 256)
-            var combined = server.Combine(shares.value)
+            const key = server.Generate()
+            const shares = server.Split(2, 2, 256)
+            const combined = server.Combine(shares.value)
             expect(combined.value).to.equal(key.value)
         })
 
@@ -47,8 +47,8 @@ describe('User', function () {
 
         it('splits a provided key', function () {
             server.SetKey(private_key)
-            var shares = server.Split(2, 2, 256)
-            var combined = server.Combine(shares.value)
+            const shares = server.Split(2, 2, 256)
+            const combined = server.Combine(shares.value)
             expect(server.GetKey()).to.equal(private_key)
             expect(combined.value).to.equal(private_key)
         })
@@ -67,11 +67,11 @@ describe('User', function () {
         })
 
         it('is able to split multiple times and recombine', function () {
-            var key = server.Generate().value
-            var first_split = server.Split(2, 2, 256)
-            var second_split = server.Split(2, 2, 256)
+            const key = server.Generate().value
+            const first_split = server.Split(2, 2, 256)
+            const second_split = server.Split(2, 2, 256)
 
-            var combined = server.Combine(first_split.value.concat(second_split.value)) 
+            const combined = server.Combine(first_split.value.concat(second_split.value)) 
 
             expect(combined.value).to.equal(key)
         })
@@ -79,7 +79,7 @@ describe('User', function () {
 
     describe('of type Generic', () => {
         it('can not generate a random seed', function () {
-            var user = new UserLib.User()
+            const user = new UserLib.User()
             expect(function () {
                 user.Generate()
             }).to.throw('user.Generate is not a function')
