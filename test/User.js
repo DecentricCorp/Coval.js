@@ -28,6 +28,13 @@ describe('User', function () {
             expect(data).to.exist
         })
 
+        it('generates shares with key provided', function() {
+            server.SetKey(private_key)
+            const data = server.Split(2, 2, 256)
+            expect(data).to.be.an.instanceOf(Envelope)
+            expect(data).to.exist
+        })
+
         it('reassembles shares into expected seed', function () {
             const shares = ['801e4ea44ba397a97d964ac51a5fc99fd0e697e240f8f7404ae415bcdc7cdb0e75998e7e075f611303ea4d3bef0a016fe1b',
                             '802d5c9886972f433afc845a257e52fe71f571c714a4d00be3085a98d707195c85c6da248f66555f593e47b23dd6bf41c3f']
