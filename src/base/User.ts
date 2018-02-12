@@ -44,6 +44,9 @@ export class Client extends User {
     constructor(){
         super(UserType.Client)
     }
+
+    //Sign TX
+    //https://github.com/Kunstmaan/multichain-address-node/blob/master/examples/sign_transaction/sign_transaction.js
 }
 
 export class Server extends User implements IEncryptionUser, IMultichainAdmin {
