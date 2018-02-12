@@ -18,21 +18,21 @@ describe('User', function () {
 
         it('generates a random seed', function () {
             const data = server.Generate()
-            expect(data).to.be.an.instanceOf(Envelope)
             expect(data).to.exist
+            expect(data).to.be.an.instanceOf(Envelope)
         })
 
         it('generates shares with no key provided', function () {
             const data = server.Split(2, 2, 256)
-            expect(data).to.be.an.instanceOf(Envelope)
             expect(data).to.exist
+            expect(data).to.be.an.instanceOf(Envelope)
         })
 
         it('generates shares with key provided', function() {
             server.SetKey(private_key)
             const data = server.Split(2, 2, 256)
-            expect(data).to.be.an.instanceOf(Envelope)
             expect(data).to.exist
+            expect(data).to.be.an.instanceOf(Envelope)
         })
 
         it('reassembles shares into expected seed', function () {
