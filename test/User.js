@@ -24,6 +24,7 @@ describe('User', function () {
 
         it('generates shares with no key provided', function () {
             const data = server.Split(2, 2, 256)
+            expect(data).to.be.an.instanceOf(Envelope)
             expect(data).to.exist
         })
 
