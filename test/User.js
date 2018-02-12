@@ -65,6 +65,16 @@ describe('User', function () {
             const second_key = second_server.Generate()
             expect(first_key.value).to.not.equal(second_key.value)
         })
+
+        it('is able to split multiple times and recombine', function () {
+            var key = server.Generate().value
+            var first_split = server.Split(2, 2, 256)
+            var second_split = server.Split(2, 2, 256)
+
+            var combined = server.Combine(first_split.value.concat(second_split.value)) 
+
+            expect(combined.value).to.equal(key)
+        })
     })
 
     describe('of type Generic', () => {
