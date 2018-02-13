@@ -3,8 +3,7 @@ const Envelope = require('../build/transport/Envelope').Envelope
 const UserLib = require('../build/base/User')
 const UserType = UserLib.UserType
 const Dat = require('../build/transport/Dat').Dat
-const chai = require('chai')
-const expect = chai.expect
+const expect = require('chai').expect
 
 describe('User', function () {
     describe('of type Server', () => {
