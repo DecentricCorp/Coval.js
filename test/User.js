@@ -77,9 +77,7 @@ describe('User', function () {
             const key = server.Generate().value
             const first_split = server.Split(2, 2, 256)
             const second_split = server.Split(2, 2, 256)
-
             const combined = server.Combine(first_split.value.concat(second_split.value)) 
-
             expect(combined.value).to.equal(key)
         })
     })
