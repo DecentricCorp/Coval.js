@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var bitcore = require("bitcore");
-var coininfo = require("coininfo");
+var coininfo_1 = require("coininfo");
 var CryptoJS = require("crypto-js");
 var _Utils = require("../Utils");
 var Envelope_1 = require("../transport/Envelope");
-var bitcoin = coininfo.bitcoin.main;
+var bitcoin = coininfo_1.coininfo.bitcoin.main;
 var bitcoinBitcoreLib = bitcoin.toBitcore();
 var APIKey = "3031323334353637383931323334353637383930";
 var Utils = new _Utils.Utils();

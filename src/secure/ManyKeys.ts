@@ -1,6 +1,6 @@
 "use strict"
 import * as bitcore from "bitcore"
-import * as coininfo from "coininfo"
+import {coininfo, supportedCoins} from "coininfo"
 import * as CryptoJS from "crypto-js"
 import * as _Utils from "../Utils"
 import {Envelope} from "../transport/Envelope"
@@ -11,26 +11,10 @@ let bitcoinBitcoreLib = bitcoin.toBitcore()
 export class ManyKeys {
     seed: any;
     ck: any;
-    public coins = [
-        'blk',
-        'btc',
-        'btg',
-        'dash',
-        'dcr',
-        'dgb',
-        'doge',
-        'ltc',
-        'mona',
-        'nbt',
-        'nmc',
-        'ppc',
-        'qtum',
-        'rdd',
-        'vtc',
-        'zec'
-    ]
-    constructor(seed) {
-        this.seed = new Buffer(seed, 'hex')
+    constructor(seed?) {
+        if (seed) {
+            this.seed = new Buffer(seed, 'hex')
+        }
     }
 
     GenKeys() {
@@ -50,10 +34,25 @@ export class ManyKeys {
     GetAllAddresses() {
         var parent = this
         var addresses = {}
-        this.coins.forEach(function(coin){
-            addresses[coin] = new CoinKey(parent.seed, coininfo(coin).versions).publicAddress
+        Object.keys(supportedCoins).forEach(_coin => {
+            addresses[_coin] = new CoinKey(parent.seed, coininfo(supportedCoins[_coin].name).versions).publicAddress
         })
         return addresses
+    }
+
+    GetAllKeys() {
+        var parent = this
+        var addresses = {}
+        Object.keys(supportedCoins).forEach(_coin => {
+            var key = new CoinKey(parent.seed, coininfo(supportedCoins[_coin].name).versions)
+            addresses[_coin] = {wif: key.privateWif}
+        })
+        return addresses
+    }
+
+    KeyFromWif(wif) {
+        var ck = CoinKey.fromWif(wif)
+        return {privateKey: ck.privateKey.toString('hex'), address: ck.publicAddress}
     }
 
     

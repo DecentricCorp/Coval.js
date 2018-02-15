@@ -1,6 +1,6 @@
 "use strict"
 import * as bitcore from "bitcore"
-import * as coininfo from "coininfo"
+import {coininfo, supportedCoins} from "coininfo"
 import * as CryptoJS from "crypto-js"
 import * as _Utils from "../Utils"
 import {Envelope} from "../transport/Envelope"

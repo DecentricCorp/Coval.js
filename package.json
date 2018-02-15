@@ -6,7 +6,7 @@
   "typings": "build/Coval.d.ts",
   "scripts": {
     "test-disabled": "nyc mocha --exit",
-    "test":"mocha --exit",
+    "test": "mocha --exit",
     "coverage": "nyc report --reporter=json > coverage/coverage.json",
     "build": "tsc",
     "watch": "tsc -w",
@@ -21,7 +21,7 @@
     "@types/node": "^9.4.0",
     "@types/superagent": "^3.5.7",
     "bitcore": "^0.11.7",
-    "coininfo": "git+https://github.com/cryptocoinjs/coininfo.git",
+    "coininfo": "git+https://github.com/DecentricCorp/coininfoplus.git",
     "coinkey": "^2.0.0",
     "crypto-js": "^3.1.9-1",
     "dat-node": "^3.5.6",
