@@ -36,6 +36,7 @@ describe('Emblem', function () {
             const server_message = emblem.AddDat(server_dat)
             const identity_message = emblem.AddDat(identity_dat)
             const generic_message = emblem.AddDat(generic_dat)
+            expect(emblem.dats).to.have.lengthOf(4)
             expect(client_message.GetValue()).to.equal('Sucessfully added dat')
             expect(server_message.GetValue()).to.equal('Sucessfully added dat')
             expect(identity_message.GetValue()).to.equal('Sucessfully added dat')
