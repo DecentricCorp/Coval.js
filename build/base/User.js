@@ -59,6 +59,9 @@ var Server = /** @class */ (function (_super) {
     Server.prototype.SetKey = function (key) {
         this.key.SetKey(key);
     };
+    Server.prototype.GetKey = function () {
+        return this.key.key;
+    };
     Server.prototype.Authenticate = function (token) {
         this.auth_token = token;
     };

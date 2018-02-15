@@ -77,6 +77,10 @@ export class Server extends User implements IEncryptionUser, IMultichainAdmin {
         this.key.SetKey(key)
     }
 
+    GetKey() {
+        return this.key.key
+    }
+
     Authenticate(token) {
         this.auth_token = token
     }

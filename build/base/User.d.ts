@@ -35,6 +35,7 @@ export declare class Server extends User implements IEncryptionUser, IMultichain
     constructor(IdentityType?: any, Opts?: any);
     IssueEmblemAsset(to: any, assetName: any): void;
     SetKey(key: any): void;
+    GetKey(): any;
     Authenticate(token: any): void;
     Generate(size?: any): any;
     Split(count: number, threshold: number, size?: any): any;
