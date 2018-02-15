@@ -98,9 +98,11 @@ describe('Emblem', function () {
     })
 
     describe('Claimed', () => {
-        // Add code to claim an emblem, even if not yet developed. (can always tweak later to implementation)
-        it('new emblem returns false until claimed', () => {
+        it('returns false by default for new emblem', () => {
             expect(emblem.claimed).to.be.false
         })
+
+        // TODO: Pending completion of code to claim and track status of an emblem
+        it('returns false until the emblem is claimed')
     })
 })
