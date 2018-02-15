@@ -9,10 +9,13 @@ var Dat = require('../build/transport/Dat').Dat
 describe('Emblem', function () {
 
     var emblem
-    var client_dat
+    const client_dat = new Dat(UserLib.Client)
+    const server_dat = new Dat(UserLib.Server)
+    const identity_dat = new Dat(UserLib.Identity)
+    const generic_dat = new Dat()
+
     beforeEach(function () {
         emblem = new Emblem()
-        client_dat = new Dat(UserLib.Client)
     })
 
     describe('Add Dat', function () {
@@ -30,33 +33,68 @@ describe('Emblem', function () {
             expect(msg2.Errors()[0].message).to.equal('Dat of this type already exists')
         })
 
-        it('allows more than one dat to be added for different dat types')
+        it('allows more than one dat to be added for different dat types', function () {
+            var client_msg = emblem.AddDat(client_dat)
+            var server_msg = emblem.AddDat(server_dat)
+            var identity_msg = emblem.AddDat(identity_dat)
+            var generic_msg = emblem.AddDat(generic_dat)
+            expect(client_msg.GetValue()).to.equal('Sucessfully added dat')
+            expect(server_msg.GetValue()).to.equal('Sucessfully added dat')
+            expect(identity_msg.GetValue()).to.equal('Sucessfully added dat')
+            expect(generic_msg.GetValue()).to.equal('Sucessfully added dat')
+        })
     })
     describe('HasRequiredDats', function () {
 
-        it('is false when no dats are present')
-        it('is false when only client dat is present')
-        it('is false when only server dat is present')
-        it('is false when only client dat and identity dat are present')
-        it('is false when only client dat and generic dat are present')
-        it('is false when only server dat and identity dat are present')
-        it('is false when only server dat and generic dat are present')
-
-        // Split this test into the tests above
-        it('is false when required dats are not fulfilled', function () {
-            expect(emblem.dats).to.have.lengthOf(0)
-            expect(emblem.HasRequiredDats()).to.false
-            emblem.AddDat(client_dat)
-            expect(emblem.HasRequiredDats()).to.false
+        it('is false when no dats are present', function () {
+            expect(emblem.dats).to.be.empty
         })
-        
-        it('is true when client and server dats are present') // suggested rewording to below test
 
-        it('is true when required dats are fulfilled', function () {
-            var server_dat = new Dat(UserLib.Server)
-            var client_msg = emblem.AddDat(client_dat)
-            var server_msg = emblem.AddDat(server_dat)
-            expect(emblem.HasRequiredDats()).to.true
+        it('is false when only client dat is present', function () {
+            emblem.AddDat(client_dat)
+            expect(emblem.dats).to.have.lengthOf(1)
+            expect(emblem.HasRequiredDats()).to.be.false
+        })
+
+        it('is false when only server dat is present', function () {
+            emblem.AddDat(server_dat)
+            expect(emblem.dats).to.have.lengthOf(1)
+            expect(emblem.HasRequiredDats()).to.be.false
+        })
+
+        it('is false when only client dat and identity dat are present', function () {
+            emblem.AddDat(client_dat)
+            emblem.AddDat(identity_dat)
+            expect(emblem.dats).to.have.lengthOf(2)
+            expect(emblem.HasRequiredDats()).to.be.false
+        })
+
+        it('is false when only client dat and generic dat are present', function () {
+            emblem.AddDat(client_dat)
+            emblem.AddDat(generic_dat)
+            expect(emblem.dats).to.have.lengthOf(2)
+            expect(emblem.HasRequiredDats()).to.be.false
+        })
+
+        it('is false when only server dat and identity dat are present', function () {
+            emblem.AddDat(server_dat)
+            emblem.AddDat(identity_dat)
+            expect(emblem.dats).to.have.lengthOf(2)
+            expect(emblem.HasRequiredDats()).to.be.false
+        })
+
+        it('is false when only server dat and generic dat are present', function () {
+            emblem.AddDat(server_dat)
+            emblem.AddDat(generic_dat)
+            expect(emblem.dats).to.have.lengthOf(2)
+            expect(emblem.HasRequiredDats()).to.be.false
+        })
+
+        it('is true when client and server dats are present', function () {
+            emblem.AddDat(client_dat)
+            emblem.AddDat(server_dat)
+            expect(emblem.dats).to.have.lengthOf(2)
+            expect(emblem.HasRequiredDats()).to.be.true
         })
     })
     describe('Claimed', () => {
