@@ -1,7 +1,5 @@
 "use strict"
-const chai = require('chai')
-const expect = chai.expect
-const should = chai.should()
+const expect = require('chai').expect
 const UserLib = require('../build/base/User')
 const Emblem = require('../build/Emblem').Emblem
 const Dat = require('../build/transport/Dat').Dat
