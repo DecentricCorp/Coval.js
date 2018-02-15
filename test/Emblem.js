@@ -31,7 +31,7 @@ describe('Emblem', function () {
             expect(msg2.Errors()[0].message).to.equal('Dat of this type already exists')
         })
 
-        it('allows more than one dat to be added for different dat types', function () {
+        it('allows one dat of each type to be added to an emblem', function () {
             const client_msg = emblem.AddDat(client_dat)
             const server_msg = emblem.AddDat(server_dat)
             const identity_msg = emblem.AddDat(identity_dat)
