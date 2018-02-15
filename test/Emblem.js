@@ -7,19 +7,23 @@ var Emblem = require('../build/Emblem').Emblem
 var Dat = require('../build/transport/Dat').Dat
 
 describe('Emblem', function () {
+
+    var emblem
+    var client_dat
+    beforeEach(function () {
+        emblem = new Emblem()
+        client_dat = new Dat(UserLib.Client)
+    })
+
     describe('Add Dat', function () {
         it('successfully adds dat to emblem', function () {
-            var emblem = new Emblem()
-            var dat = new Dat(UserLib.Client)
-            var msg = emblem.AddDat(dat)
+            var msg = emblem.AddDat(client_dat)
             expect(emblem.dats).to.have.lengthOf(1)
             expect(msg.GetValue()).to.equal('Sucessfully added dat')
         })
         it('only allows a single dat of any type to be added', function () {
-            var emblem = new Emblem()
-            var dat1 = new Dat(UserLib.Client)
             var dat2 = new Dat(UserLib.Client)
-            var msg1 = emblem.AddDat(dat1)
+            var msg1 = emblem.AddDat(client_dat)
             var msg2 = emblem.AddDat(dat2)
             expect(emblem.dats).to.have.lengthOf(1)
             expect(msg1.GetValue()).to.equal('Sucessfully added dat')
@@ -40,29 +44,24 @@ describe('Emblem', function () {
 
         // Split this test into the tests above
         it('is false when required dats are not fulfilled', function () {
-            var emblem = new Emblem()
-            var dat = new Dat(UserLib.Client)
             expect(emblem.dats).to.have.lengthOf(0)
             expect(emblem.HasRequiredDats()).to.false
-            emblem.AddDat(dat)
+            emblem.AddDat(client_dat)
             expect(emblem.HasRequiredDats()).to.false
         })
         
         it('is true when client and server dats are present') // suggested rewording to below test
 
         it('is true when required dats are fulfilled', function () {
-            var emblem = new Emblem()
-            var dat1 = new Dat(UserLib.Client)
-            var dat2 = new Dat(UserLib.Server)
-            var msg1 = emblem.AddDat(dat1)
-            var msg2 = emblem.AddDat(dat2)
+            var server_dat = new Dat(UserLib.Server)
+            var client_msg = emblem.AddDat(client_dat)
+            var server_msg = emblem.AddDat(server_dat)
             expect(emblem.HasRequiredDats()).to.true
         })
     })
     describe('Claimed', () => {
         // Add code to claim an emblem, even if not yet developed. (can always tweak later to implementation)
         it('new emblem returns false until claimed', () => {
-            var emblem = new Emblem()
             expect(emblem.claimed).to.be.false
         })
     })
