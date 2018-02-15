@@ -18,28 +18,28 @@ describe('Emblem', function () {
 
     describe('Add Dat', function () {
         it('successfully adds dat to emblem', function () {
-            const msg = emblem.AddDat(client_dat)
+            const message = emblem.AddDat(client_dat)
             expect(emblem.dats).to.have.lengthOf(1)
-            expect(msg.GetValue()).to.equal('Sucessfully added dat')
+            expect(message.GetValue()).to.equal('Sucessfully added dat')
         })
         it('only allows a single dat of any type to be added', function () {
             const dat2 = new Dat(UserLib.Client)
-            const msg1 = emblem.AddDat(client_dat)
-            const msg2 = emblem.AddDat(dat2)
+            const message1 = emblem.AddDat(client_dat)
+            const message2 = emblem.AddDat(dat2)
             expect(emblem.dats).to.have.lengthOf(1)
-            expect(msg1.GetValue()).to.equal('Sucessfully added dat')
-            expect(msg2.Errors()[0].message).to.equal('Dat of this type already exists')
+            expect(message1.GetValue()).to.equal('Sucessfully added dat')
+            expect(message2.Errors()[0].message).to.equal('Dat of this type already exists')
         })
 
         it('allows one dat of each type to be added to an emblem', function () {
-            const client_msg = emblem.AddDat(client_dat)
-            const server_msg = emblem.AddDat(server_dat)
-            const identity_msg = emblem.AddDat(identity_dat)
-            const generic_msg = emblem.AddDat(generic_dat)
-            expect(client_msg.GetValue()).to.equal('Sucessfully added dat')
-            expect(server_msg.GetValue()).to.equal('Sucessfully added dat')
-            expect(identity_msg.GetValue()).to.equal('Sucessfully added dat')
-            expect(generic_msg.GetValue()).to.equal('Sucessfully added dat')
+            const client_message = emblem.AddDat(client_dat)
+            const server_message = emblem.AddDat(server_dat)
+            const identity_message = emblem.AddDat(identity_dat)
+            const generic_message = emblem.AddDat(generic_dat)
+            expect(client_message.GetValue()).to.equal('Sucessfully added dat')
+            expect(server_message.GetValue()).to.equal('Sucessfully added dat')
+            expect(identity_message.GetValue()).to.equal('Sucessfully added dat')
+            expect(generic_message.GetValue()).to.equal('Sucessfully added dat')
         })
     })
     describe('HasRequiredDats', function () {
