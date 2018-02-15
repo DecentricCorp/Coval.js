@@ -43,8 +43,8 @@ describe('Emblem', function () {
             expect(generic_message.GetValue()).to.equal('Sucessfully added dat')
         })
     })
-    describe('HasRequiredDats', function () {
 
+    describe('HasRequiredDats', function () {
         it('is false when no dats are present', function () {
             expect(emblem.dats).to.be.empty
         })
@@ -96,6 +96,7 @@ describe('Emblem', function () {
             expect(emblem.HasRequiredDats()).to.be.true
         })
     })
+
     describe('Claimed', () => {
         // Add code to claim an emblem, even if not yet developed. (can always tweak later to implementation)
         it('new emblem returns false until claimed', () => {
