@@ -57,6 +57,12 @@ typings/
 # dotenv environment variables file
 .env
 
+# ignore local dev tool / environments artifacts
+.classpath
+.project
+.python-version
+.settings/
+
 .jshintrc
 .vscode
 .vscode/settings.json
