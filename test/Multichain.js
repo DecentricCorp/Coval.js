@@ -125,7 +125,6 @@ describe('Multichain', () => {
             rnd = Math.floor(Math.random() * (1000000 - 1) + 1)
             asset = "testasset"+rnd.toString()
             emblem = "emblem-"+rnd.toString()
-            console.log('-=-=-=-- asset name', asset)
         })
         it('issues asset to internal user', ()=> {
             multichain.Issue(mock.multichain.address, asset, 2, function(err, tx){
@@ -139,7 +138,6 @@ describe('Multichain', () => {
         })
         it('sends asset from internal user to burn address', ()=> {
             multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function(err, tx){
-                console.log('--------- send internal err', err)
                 expect(err).to.not.exist
             })
         })
@@ -168,7 +166,6 @@ describe('Multichain', () => {
         })
         it('issues emblem to specified address', function(done) {
             multichain.IssueEmblem(mock.import.to.address, emblem, function(err, txid){
-                //console.log('----------- Issue Emblem', err, txid)
                 expect(err).to.not.exist
                 expect(txid).to.exist
                 done()
