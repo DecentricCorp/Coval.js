@@ -8,8 +8,13 @@ const mock = require('./multichain-data/multichainMock.json')
 require("dotenv").config({ path: path.join(__dirname, "..", "build", "test.env") })
 
 describe('Multichain', () => {
+
+    var multichain
+    before(function() {
+        multichain = makeConnectedMultichainObject()
+    })
+
     it('connects to a valid multichain instance', () => {
-        var multichain = makeConnectedMultichainObject()
         multichain.Info(function (err, info) {
             expect(err).to.not.exist
             expect(info).to.exist
@@ -18,18 +23,17 @@ describe('Multichain', () => {
     })
 
     it('allows instantiation without a connection object', () => {
-        var multichain = new Multichain()
-        expect(multichain).to.exist
+        var empty_multichain = new Multichain()
+        expect(empty_multichain).to.exist
     })
 
     it('allows for loading a connection after construction of an object', () => {
-        var multichain = new Multichain()
-        multichain.Connect(makeConnectionFromEnv())
+        var empty_multichain = new Multichain()
+        empty_multichain.Connect(makeConnectionFromEnv())
     })
 
     describe('Streams', () => {
         it('returns a list of streams', function (done) {
-            var multichain = makeConnectedMultichainObject()
             multichain.Streams(function (err, streams) {
                 expect(err).to.not.exist
                 expect(streams).to.exist
@@ -39,7 +43,6 @@ describe('Multichain', () => {
         })
         describe('StreamItemsByKey', () => {
             it('returns a stream of items by key', function (done) {
-                var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function (err, items) {
                     expect(err).to.not.exist
                     expect(items).to.exist
@@ -49,7 +52,6 @@ describe('Multichain', () => {
             })
 
             it('returns an empty list with no error when key not found', function (done) {
-                var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function (err, items) {
                     expect(err).to.not.exist
                     expect(items).to.be.empty
@@ -58,7 +60,6 @@ describe('Multichain', () => {
             })
 
             it('returns an error when stream not found', function (done) {
-                var multichain = makeConnectedMultichainObject()
                 multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function (err, items) {
                     expect(err).to.exist
                     expect(err.message).to.equal('Stream with this name not found: InvalidStream')
@@ -76,7 +77,6 @@ describe('Multichain', () => {
 
     describe('Address', () => {
         it('imports an address', function (done) {
-            var multichain = makeConnectedMultichainObject()
             multichain.ImportAddress(mock.import.from.address, "TestFromAddress", function (err, result) {
                 expect(err).to.not.exist
                 multichain.ImportAddress(mock.import.to.address, "TestToAddress", function (err, result) {
@@ -86,21 +86,18 @@ describe('Multichain', () => {
             })
         })
         it('allows granting of permissions', () => {
-            var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 expect(err).to.not.exist
                 expect(result).to.exist
             })
         })
         it('allows revoking of permissions', () => {
-            var multichain = makeConnectedMultichainObject()
             multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 expect(err).to.not.exist
                 expect(result).to.exist
             })
         })
         it('allows creation of raw signed tx', function (done) {
-            var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (err, raw) {
                     expect(raw.complete).to.be.true
@@ -109,7 +106,6 @@ describe('Multichain', () => {
             })
         })
         it('allows sending of raw signed tx', function (done) {
-            var multichain = makeConnectedMultichainObject()
             multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function(err, result){
                 multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function(err, result){
                     multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address,"virtual", 1, function(err, signed){
@@ -132,26 +128,22 @@ describe('Multichain', () => {
             console.log('-=-=-=-- asset name', asset)
         })
         it('issues asset to internal user', ()=> {
-            var multichain = makeConnectedMultichainObject()
             multichain.Issue(mock.multichain.address, asset, 2, function(err, tx){
                 expect(err).to.not.exist
             })
         })
         it('issues more of an asset to external user', ()=> {
-            var multichain = makeConnectedMultichainObject()
             multichain.IssueMore(mock.import.from.address, asset, 1, function(err, tx){
                 expect(err).to.not.exist
             })
         })
         it('sends asset from internal user to burn address', ()=> {
-            var multichain = makeConnectedMultichainObject()
             multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function(err, tx){
                 console.log('--------- send internal err', err)
                 expect(err).to.not.exist
             })
         })
         it('sends asset from an externally signed tx to burn address', function(done) {
-            var multichain = makeConnectedMultichainObject()
             multichain.CreateAndSignSend(mock.import.from.key, mock.info.burnaddress, asset, 1, function(err, signed){
                 multichain.SendSignedTransaction(signed.hex.toString("hex"), function(err, txid){
                     expect(txid).to.exist
@@ -175,7 +167,6 @@ describe('Multichain', () => {
             })
         })
         it('issues emblem to specified address', function(done) {
-            var multichain = makeConnectedMultichainObject()
             multichain.IssueEmblem(mock.import.to.address, emblem, function(err, txid){
                 //console.log('----------- Issue Emblem', err, txid)
                 expect(err).to.not.exist
