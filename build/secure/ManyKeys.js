@@ -26,7 +26,7 @@ var ManyKeys = /** @class */ (function () {
         var parent = this;
         var addresses = {};
         Object.keys(coininfo_1.supportedCoins).forEach(function (_coin) {
-            addresses[_coin] = new CoinKey(parent.seed, coininfo_1.coininfo(coininfo_1.supportedCoins[_coin].name).versions).publicAddress;
+            addresses[_coin] = { address: new CoinKey(parent.seed, coininfo_1.coininfo(coininfo_1.supportedCoins[_coin].name).versions).publicAddress, unit: coininfo_1.supportedCoins[_coin].unit };
         });
         return addresses;
     };
@@ -35,7 +35,7 @@ var ManyKeys = /** @class */ (function () {
         var addresses = {};
         Object.keys(coininfo_1.supportedCoins).forEach(function (_coin) {
             var key = new CoinKey(parent.seed, coininfo_1.coininfo(coininfo_1.supportedCoins[_coin].name).versions);
-            addresses[_coin] = { wif: key.privateWif };
+            addresses[_coin] = { wif: key.privateWif, unit: coininfo_1.supportedCoins[_coin].unit };
         });
         return addresses;
     };

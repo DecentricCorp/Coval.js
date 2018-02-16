@@ -35,7 +35,7 @@ export class ManyKeys {
         var parent = this
         var addresses = {}
         Object.keys(supportedCoins).forEach(_coin => {
-            addresses[_coin] = new CoinKey(parent.seed, coininfo(supportedCoins[_coin].name).versions).publicAddress
+            addresses[_coin] = {address: new CoinKey(parent.seed, coininfo(supportedCoins[_coin].name).versions).publicAddress, unit: supportedCoins[_coin].unit }
         })
         return addresses
     }
@@ -45,7 +45,7 @@ export class ManyKeys {
         var addresses = {}
         Object.keys(supportedCoins).forEach(_coin => {
             var key = new CoinKey(parent.seed, coininfo(supportedCoins[_coin].name).versions)
-            addresses[_coin] = {wif: key.privateWif}
+            addresses[_coin] = {wif: key.privateWif, unit: supportedCoins[_coin].unit}
         })
         return addresses
     }
