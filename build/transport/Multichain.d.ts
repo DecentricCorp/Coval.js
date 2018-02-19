@@ -7,13 +7,18 @@ export declare class Multichain {
     };
     Utils: any;
     constructor(address?: string, connection?: MultichainConnection, asset?: string, permissions?: string[]);
+    allowedStreamFunctions: string[];
     makeConnectionFromEnv(): MultichainConnection;
     makeConnectedMultichainObject(): Multichain;
     Info(callback: any): void;
     Connect(connection: MultichainConnection): void;
     Streams(callback: any): void;
     StreamItemsByKey(streamName: any, key: any, callback: any): void;
-    StreamItemsByPublisher(streamName: any, publisherAddress: any, cb: any): void;
+    StreamItemsByPublisher(streamName: any, publisherAddress: any, callback: any): void;
+    _StreamItems(streamName: string, streamMethodName: string, callback: any, {key, publisherAddress}: {
+        key?: string;
+        publisherAddress?: string;
+    }): void;
     GrantPermissionToAddress(addresses: any, permissions: any, callback: any): void;
     RevokePermissionToAddress(address: any, permissions: any, callback: any): void;
     ImportAddress(address: any, name: any, callback: any): void;

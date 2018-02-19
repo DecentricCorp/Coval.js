@@ -8,6 +8,10 @@ var Multichain = /** @class */ (function () {
         this.address = address;
         this.asset = asset;
         this.permissions = permissions;
+        this.allowedStreamFunctions = [
+            'listStreamKeyItems',
+            'listStreamPublisherItems'
+        ];
         this.Utils = new UtilLib.Utils();
         if (connection) {
             this.multichain = MultichainLib(connection);
@@ -36,10 +40,22 @@ var Multichain = /** @class */ (function () {
         });
     };
     Multichain.prototype.StreamItemsByKey = function (streamName, key, callback) {
+        this._StreamItems(streamName, 'listStreamKeyItems', callback, { key: key });
+    };
+    Multichain.prototype.StreamItemsByPublisher = function (streamName, publisherAddress, callback) {
+        this._StreamItems(streamName, 'listStreamPublisherItems', callback, { publisherAddress: publisherAddress });
+    };
+    Multichain.prototype._StreamItems = function (streamName, streamMethodName, callback, _a) {
+        var _b = _a.key, key = _b === void 0 ? '' : _b, _c = _a.publisherAddress, publisherAddress = _c === void 0 ? '' : _c;
+        if (this.allowedStreamFunctions.indexOf(streamMethodName) <= -1) {
+            throw new Error("Function name: " + streamMethodName + ", is not an allowed function."
+                + (" Use any of the following. \n" + this.allowedStreamFunctions.toString()));
+        }
         var Utils = this.Utils;
-        this.multichain.listStreamKeyItems({
+        eval("this.multichain." + streamMethodName)({
             stream: streamName,
             key: key,
+            address: publisherAddress,
             verbose: true
         }, function (error, items) {
             var itemArray = [];
@@ -53,27 +69,7 @@ var Multichain = /** @class */ (function () {
                     }
                 });
             }
-            else {
-                return callback(error, itemArray);
-            }
-        });
-    };
-    /* TODO: refactor like StreamItemsByKey */
-    Multichain.prototype.StreamItemsByPublisher = function (streamName, publisherAddress, cb) {
-        var Utils = this.Utils;
-        this.multichain.listStreamPublisherItems({
-            stream: streamName,
-            address: publisherAddress,
-            verbose: true
-        }, function (error, items) {
-            var itemArray = [];
-            if (error) {
-                return cb(error, null);
-            }
-            items.forEach(function (element, index) {
-                var item = Utils.HexToAscii(element.data);
-                return cb(null, item);
-            }, this);
+            return callback(error, itemArray);
         });
     };
     Multichain.prototype.GrantPermissionToAddress = function (addresses, permissions, callback) {

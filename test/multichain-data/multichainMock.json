@@ -56,11 +56,12 @@
     ],
     "streamitem": {
         "key": "TestItem",
+        "publisher": "1Ej2dEzyGd4o47XQRxkRNMkJE8TMNNaher",
         "value": "TestValue",
         "items": [
             {
                 "publishers": [
-                    "1BBfgYFLsXRThB4pfrdJLkQHUTk8z6opSk"
+                    "1Ej2dEzyGd4o47XQRxkRNMkJE8TMNNaher"
                 ],
                 "key": "TestItem",
                 "data": "5465737456616c7565",
