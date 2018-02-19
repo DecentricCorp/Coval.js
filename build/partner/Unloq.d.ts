@@ -16,5 +16,7 @@ export declare class Unloq implements IIdentity {
     };
     Authenticate(email: string, callback: any): void;
     Authorize(unloqId: any, callback: any): void;
+    GetEncryptionKey(unloqId: any, callback: any): void;
+    ValidateToken(token: any, callback: any): void;
     genid(): string;
 }
