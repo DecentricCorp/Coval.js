@@ -8,7 +8,6 @@ const mock = require('./multichain-data/multichainMock.json')
 require("dotenv").config({ path: path.join(__dirname, "..", "build", "test.env") })
 
 describe('Multichain', () => {
-
     var multichain
     before(function () {
         multichain = makeConnectedMultichainObject()
@@ -112,18 +111,21 @@ describe('Multichain', () => {
                 })
             })
         })
+
         it('allows granting of permissions', () => {
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 expect(err).to.not.exist
                 expect(result).to.exist
             })
         })
+        
         it('allows revoking of permissions', () => {
             multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 expect(err).to.not.exist
                 expect(result).to.exist
             })
         })
+
         it('allows creation of raw signed tx', function (done) {
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (err, raw) {
@@ -132,6 +134,7 @@ describe('Multichain', () => {
                 })
             })
         })
+
         it('allows sending of raw signed tx', function (done) {
             multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function (err, result) {
                 multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
@@ -153,21 +156,25 @@ describe('Multichain', () => {
             asset = "testasset" + rnd.toString()
             emblem = "emblem-" + rnd.toString()
         })
+
         it('issues asset to internal user', () => {
             multichain.Issue(mock.multichain.address, asset, 2, function (err, tx) {
                 expect(err).to.not.exist
             })
         })
+
         it('issues more of an asset to external user', () => {
             multichain.IssueMore(mock.import.from.address, asset, 1, function (err, tx) {
                 expect(err).to.not.exist
             })
         })
+
         it('sends asset from internal user to burn address', () => {
             multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (err, tx) {
                 expect(err).to.not.exist
             })
         })
+
         it('sends asset from an externally signed tx to burn address', function (done) {
             multichain.CreateAndSignSend(mock.import.from.key, mock.info.burnaddress, asset, 1, function (err, signed) {
                 multichain.SendSignedTransaction(signed.hex.toString("hex"), function (err, txid) {
@@ -176,6 +183,7 @@ describe('Multichain', () => {
                 })
             })
         })
+
         it.skip('creates an exchange tx', function (done) {
             //https://www.multichain.com/qa/5660/issue-locking-unspent-output
             this.timeout(100000)
@@ -191,6 +199,7 @@ describe('Multichain', () => {
 
             })
         })
+
         it('issues emblem to specified address', function (done) {
             multichain.IssueEmblem(mock.import.to.address, emblem, function (err, txid) {
                 expect(err).to.not.exist
