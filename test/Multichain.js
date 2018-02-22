@@ -47,8 +47,8 @@ describe('Multichain', () => {
                     expect(err).to.not.exist
                     expect(items).to.exist
                     expect(items[0].value).to.equal(mock.streamitem.value)
+                    done()
                 })
-                done()
             })
 
             it('returns an empty list with no error when key not found', function (done) {
@@ -75,8 +75,8 @@ describe('Multichain', () => {
                     expect(items).to.exist
                     expect(items).to.not.be.empty
                     expect(items[0].value).to.equal(mock.streamitem.value)
+                    done()
                 })
-                done()
             })
 
             it('returns an error when stream not found', function (done) {

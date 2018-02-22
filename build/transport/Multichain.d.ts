@@ -14,7 +14,8 @@ export declare class Multichain {
     Streams(callback: any): void;
     StreamItemsByKey(streamName: any, key: any, callback: any): void;
     StreamItemsByPublisher(streamName: any, publisherAddress: any, callback: any): void;
-    _ComputeStreamItems(error: any, items: any, callback: any): any;
+    _StreamItems(error: any, items: any, callback: any): any;
+    _elementValueCompute(items: any): any;
     GrantPermissionToAddress(addresses: any, permissions: any, callback: any): void;
     RevokePermissionToAddress(address: any, permissions: any, callback: any): void;
     ImportAddress(address: any, name: any, callback: any): void;

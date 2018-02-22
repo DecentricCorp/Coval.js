@@ -50,9 +50,7 @@ export class Multichain {
             stream: streamName,
             key: key,
             verbose: true
-        }, (error, items) => {
-            return this._StreamItems(error, items, callback)
-        })
+        }, (error, items) => { return this._StreamItems(error, items, callback) })
     }
 
     StreamItemsByPublisher(streamName, publisherAddress, callback) {
@@ -60,25 +58,22 @@ export class Multichain {
             stream: streamName,
             address: publisherAddress,
             verbose: true
-        }, (error, items) => {
-            return this._StreamItems(error, items, callback)
-        })
+        }, (error, items) => { return this._StreamItems(error, items, callback) })
     }
 
     _StreamItems(error, items, callback) {
-        let Utils = this.Utils
         var itemArray = []
-        if (items && items.length > 0) {
-            items.forEach(function (element, index) {
-                var item = element
-                item.value = Utils.HexToAscii(element.data)
-                itemArray[index] = item
-                if (index == items.length - 1) {
-                    return callback(error, itemArray)
-                }
-            })
-        }
+        if (items && items.length > 0)
+            itemArray = this._elementValueCompute(items)
         return callback(error, itemArray)
+    }
+
+    _elementValueCompute(items) {
+        let Utils = this.Utils
+        return items.map(function (element) {
+            element.value = Utils.HexToAscii(element.data)
+            return element
+        })
     }
 
     GrantPermissionToAddress(addresses, permissions, callback) {

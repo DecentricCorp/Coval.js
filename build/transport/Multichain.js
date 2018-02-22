@@ -42,7 +42,7 @@ var Multichain = /** @class */ (function () {
             key: key,
             verbose: true
         }, function (error, items) {
-            return _this._ComputeStreamItems(error, items, callback);
+            return _this._StreamItems(error, items, callback);
         });
     };
     Multichain.prototype.StreamItemsByPublisher = function (streamName, publisherAddress, callback) {
@@ -52,23 +52,22 @@ var Multichain = /** @class */ (function () {
             address: publisherAddress,
             verbose: true
         }, function (error, items) {
-            return _this._ComputeStreamItems(error, items, callback);
+            return _this._StreamItems(error, items, callback);
         });
     };
-    Multichain.prototype._ComputeStreamItems = function (error, items, callback) {
-        var Utils = this.Utils;
+    Multichain.prototype._StreamItems = function (error, items, callback) {
         var itemArray = [];
         if (items && items.length > 0) {
-            items.forEach(function (element, index) {
-                var item = element;
-                item.value = Utils.HexToAscii(element.data);
-                itemArray[index] = item;
-                if (index == items.length - 1) {
-                    return callback(error, itemArray);
-                }
-            });
+            itemArray = this._elementValueCompute(items);
         }
         return callback(error, itemArray);
+    };
+    Multichain.prototype._elementValueCompute = function (items) {
+        var Utils = this.Utils;
+        return items.map(function (element) {
+            element.value = Utils.HexToAscii(element.data);
+            return element;
+        });
     };
     Multichain.prototype.GrantPermissionToAddress = function (addresses, permissions, callback) {
         this.multichain.grant({ addresses: addresses, permissions: permissions }, function (a, b) {
