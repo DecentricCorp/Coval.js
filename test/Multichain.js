@@ -41,61 +41,49 @@ describe('Multichain', () => {
             })
         })
 
-        describe('StreamItems', () => {
-            it('throws an error on invalid function name given', function (done) {
-                const streamMethodName = 'InvalidStreamMethodName'
-                const errorMessage = `Function name: ${streamMethodName}, is not an allowed function.`
-                                     +  ` Use any of the following. \n${multichain.allowedStreamFunctions.toString()}`
-                expect(function () {
-                    multichain._StreamItems(mock.streams[1].name, streamMethodName, mock.streamitem.key, function(err, items) {})
-                }).to.throw(errorMessage)
+        describe('StreamItemsByKey', () => {
+            it('returns a stream of items by key', function (done) {
+                multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function (err, items) {
+                    expect(err).to.not.exist
+                    expect(items).to.exist
+                    expect(items[0].value).to.equal(mock.streamitem.value)
+                })
                 done()
             })
 
-            describe('StreamItemsByKey', () => {
-                it('returns a stream of items by key', function (done) {
-                    multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function (err, items) {
-                        expect(err).to.not.exist
-                        expect(items).to.exist
-                        expect(items[0].value).to.equal(mock.streamitem.value)
-                    })
+            it('returns an empty list with no error when key not found', function (done) {
+                multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function (err, items) {
+                    expect(err).to.not.exist
+                    expect(items).to.be.empty
                     done()
-                })
-
-                it('returns an empty list with no error when key not found', function (done) {
-                    multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function (err, items) {
-                        expect(err).to.not.exist
-                        expect(items).to.be.empty
-                        done()
-                    })
-                })
-
-                it('returns an error when stream not found', function (done) {
-                    multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function (err, items) {
-                        expect(err).to.exist
-                        expect(err.message).to.equal('Stream with this name not found: InvalidStream')
-                        done()
-                    })
                 })
             })
 
-            describe('StreamItemsByPublisher', () => {
-                it('returns a stream of items by publisher', function (done) {
-                    multichain.StreamItemsByPublisher(mock.streams[1].name, mock.streamitem.publisher, function (err, items) {
-                        expect(err).to.not.exist
-                        expect(items).to.exist
-                        expect(items).to.not.be.empty
-                        expect(items[0].value).to.equal(mock.streamitem.value)
-                    })
+            it('returns an error when stream not found', function (done) {
+                multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function (err, items) {
+                    expect(err).to.exist
+                    expect(err.message).to.equal('Stream with this name not found: InvalidStream')
                     done()
                 })
+            })
+        })
 
-                it('returns an error when stream not found', function (done) {
-                    multichain.StreamItemsByPublisher("InvalidStream",  mock.streamitem.publisher, function (err, items) {
-                        expect(err).to.exist
-                        expect(err.message).to.equal('Stream with this name not found: InvalidStream')
-                        done()
-                    })
+        describe('StreamItemsByPublisher', () => {
+            it('returns a stream of items by publisher', function (done) {
+                multichain.StreamItemsByPublisher(mock.streams[1].name, mock.streamitem.publisher, function (err, items) {
+                    expect(err).to.not.exist
+                    expect(items).to.exist
+                    expect(items).to.not.be.empty
+                    expect(items[0].value).to.equal(mock.streamitem.value)
+                })
+                done()
+            })
+
+            it('returns an error when stream not found', function (done) {
+                multichain.StreamItemsByPublisher("InvalidStream", mock.streamitem.publisher, function (err, items) {
+                    expect(err).to.exist
+                    expect(err.message).to.equal('Stream with this name not found: InvalidStream')
+                    done()
                 })
             })
         })
@@ -118,7 +106,7 @@ describe('Multichain', () => {
                 expect(result).to.exist
             })
         })
-        
+
         it('allows revoking of permissions', () => {
             multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 expect(err).to.not.exist

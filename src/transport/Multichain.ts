@@ -16,11 +16,6 @@ export class Multichain {
         }
     }
 
-    allowedStreamFunctions: string[] = [
-        'listStreamKeyItems',
-        'listStreamPublisherItems'
-    ]
-
     makeConnectionFromEnv() {
         return new MultichainConnection(
             Number(process.env.MULTICHAINport),
@@ -51,38 +46,39 @@ export class Multichain {
     }
 
     StreamItemsByKey(streamName, key, callback) {
-        this._StreamItems(streamName, 'listStreamKeyItems', callback, { key: key })
+        this.multichain.listStreamKeyItems({
+            stream: streamName,
+            key: key,
+            verbose: true
+        }, (error, items) => {
+            return this._StreamItems(error, items, callback)
+        })
     }
 
     StreamItemsByPublisher(streamName, publisherAddress, callback) {
-        this._StreamItems(streamName, 'listStreamPublisherItems', callback, { publisherAddress: publisherAddress })
-    }
-
-    _StreamItems(streamName: string, streamMethodName: string, callback, { key = '', publisherAddress = '' }) {
-        if (this.allowedStreamFunctions.indexOf(streamMethodName) <= -1) {
-            throw new Error(`Function name: ${streamMethodName}, is not an allowed function.`
-                            + ` Use any of the following. \n${this.allowedStreamFunctions.toString()}`)
-        }
-        let Utils = this.Utils
-        eval(`this.multichain.${streamMethodName}`)({
+        this.multichain.listStreamPublisherItems({
             stream: streamName,
-            key: key,
             address: publisherAddress,
             verbose: true
-        }, function (error, items) {
-            var itemArray = []
-            if (items && items.length > 0) {
-                items.forEach(function (element, index) {
-                    var item = element
-                    item.value = Utils.HexToAscii(element.data)
-                    itemArray[index] = item
-                    if (index == items.length - 1) {
-                        return callback(error, itemArray)
-                    }
-                })
-            }
-                return callback(error, itemArray)
+        }, (error, items) => {
+            return this._StreamItems(error, items, callback)
         })
+    }
+
+    _StreamItems(error, items, callback) {
+        let Utils = this.Utils
+        var itemArray = []
+        if (items && items.length > 0) {
+            items.forEach(function (element, index) {
+                var item = element
+                item.value = Utils.HexToAscii(element.data)
+                itemArray[index] = item
+                if (index == items.length - 1) {
+                    return callback(error, itemArray)
+                }
+            })
+        }
+        return callback(error, itemArray)
     }
 
     GrantPermissionToAddress(addresses, permissions, callback) {

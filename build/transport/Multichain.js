@@ -8,10 +8,6 @@ var Multichain = /** @class */ (function () {
         this.address = address;
         this.asset = asset;
         this.permissions = permissions;
-        this.allowedStreamFunctions = [
-            'listStreamKeyItems',
-            'listStreamPublisherItems'
-        ];
         this.Utils = new UtilLib.Utils();
         if (connection) {
             this.multichain = MultichainLib(connection);
@@ -40,37 +36,39 @@ var Multichain = /** @class */ (function () {
         });
     };
     Multichain.prototype.StreamItemsByKey = function (streamName, key, callback) {
-        this._StreamItems(streamName, 'listStreamKeyItems', callback, { key: key });
-    };
-    Multichain.prototype.StreamItemsByPublisher = function (streamName, publisherAddress, callback) {
-        this._StreamItems(streamName, 'listStreamPublisherItems', callback, { publisherAddress: publisherAddress });
-    };
-    Multichain.prototype._StreamItems = function (streamName, streamMethodName, callback, _a) {
-        var _b = _a.key, key = _b === void 0 ? '' : _b, _c = _a.publisherAddress, publisherAddress = _c === void 0 ? '' : _c;
-        if (this.allowedStreamFunctions.indexOf(streamMethodName) <= -1) {
-            throw new Error("Function name: " + streamMethodName + ", is not an allowed function."
-                + (" Use any of the following. \n" + this.allowedStreamFunctions.toString()));
-        }
-        var Utils = this.Utils;
-        eval("this.multichain." + streamMethodName)({
+        var _this = this;
+        this.multichain.listStreamKeyItems({
             stream: streamName,
             key: key,
+            verbose: true
+        }, function (error, items) {
+            return _this._ComputeStreamItems(error, items, callback);
+        });
+    };
+    Multichain.prototype.StreamItemsByPublisher = function (streamName, publisherAddress, callback) {
+        var _this = this;
+        this.multichain.listStreamPublisherItems({
+            stream: streamName,
             address: publisherAddress,
             verbose: true
         }, function (error, items) {
-            var itemArray = [];
-            if (items && items.length > 0) {
-                items.forEach(function (element, index) {
-                    var item = element;
-                    item.value = Utils.HexToAscii(element.data);
-                    itemArray[index] = item;
-                    if (index == items.length - 1) {
-                        return callback(error, itemArray);
-                    }
-                });
-            }
-            return callback(error, itemArray);
+            return _this._ComputeStreamItems(error, items, callback);
         });
+    };
+    Multichain.prototype._ComputeStreamItems = function (error, items, callback) {
+        var Utils = this.Utils;
+        var itemArray = [];
+        if (items && items.length > 0) {
+            items.forEach(function (element, index) {
+                var item = element;
+                item.value = Utils.HexToAscii(element.data);
+                itemArray[index] = item;
+                if (index == items.length - 1) {
+                    return callback(error, itemArray);
+                }
+            });
+        }
+        return callback(error, itemArray);
     };
     Multichain.prototype.GrantPermissionToAddress = function (addresses, permissions, callback) {
         this.multichain.grant({ addresses: addresses, permissions: permissions }, function (a, b) {
