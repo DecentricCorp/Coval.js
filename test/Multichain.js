@@ -114,7 +114,7 @@ describe('Multichain', () => {
             })
         })
 
-        it('allows creation of raw signed tx', function (done) {
+        it('allows creation of raw signed transaction', function (done) {
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                 multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (err, raw) {
                     expect(raw.complete).to.be.true
@@ -123,12 +123,12 @@ describe('Multichain', () => {
             })
         })
 
-        it('allows sending of raw signed tx', function (done) {
+        it('allows sending of raw signed transaction', function (done) {
             multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function (err, result) {
                 multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
                     multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (err, signed) {
-                        multichain.SendSignedTransaction(signed.hex.toString("hex"), function (err, txid) {
-                            expect(txid).to.exist
+                        multichain.SendSignedTransaction(signed.hex.toString("hex"), function (err, transaction_id) {
+                            expect(transaction_id).to.exist
                             done()
                         })
                     })
@@ -146,33 +146,33 @@ describe('Multichain', () => {
         })
 
         it('issues asset to internal user', () => {
-            multichain.Issue(mock.multichain.address, asset, 2, function (err, tx) {
+            multichain.Issue(mock.multichain.address, asset, 2, function (err, transaction) {
                 expect(err).to.not.exist
             })
         })
 
         it('issues more of an asset to external user', () => {
-            multichain.IssueMore(mock.import.from.address, asset, 1, function (err, tx) {
+            multichain.IssueMore(mock.import.from.address, asset, 1, function (err, transaction) {
                 expect(err).to.not.exist
             })
         })
 
         it('sends asset from internal user to burn address', () => {
-            multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (err, tx) {
+            multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (err, transaction) {
                 expect(err).to.not.exist
             })
         })
 
-        it('sends asset from an externally signed tx to burn address', function (done) {
+        it('sends asset from an externally signed transaction to burn address', function (done) {
             multichain.CreateAndSignSend(mock.import.from.key, mock.info.burnaddress, asset, 1, function (err, signed) {
-                multichain.SendSignedTransaction(signed.hex.toString("hex"), function (err, txid) {
-                    expect(txid).to.exist
+                multichain.SendSignedTransaction(signed.hex.toString("hex"), function (err, transaction_id) {
+                    expect(transaction_id).to.exist
                     done()
                 })
             })
         })
 
-        it.skip('creates an exchange tx', function (done) {
+        it.skip('creates an exchange transaction', function (done) {
             //https://www.multichain.com/qa/5660/issue-locking-unspent-output
             this.timeout(100000)
             var multichain = makeConnectedMultichainObject()
