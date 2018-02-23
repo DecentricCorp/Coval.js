@@ -41,9 +41,7 @@ var Multichain = /** @class */ (function () {
             stream: streamName,
             key: key,
             verbose: true
-        }, function (error, items) {
-            return _this._StreamItems(error, items, callback);
-        });
+        }, function (error, items) { return _this._StreamItems(error, items, callback); });
     };
     Multichain.prototype.StreamItemsByPublisher = function (streamName, publisherAddress, callback) {
         var _this = this;
@@ -51,15 +49,12 @@ var Multichain = /** @class */ (function () {
             stream: streamName,
             address: publisherAddress,
             verbose: true
-        }, function (error, items) {
-            return _this._StreamItems(error, items, callback);
-        });
+        }, function (error, items) { return _this._StreamItems(error, items, callback); });
     };
     Multichain.prototype._StreamItems = function (error, items, callback) {
         var itemArray = [];
-        if (items && items.length > 0) {
+        if (items && items.length > 0)
             itemArray = this._elementValueCompute(items);
-        }
         return callback(error, itemArray);
     };
     Multichain.prototype._elementValueCompute = function (items) {
@@ -95,16 +90,12 @@ var Multichain = /** @class */ (function () {
         });
     };
     Multichain.prototype.CreateAndSignSend = function (from, to, asset, qty, callback) {
-        //var HDKey = new HDKeyLib.HDKey()
         var rawRequest = {};
         rawRequest[to] = {};
-        rawRequest[to][asset] = Number(qty);
+        // TODO: Use promise with async and await instead of callback, to avoid race condition
+        rawRequest[to][asset] = function () { return Number(qty); };
         var parent = this;
         parent.multichain.createRawSendFrom([from.address, rawRequest], function (err, raw) {
-            //from.wif = HDKey.DeriveKeyWif(from, 0)
-            /* parent.multichain.signRawTransaction([raw, [], [from.wif.wif]], function (err, signed) {
-                return callback(err, signed)
-            }) */
             parent.SignRaw(from, raw, function (err, signed) {
                 return callback(err, signed);
             });

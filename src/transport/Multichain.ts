@@ -107,16 +107,13 @@ export class Multichain {
     }
 
     CreateAndSignSend(from, to, asset, qty, callback) {
-        //var HDKey = new HDKeyLib.HDKey()
         var rawRequest = {}
         rawRequest[to] = {}
-        rawRequest[to][asset] = Number(qty)
+
+        // TODO: Use promise with async and await instead of callback, to avoid race condition
+        rawRequest[to][asset] = () => Number(qty)
         var parent = this
         parent.multichain.createRawSendFrom([from.address, rawRequest], function (err, raw) {
-            //from.wif = HDKey.DeriveKeyWif(from, 0)
-            /* parent.multichain.signRawTransaction([raw, [], [from.wif.wif]], function (err, signed) {
-                return callback(err, signed)
-            }) */
             parent.SignRaw(from, raw, function (err, signed) {
                 return callback(err, signed)
             })
