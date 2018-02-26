@@ -14,8 +14,8 @@ describe('Multichain', () => {
     })
 
     it('connects to a valid multichain instance', () => {
-        multichain.Info(function (err, info) {
-            expect(err).to.not.exist
+        multichain.Info(function (error, info) {
+            expect(error).to.not.exist
             expect(info).to.exist
             expect(info.version).to.equal(mock.info.version)
         })
@@ -33,8 +33,8 @@ describe('Multichain', () => {
 
     describe('Streams', () => {
         it('returns a list of streams', function (done) {
-            multichain.Streams(function (err, streams) {
-                expect(err).to.not.exist
+            multichain.Streams(function (error, streams) {
+                expect(error).to.not.exist
                 expect(streams).to.exist
                 expect(streams[0].name).to.equal("root")
                 done()
@@ -43,8 +43,8 @@ describe('Multichain', () => {
 
         describe('StreamItemsByKey', () => {
             it('returns a stream of items by key', function (done) {
-                multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function (err, items) {
-                    expect(err).to.not.exist
+                multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function (error, items) {
+                    expect(error).to.not.exist
                     expect(items).to.exist
                     expect(items[0].value).to.equal(mock.streamitem.value)
                     done()
@@ -52,17 +52,17 @@ describe('Multichain', () => {
             })
 
             it('returns an empty list with no error when key not found', function (done) {
-                multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function (err, items) {
-                    expect(err).to.not.exist
+                multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function (error, items) {
+                    expect(error).to.not.exist
                     expect(items).to.be.empty
                     done()
                 })
             })
 
             it('returns an error when stream not found', function (done) {
-                multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function (err, items) {
-                    expect(err).to.exist
-                    expect(err.message).to.equal('Stream with this name not found: InvalidStream')
+                multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function (error, items) {
+                    expect(error).to.exist
+                    expect(error.message).to.equal('Stream with this name not found: InvalidStream')
                     done()
                 })
             })
@@ -70,8 +70,8 @@ describe('Multichain', () => {
 
         describe('StreamItemsByPublisher', () => {
             it('returns a stream of items by publisher', function (done) {
-                multichain.StreamItemsByPublisher(mock.streams[1].name, mock.streamitem.publisher, function (err, items) {
-                    expect(err).to.not.exist
+                multichain.StreamItemsByPublisher(mock.streams[1].name, mock.streamitem.publisher, function (error, items) {
+                    expect(error).to.not.exist
                     expect(items).to.exist
                     expect(items).to.not.be.empty
                     expect(items[0].value).to.equal(mock.streamitem.value)
@@ -80,9 +80,9 @@ describe('Multichain', () => {
             })
 
             it('returns an error when stream not found', function (done) {
-                multichain.StreamItemsByPublisher("InvalidStream", mock.streamitem.publisher, function (err, items) {
-                    expect(err).to.exist
-                    expect(err.message).to.equal('Stream with this name not found: InvalidStream')
+                multichain.StreamItemsByPublisher("InvalidStream", mock.streamitem.publisher, function (error, items) {
+                    expect(error).to.exist
+                    expect(error.message).to.equal('Stream with this name not found: InvalidStream')
                     done()
                 })
             })
@@ -91,32 +91,32 @@ describe('Multichain', () => {
 
     describe('Address', () => {
         it('imports an address', function (done) {
-            multichain.ImportAddress(mock.import.from.address, "TestFromAddress", function (err, result) {
-                expect(err).to.not.exist
-                multichain.ImportAddress(mock.import.to.address, "TestToAddress", function (err, result) {
-                    expect(err).to.not.exist
+            multichain.ImportAddress(mock.import.from.address, "TestFromAddress", function (error, result) {
+                expect(error).to.not.exist
+                multichain.ImportAddress(mock.import.to.address, "TestToAddress", function (error, result) {
+                    expect(error).to.not.exist
                     done()
                 })
             })
         })
 
         it('allows granting of permissions', () => {
-            multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
-                expect(err).to.not.exist
+            multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (error, result) {
+                expect(error).to.not.exist
                 expect(result).to.exist
             })
         })
 
         it('allows revoking of permissions', () => {
-            multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
-                expect(err).to.not.exist
+            multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (error, result) {
+                expect(error).to.not.exist
                 expect(result).to.exist
             })
         })
 
         it('allows creation of raw signed transaction', function (done) {
-            multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
-                multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (err, raw) {
+            multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (error, result) {
+                multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (error, raw) {
                     expect(raw.complete).to.be.true
                     done()
                 })
@@ -124,10 +124,10 @@ describe('Multichain', () => {
         })
 
         it('allows sending of raw signed transaction', function (done) {
-            multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function (err, result) {
-                multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (err, result) {
-                    multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (err, signed) {
-                        multichain.SendSignedTransaction(signed.hex.toString("hex"), function (err, transaction_id) {
+            multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function (error, result) {
+                multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (error, result) {
+                    multichain.CreateAndSignSend(mock.import.from.key, mock.import.to.address, "virtual", 1, function (error, signed) {
+                        multichain.SendSignedTransaction(signed.hex.toString("hex"), function (error, transaction_id) {
                             expect(transaction_id).to.exist
                             done()
                         })
@@ -146,26 +146,26 @@ describe('Multichain', () => {
         })
 
         it('issues asset to internal user', () => {
-            multichain.Issue(mock.multichain.address, asset, 2, function (err, transaction) {
-                expect(err).to.not.exist
+            multichain.Issue(mock.multichain.address, asset, 2, function (error, transaction) {
+                expect(error).to.not.exist
             })
         })
 
         it('issues more of an asset to external user', () => {
-            multichain.IssueMore(mock.import.from.address, asset, 1, function (err, transaction) {
-                expect(err).to.not.exist
+            multichain.IssueMore(mock.import.from.address, asset, 1, function (error, transaction) {
+                expect(error).to.not.exist
             })
         })
 
         it('sends asset from internal user to burn address', () => {
-            multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (err, transaction) {
-                expect(err).to.not.exist
+            multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (error, transaction) {
+                expect(error).to.not.exist
             })
         })
 
         it('sends asset from an externally signed transaction to burn address', function (done) {
-            multichain.CreateAndSignSend(mock.import.from.key, mock.info.burnaddress, asset, 1, function (err, signed) {
-                multichain.SendSignedTransaction(signed.hex.toString("hex"), function (err, transaction_id) {
+            multichain.CreateAndSignSend(mock.import.from.key, mock.info.burnaddress, asset, 1, function (error, signed) {
+                multichain.SendSignedTransaction(signed.hex.toString("hex"), function (error, transaction_id) {
                     expect(transaction_id).to.exist
                     done()
                 })
@@ -176,12 +176,12 @@ describe('Multichain', () => {
             //https://www.multichain.com/qa/5660/issue-locking-unspent-output
             this.timeout(100000)
             var multichain = makeConnectedMultichainObject()
-            multichain.CreateExchange(mock.multichain.address, asset, "virtual", function (err, raw) {
-                console.log('-------- create err', err)
-                expect(err).to.not.exist
+            multichain.CreateExchange(mock.multichain.address, asset, "virtual", function (error, raw) {
+                console.log('-------- create error', error)
+                expect(error).to.not.exist
                 console.log('-------- create raw', raw)
-                multichain.FinalizeExchange(raw.prepared, raw.unlocks.txid, raw.unlocks.vout, raw.asking, function (err, complete) {
-                    console.log('---------Final err', err)
+                multichain.FinalizeExchange(raw.prepared, raw.unlocks.txid, raw.unlocks.vout, raw.asking, function (error, complete) {
+                    console.log('---------Final error', error)
                     console.log('-------- Complete', complete)
                 })
 
@@ -189,8 +189,8 @@ describe('Multichain', () => {
         })
 
         it('issues emblem to specified address', function (done) {
-            multichain.IssueEmblem(mock.import.to.address, emblem, function (err, txid) {
-                expect(err).to.not.exist
+            multichain.IssueEmblem(mock.import.to.address, emblem, function (error, txid) {
+                expect(error).to.not.exist
                 expect(txid).to.exist
                 done()
             })
