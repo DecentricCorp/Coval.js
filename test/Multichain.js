@@ -148,6 +148,8 @@ describe('Multichain', () => {
         it('issues asset to internal user', (done) => {
             multichain.Issue(mock.multichain.address, asset, 2, function (error, transaction) {
                 expect(error).to.not.exist
+                expect(transaction).to.exist
+                expect(transaction).to.not.be.empty
                 done()
             })
         })
@@ -155,6 +157,8 @@ describe('Multichain', () => {
         it('issues more of an asset to external user', (done) => {
             multichain.IssueMore(mock.import.from.address, asset, 1, function (error, transaction) {
                 expect(error).to.not.exist
+                expect(transaction).to.exist
+                expect(transaction).to.not.be.empty
                 done()
             })
         })
@@ -162,6 +166,8 @@ describe('Multichain', () => {
         it('sends asset from internal user to burn address', (done) => {
             multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (error, transaction) {
                 expect(error).to.not.exist
+                expect(transaction).to.exist
+                expect(transaction).to.not.be.empty
                 done()
             })
         })
@@ -169,7 +175,9 @@ describe('Multichain', () => {
         it('sends asset from an externally signed transaction to burn address', function (done) {
             multichain.CreateAndSignSend(mock.import.from.key, mock.info.burnaddress, asset, 1, function (error, signed) {
                 multichain.SendSignedTransaction(signed.hex.toString("hex"), function (error, transaction_id) {
+                    expect(error).to.not.exist
                     expect(transaction_id).to.exist
+                    expect(transaction_id).to.not.be.empty
                     done()
                 })
             })
@@ -192,9 +200,9 @@ describe('Multichain', () => {
         })
 
         it('issues emblem to specified address', function (done) {
-            multichain.IssueEmblem(mock.import.to.address, emblem, function (error, txid) {
+            multichain.IssueEmblem(mock.import.to.address, emblem, function (error, transaction_id) {
                 expect(error).to.not.exist
-                expect(txid).to.exist
+                expect(transaction_id).to.exist
                 done()
             })
         })
