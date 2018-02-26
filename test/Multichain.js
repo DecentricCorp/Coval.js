@@ -145,21 +145,24 @@ describe('Multichain', () => {
             emblem = "emblem-" + rnd.toString()
         })
 
-        it('issues asset to internal user', () => {
+        it('issues asset to internal user', (done) => {
             multichain.Issue(mock.multichain.address, asset, 2, function (error, transaction) {
                 expect(error).to.not.exist
+                done()
             })
         })
 
-        it('issues more of an asset to external user', () => {
+        it('issues more of an asset to external user', (done) => {
             multichain.IssueMore(mock.import.from.address, asset, 1, function (error, transaction) {
                 expect(error).to.not.exist
+                done()
             })
         })
 
-        it('sends asset from internal user to burn address', () => {
+        it('sends asset from internal user to burn address', (done) => {
             multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (error, transaction) {
                 expect(error).to.not.exist
+                done()
             })
         })
 
