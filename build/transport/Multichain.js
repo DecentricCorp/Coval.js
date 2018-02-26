@@ -65,17 +65,27 @@ var Multichain = /** @class */ (function () {
         });
     };
     Multichain.prototype.GrantPermissionToAddress = function (addresses, permissions, callback) {
-        this.multichain.grant({ addresses: addresses, permissions: permissions }, function (error, result) {
+        this.multichain.grant({
+            addresses: addresses,
+            permissions: permissions
+        }, function (error, result) {
             return callback(error, result);
         });
     };
     Multichain.prototype.RevokePermissionToAddress = function (address, permissions, callback) {
-        this.multichain.revoke({ addresses: address, permissions: permissions }, function (error, result) {
+        this.multichain.revoke({
+            addresses: address,
+            permissions: permissions
+        }, function (error, result) {
             return callback(error, result);
         });
     };
     Multichain.prototype.ImportAddress = function (address, name, callback) {
-        this.multichain.importAddress({ address: address, label: name, rescan: false }, function (error, result) {
+        this.multichain.importAddress({
+            address: address,
+            label: name,
+            rescan: false
+        }, function (error, result) {
             return callback(error, result);
         });
     };
@@ -133,12 +143,21 @@ var Multichain = /** @class */ (function () {
         });
     };
     Multichain.prototype.Issue = function (to, name, qty, callback) {
-        this.multichain.issue({ address: to, asset: { name: name, open: true }, qty: qty, units: 1 }, function (error, transaction) {
+        this.multichain.issue({
+            address: to,
+            asset: { name: name, open: true },
+            qty: qty,
+            units: 1
+        }, function (error, transaction) {
             return callback(error, transaction);
         });
     };
     Multichain.prototype.IssueMore = function (to, name, qty, callback) {
-        this.multichain.issueMore({ address: to, asset: name, qty: qty }, function (error, transaction) {
+        this.multichain.issueMore({
+            address: to,
+            asset: name,
+            qty: qty
+        }, function (error, transaction) {
             return callback(error, transaction);
         });
     };
@@ -150,7 +169,11 @@ var Multichain = /** @class */ (function () {
         ask[asking] = 1;
         this.PrepareUnlockFrom(from, assets, function (error, unlocks) {
             var payload = { unlocks: unlocks, prepared: '', offer: assets, asking: ask };
-            parent.multichain.createRawExchange({ txid: payload.unlocks.txid, vout: payload.unlocks.vout, assets: ask }, function (error, raw) {
+            parent.multichain.createRawExchange({
+                txid: payload.unlocks.txid,
+                vout: payload.unlocks.vout,
+                assets: ask
+            }, function (error, raw) {
                 payload.prepared = raw;
                 return callback(error, payload);
             });
@@ -158,19 +181,32 @@ var Multichain = /** @class */ (function () {
     };
     Multichain.prototype.FinalizeExchange = function (hex, txid, vout, assets, callback) {
         //console.log('--------- request', completeRequest)
-        this.multichain.completeRawExchange({ hexstring: hex, txid: txid, vout: vout, assets: assets, data: '' }, function (error, complete) {
+        this.multichain.completeRawExchange({
+            hexstring: hex,
+            txid: txid,
+            vout: vout,
+            assets: assets,
+            data: ''
+        }, function (error, complete) {
             console.log('-------- Error', error);
             console.log('-------- Complete', complete);
             return callback(error, complete);
         });
     };
     Multichain.prototype.PrepareUnlockFrom = function (from, assets, callback) {
-        this.multichain.prepareLockUnspentFrom({ from: from, assets: assets, lock: true }, function (error, transaction) {
+        this.multichain.prepareLockUnspentFrom({
+            from: from,
+            assets: assets,
+            lock: true
+        }, function (error, transaction) {
             return callback(error, transaction);
         });
     };
     Multichain.prototype.PrepareUnlock = function (assets, callback) {
-        this.multichain.prepareLockUnspent({ assets: assets, lock: false }, function (error, transaction) {
+        this.multichain.prepareLockUnspent({
+            assets: assets,
+            lock: false
+        }, function (error, transaction) {
             return callback(error, transaction);
         });
     };
