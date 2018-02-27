@@ -4,26 +4,28 @@ import { Envelope } from "./transport/Envelope";
 
 export class Emblem {
 
-    private datNodes: {[key: string]: DatNode} = {}
+    private datNodes: DatNode[] = []
     public claimed: boolean = false
 
-    public AddDatNode(key:string, dat: DatNode): Envelope {
+    public AddDatNode(dat: DatNode): Envelope {
         var envelope = new Envelope()
-        let found = this.datNodes[key]
-        if (found) {
+        if (this.findDatOfType(dat.getID())) {
             envelope.AddError("Dat of this type already exists")
         } else {
-            this.datNodes[key] = dat
+            this.datNodes.push(dat)
             envelope.AddValue("Sucessfully added dat")
         }
         envelope.AddValue("Sucessfully added dat")
         return envelope
     }
 
-    public HasRequiredDats() {
-        return Object.keys(this.datNodes).length > 1
+    public findDatOfType(type:string):DatNode {
+        let found = this.datNodes.filter((d) => {return d.getID() === type})
+        return found.length > 0 ? found[0] : null
     }
 
-
+    public HasRequiredDats() {
+        return !!this.findDatOfType('client') && !!this.findDatOfType('server')
+    }
 
 }

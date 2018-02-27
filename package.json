@@ -27,6 +27,7 @@
     "crypto-js": "^3.1.9-1",
     "dat-node": "^3.5.6",
     "dotenv": "^4.0.0",
+    "fs-extra": "5.0.0",
     "lightrail-client": "^1.3.0",
     "mirror-folder": "^2.1.1",
     "multichain-node": "^2.1.6-version1.0.2",
@@ -40,10 +41,10 @@
   "devDependencies": {
     "@types/crypto-js": "^3.1.38",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "mocha": "^5.0.0",
     "nyc": "^11.4.1",
     "testdouble": "^3.3.3",
-    "typescript": "^2.6.2",
-    "fs-extra": "5.0.0"
+    "typescript": "^2.6.2"
   }
 }

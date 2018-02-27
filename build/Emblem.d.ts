@@ -3,6 +3,7 @@ import { Envelope } from "./transport/Envelope";
 export declare class Emblem {
     private datNodes;
     claimed: boolean;
-    AddDatNode(key: string, dat: DatNode): Envelope;
+    AddDatNode(dat: DatNode): Envelope;
+    findDatOfType(type: string): DatNode;
     HasRequiredDats(): boolean;
 }

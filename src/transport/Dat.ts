@@ -6,166 +6,13 @@ import * as path from "path"
 import * as fs from "fs"
 import * as ram from "random-access-memory"
 
+export class DatManager {
 
-export class DatManager extends EventEmitter {
+    _datnodes: {[index:string] : DatNode}
 
-    private _datnodes:{} = {};
-
-    createOutgoingArchive(archivePath:string, callback?:(datman:DatManager, datnode:DatNode, error?:any) => void) {
-        this.createDatNode(archivePath, {}, callback);
+    public constructor() {
+        this._datnodes = {}
     }
-
-    createTransientOutgoingArchive(archivePath:string, callback?:(datman:DatManager, datnode:DatNode, error?:any) => void) {
-        this.createDatNode(archivePath, {temp:true}, callback);
-    }
-
-    createIncomingArchive(key:string, archivePath:string, callback?:(datman:DatManager, datnode:DatNode, error?:any) => void) {
-        this.createDatNode(archivePath, { key: key}, callback);
-    }
-
-    createTransientIncomingArchive(key:string, callback?:(datman:DatManager, datnode:DatNode, error?:any) => void) {
-        this.createDatNode(ram, { key: key, temp: true }, callback);
-    }
-
-    createDatNode(archive:string|{}, options:{}, callback?:(datman:DatManager, datnode:DatNode, error?:any) => void) {
-        if (callback) {
-            this.once('create', callback);
-        }
-        let me = this;
-        Dat(archive, options, function(err, dat) {
-            if (err) {
-                me.emit('create', me, undefined, err);
-            } else {
-                let datnode = new DatNode(dat);
-                me._datnodes[datnode.getKey()] = datnode;
-                // datnode.initStats();
-                me.emit('create', me, datnode);
-            }
-        });
-    }
-
-    getDatNode(key:string, callback?:(datman:DatManager, datnode:DatNode) => void) {
-        return this._datnodes[key];
-    }
-
-    getDatNodes() {
-        return {...(this._datnodes)};
-    }
-
-    disposeDatNode(key:string, callback?:(datman:DatManager, datnode:DatNode) => void) {
-        if (callback) {
-            this.once('dispose', callback);
-        }
-        let datnode:DatNode = this.getDatNode(key);
-        if (datnode) {
-            delete this._datnodes[key];
-            let me = this;
-            datnode.close(() => {
-                me.emit('dispose', me, datnode);
-            })
-        } else {
-            this.emit('dispose', this, null);
-        }
-    }
-
-    shutdown() {
-        let me = this;
-        Object.keys(this._datnodes).forEach(function (key) {
-            me.disposeDatNode(key);
-        })
-    }
-
-}
-
-export class DatNode extends EventEmitter {
-    _dat: any;
-    _key: string;
-    _stats:any;
-
-    constructor(dat:any) {
-        super()
-        this._dat = dat;
-        this._key = dat.key.toString('hex');
-        this._stats = this._dat.trackStats();
-    }
-
-    getKey() : string {
-        return this._key;
-    }
-
-    importFiles(callback?:(datnode:DatNode, err?:{}) => void) : void {
-        if (callback) {
-            this.once('import', callback);
-        }
-        let me = this;
-        this._dat.importFiles(function(err) {
-           me.emit('import', me, err);
-        });
-    }
-
-    close(callback?:(datnode:DatNode) => void): void {
-        if (callback) {
-            this.once('close', callback);
-        }
-        let me = this;
-        this._dat.close(function(){
-            me.emit('close', me);
-        });
-    }
-}
-
-
-
-
-
-//     createNode(callback?) {
-//         if (callback) {
-//             this.once('create', callback);
-//         }
-//         if (this.datnode) {
-//              me.emit('create', me);
-//         } else {
-//             let me = this;
-//             DatNode(this.src, { temp: true }, (err, datnode) => {
-//                 if(me.datnode) {
-//                     datnode.close();
-//                 } else {
-//                     me.datnode = datnode;
-//                     me.key = datnode.key.toString('hex');
-//                 }
-//                 me.emit('create', me);
-//         });
-//     }
-
-//     joinNetwork(datnode, callback, me?:Dat) {
-//         console.log("Joining network.")
-//         me = me || this;
-//         me.network = datnode.joinNetwork((err)=>{
-//             if (err)
-//                 console.log("WTF Charles: " + err.message)
-//         });
-//         me.network.once('connection', function (err) {
-//             console.log("Connected")
-//         });
-//         me.emit('joinnetwork')
-//         console.log("Join network complete, making callback")
-//         callback(datnode, me);
-//     }
-
-//     importFiles(datnode, callback, me?:Dat) {
-//         console.log("Importing files")
-//         me = me || this;
-//         var progress = datnode.importFiles(me.src, function(err, stats?) {
-//             debugger
-//             console.log("files import complete, making callback");
-//             me.emit('importFiles')
-//             callback(datnode, me);
-//         })
-//         progress.on('put', function (src, dest) {
-//             console.log("Added: " + dest.name)
-//         })
-//     }
-
 //     Share(sharePath: string, callback, ignores?: string[]) {
 //         this.ignores = ignores || [];
 //         this.src = sharePath;
@@ -212,3 +59,196 @@ export class DatNode extends EventEmitter {
 //         })
 
 //     }
+
+    // createOutgoingArchive(id:string, archivePath:string): Promise<DatNode> {
+    //     return this.createDatNode(id, archivePath, {watch:true})
+    // }
+
+    // createTransientOutgoingArchive(id:string, archivePath:string): Promise<DatNode> {
+    //     return this.createDatNode(id, archivePath, {watch:true, temp:true})
+    // }
+
+    // createIncomingArchive(id:string, key:string, archivePath:string): Promise<DatNode> {
+    //     return this.createDatNode(id, archivePath, { key: key})
+    // }
+
+    // createTransientIncomingArchive(id:string, key:string): Promise<DatNode> {
+    //     return this.createDatNode(id, ram, { key: key, temp: true })
+    // }
+
+    public getDatNode(id:string) {
+        let me = this
+        return me._datnodes[id]
+    }
+
+    public createDatNode(id:string, archive:string|{}, options:{}): Promise<DatNode> {
+        let me = this
+        return new Promise<DatNode>(function(resolve, reject) {
+            if (me._datnodes[id]) {
+                return reject(new Error("DatNode with ID " + id + " already exists"))
+            } else {
+                me._datnodes[id] = new DatNode(id, archive, options)
+                return resolve(me._datnodes[id])
+            }
+        })
+    }
+
+    public disposeDatNode(id:string): Promise<DatNode> {
+        let me = this
+        return new Promise<DatNode>(function(resolve, reject) {
+            let datnode:DatNode = me.getDatNode(id);
+            delete me._datnodes[id];
+            if (datnode) {
+                try {
+                    datnode.close()
+                } catch (error) {
+                    console.error("Error while closing '" + id)
+                    // console.error(error)
+                    return reject(datnode)
+                }
+            }
+            return resolve(datnode)
+        })
+    }
+
+    public shutdown(): Promise<any> {
+        let me = this
+        var subPromises = []
+        Object.keys(me._datnodes).forEach(function (id) {
+            subPromises.push(me.disposeDatNode(id)
+                .catch(function(error) {
+                    console.error("Unexpected error while closing datnode " + id )
+                    // console.error(error)
+                }))
+        })
+        return Promise.all(subPromises)
+            .then(function() { return new Promise<void>(function (resolve, reject) {
+                if (Object.keys(me._datnodes).length > 0) {
+                    console.error("Not all dat nodes were closed during shutdown:")
+                    console.error(Object.keys(me._datnodes))
+                }
+                me._datnodes = {}
+                resolve()
+            })})
+            .catch(function(error) {
+                console.error("Unexpected error while shutting down datmanager")
+                console.error(error)
+            })
+    }
+}
+
+export class DatNode extends EventEmitter {
+    _id: string
+    _archive: string|{}
+    _options: {[index:string] : any} = {}
+    _dat: any
+    _stats:any
+
+    constructor(id:string, archive:string|{}, options:{[index:string] : any}) {
+        super()
+        this._id = id
+        this._archive = archive
+        this._options = options
+    }
+
+    public getArchiveKey() : string {
+        return this._dat.key.toString('hex')
+    }
+
+    public getID() {
+        return this._id
+    }
+
+    peerFound(): boolean {
+        return !!+this._dat.network.connected
+    }
+
+    peerSearching(): boolean {
+        return !!+this._dat.network.connecting
+    }
+
+    peerNotFound(): boolean {
+        return (!this._dat.network.connected || !this._dat.network.connecting)
+    }
+
+    initializeArchive(callback?:(datnode:DatNode, err?:{}) => void): Promise<DatNode> {
+        let me = this
+        if (callback) {
+            me.once('create', callback);
+        }
+        return new Promise<DatNode>(function(resolve, reject) {
+            Dat(me._archive, me._options, function(err, dat) {
+                if (err) {
+                    me.emit('create', me, err)
+                    console.error('Failed to initialize archive:')
+                    console.error(err)
+                    return reject(err)
+                } else {
+                    me._dat = dat
+                    me._stats = dat.trackStats()
+                    me.emit('create', me)
+                    return resolve(me)
+                }
+            })
+        })
+    }
+
+    joinNetwork(callback?:(datnode:DatNode, err?:{}) => void): Promise<DatNode> {
+        let me = this;
+        if (callback) {
+            me.once('join', callback);
+        }
+        return new Promise<DatNode>(function(resolve, reject) {
+            me._dat.joinNetwork(function(err) {
+                if (err) {
+                    me.emit('join', me, err)
+                    console.error('Failed to join network:')
+                    console.error(err)
+                    return reject(err)
+                } else {
+                    me.emit('join', me)
+                    return resolve(me)
+                }
+            });
+        })
+    }
+
+    importFiles(callback?:(datnode:DatNode, err?:{}) => void): Promise<DatNode> {
+        let me = this;
+        if (callback) {
+            me.once('import', callback);
+        }
+        return new Promise<DatNode>(function(resolve, reject) {
+            me._dat.importFiles(function(err) {
+                if (err) {
+                    me.emit('import', me, err)
+                    console.error('Failed to import files:')
+                    console.error(err)
+                    return reject(err)
+                } else {
+                    me.emit('import', me)
+                    return resolve(me)
+                }
+            })
+        })
+    }
+
+    close(callback?:(datnode:DatNode) => void): Promise<DatNode> {
+        let me = this;
+        if (callback) {
+            me.once('close', callback);
+        }
+        return new Promise<DatNode>(function(resolve, reject) {
+            try {
+                if (me._dat && me._dat.network) {
+                    me._dat.network.close()
+                }
+                me.emit('close', me);
+                return resolve(me)
+            } catch (error) {
+                me.emit('close', me);
+                return reject(error)
+            }
+        })
+    }
+}

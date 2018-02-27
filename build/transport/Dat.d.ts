@@ -1,23 +1,33 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-export declare class DatManager extends EventEmitter {
-    private _datnodes;
-    createOutgoingArchive(archivePath: string, callback?: (datman: DatManager, datnode: DatNode, error?: any) => void): void;
-    createTransientOutgoingArchive(archivePath: string, callback?: (datman: DatManager, datnode: DatNode, error?: any) => void): void;
-    createIncomingArchive(key: string, archivePath: string, callback?: (datman: DatManager, datnode: DatNode, error?: any) => void): void;
-    createTransientIncomingArchive(key: string, callback?: (datman: DatManager, datnode: DatNode, error?: any) => void): void;
-    createDatNode(archive: string | {}, options: {}, callback?: (datman: DatManager, datnode: DatNode, error?: any) => void): void;
-    getDatNode(key: string, callback?: (datman: DatManager, datnode: DatNode) => void): any;
-    getDatNodes(): {};
-    disposeDatNode(key: string, callback?: (datman: DatManager, datnode: DatNode) => void): void;
-    shutdown(): void;
+export declare class DatManager {
+    _datnodes: {
+        [index: string]: DatNode;
+    };
+    constructor();
+    getDatNode(id: string): DatNode;
+    createDatNode(id: string, archive: string | {}, options: {}): Promise<DatNode>;
+    disposeDatNode(id: string): Promise<DatNode>;
+    shutdown(): Promise<any>;
 }
 export declare class DatNode extends EventEmitter {
+    _id: string;
+    _archive: string | {};
+    _options: {
+        [index: string]: any;
+    };
     _dat: any;
-    _key: string;
     _stats: any;
-    constructor(dat: any);
-    getKey(): string;
-    importFiles(callback?: (datnode: DatNode, err?: {}) => void): void;
-    close(callback?: (datnode: DatNode) => void): void;
+    constructor(id: string, archive: string | {}, options: {
+        [index: string]: any;
+    });
+    getArchiveKey(): string;
+    getID(): string;
+    peerFound(): boolean;
+    peerSearching(): boolean;
+    peerNotFound(): boolean;
+    initializeArchive(callback?: (datnode: DatNode, err?: {}) => void): Promise<DatNode>;
+    joinNetwork(callback?: (datnode: DatNode, err?: {}) => void): Promise<DatNode>;
+    importFiles(callback?: (datnode: DatNode, err?: {}) => void): Promise<DatNode>;
+    close(callback?: (datnode: DatNode) => void): Promise<DatNode>;
 }
