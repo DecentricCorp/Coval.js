@@ -52,6 +52,19 @@
             "open": true,
             "details": {},
             "subscribed": false
+        },
+        {
+            "name": "emblems",
+            "createtxid": "6301a93f40f1380a5884cdf8125b993ef0b06948e257ebe276a7518b38d0552e",
+            "streamref": "7623-11668-355",
+            "open": true,
+            "details": {},
+            "subscribed": true,
+            "synchronized": true,
+            "items": 5,
+            "confirmed": 5,
+            "keys": 4,
+            "publishers": 1
         }
     ],
     "streamitem": {
