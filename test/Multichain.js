@@ -10,7 +10,7 @@ require("dotenv").config({ path: path.join(__dirname, "..", "build", "test.env")
 describe('Multichain', () => {
     var multichain
     before(function () {
-        multichain = makeConnectedMultichainObject()
+        multichain = new Multichain().makeConnectedMultichainObject()
     })
 
     it('connects to a valid multichain instance', (done) => {
@@ -29,7 +29,7 @@ describe('Multichain', () => {
 
     it('allows for loading a connection after construction of an object', () => {
         var empty_multichain = new Multichain()
-        empty_multichain.Connect(makeConnectionFromEnv())
+        empty_multichain.Connect(empty_multichain.makeConnectionFromEnv())
     })
 
     describe('Streams', () => {
@@ -215,16 +215,3 @@ describe('Multichain', () => {
         })
     })
 })
-
-function makeConnectionFromEnv() {
-    return new MultichainConnection(
-        Number(process.env.MULTICHAINport),
-        process.env.MULTICHAINhost,
-        process.env.MULTICHAINuser,
-        process.env.MULTICHAINpass
-    )
-}
-
-function makeConnectedMultichainObject() {
-    return new Multichain(process.env.MULTICHAINADDRESS, makeConnectionFromEnv())
-}
