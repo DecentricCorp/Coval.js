@@ -13,11 +13,12 @@ describe('Multichain', () => {
         multichain = makeConnectedMultichainObject()
     })
 
-    it('connects to a valid multichain instance', () => {
+    it('connects to a valid multichain instance', (done) => {
         multichain.Info(function (error, info) {
             expect(error).to.not.exist
             expect(info).to.exist
             expect(info.version).to.equal(mock.info.version)
+            done()
         })
     })
 
@@ -100,17 +101,19 @@ describe('Multichain', () => {
             })
         })
 
-        it('allows granting of permissions', () => {
+        it('allows granting of permissions', (done) => {
             multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (error, result) {
                 expect(error).to.not.exist
                 expect(result).to.exist
+                done()
             })
         })
 
-        it('allows revoking of permissions', () => {
+        it('allows revoking of permissions', (done) => {
             multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (error, result) {
                 expect(error).to.not.exist
                 expect(result).to.exist
+                done()
             })
         })
 
@@ -194,6 +197,7 @@ describe('Multichain', () => {
                 multichain.FinalizeExchange(raw.prepared, raw.unlocks.txid, raw.unlocks.vout, raw.asking, function (error, complete) {
                     console.log('---------Final error', error)
                     console.log('-------- Complete', complete)
+                    done()
                 })
 
             })
