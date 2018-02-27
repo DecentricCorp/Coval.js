@@ -29,6 +29,17 @@ export class Multichain {
         return new Multichain(process.env.MULTICHAINADDRESS, this.makeConnectionFromEnv())
     }
 
+    hasConnection() {
+        try {
+            this.multichain.getInfo((error, info) => {})
+        } catch(TypeError) {
+            if (TypeError.message == 'this.multichain.getInfo is not a function')
+                return false
+            throw TypeError
+        }
+        return true
+    }
+
     Info(callback) {
         this.multichain.getInfo((error, info) => {
             return callback(error, info)

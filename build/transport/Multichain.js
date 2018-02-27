@@ -22,6 +22,17 @@ var Multichain = /** @class */ (function () {
     Multichain.prototype.makeConnectedMultichainObject = function () {
         return new Multichain(process.env.MULTICHAINADDRESS, this.makeConnectionFromEnv());
     };
+    Multichain.prototype.hasConnection = function () {
+        try {
+            this.multichain.getInfo(function (error, info) { });
+        }
+        catch (TypeError) {
+            if (TypeError.message == 'this.multichain.getInfo is not a function')
+                return false;
+            throw TypeError;
+        }
+        return true;
+    };
     Multichain.prototype.Info = function (callback) {
         this.multichain.getInfo(function (error, info) {
             return callback(error, info);
