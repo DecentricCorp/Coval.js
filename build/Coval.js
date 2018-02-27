@@ -91,7 +91,7 @@ exports.Partners = Partners;
 var Transports = /** @class */ (function () {
     function Transports() {
         this.Envelope = Envelope_1.Envelope;
-        this.Dat = Dat_1.Dat;
+        this.DatNode = Dat_1.DatNode;
         this.Multichain = Multichain_1.Multichain;
     }
     return Transports;

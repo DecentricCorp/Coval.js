@@ -1,36 +1,29 @@
 "use strict"
-import { Dat } from "./transport/Dat";
-import { IUser, UserType } from './base/User';
+import { DatNode } from "./transport/Dat";
 import { Envelope } from "./transport/Envelope";
 
-
 export class Emblem {
-    public dats: Array<Dat<IUser>> = []
+
+    private datNodes: {[key: string]: DatNode} = {}
     public claimed: boolean = false
-    /**
-     * @deprecated 
-     */
-    public AddDat(dat: Dat<IUser>): Envelope {
+
+    public AddDatNode(key:string, dat: DatNode): Envelope {
         var envelope = new Envelope()
-        let found = this.dats.filter((d) => {return d.user.type === dat.user.type})
-        if (found.length > 0) {
+        let found = this.datNodes[key]
+        if (found) {
             envelope.AddError("Dat of this type already exists")
         } else {
-            this.dats.push(dat)
+            this.datNodes[key] = dat
             envelope.AddValue("Sucessfully added dat")
         }
+        envelope.AddValue("Sucessfully added dat")
         return envelope
     }
 
-    /**
-     * @deprecated 
-     */
     public HasRequiredDats() {
-        let serverDat = this.dats.filter((d) => {return d.user.type === UserType.Server})
-        let clientDat = this.dats.filter((d) => {return d.user.type === UserType.Client})
-        return serverDat.length > 0 && clientDat.length > 0
+        return Object.keys(this.datNodes).length > 1
     }
 
 
-    
+
 }

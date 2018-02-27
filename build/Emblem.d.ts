@@ -1,15 +1,8 @@
-import { Dat } from "./transport/Dat";
-import { IUser } from './base/User';
+import { DatNode } from "./transport/Dat";
 import { Envelope } from "./transport/Envelope";
 export declare class Emblem {
-    dats: Array<Dat<IUser>>;
+    private datNodes;
     claimed: boolean;
-    /**
-     * @deprecated
-     */
-    AddDat(dat: Dat<IUser>): Envelope;
-    /**
-     * @deprecated
-     */
+    AddDatNode(key: string, dat: DatNode): Envelope;
     HasRequiredDats(): boolean;
 }

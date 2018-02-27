@@ -4,7 +4,7 @@ import {Mnemonic} from "./secure/Mnemonic"
 import {Shamir} from "./secure/Shamir"
 import {Diffie} from "./secure/Diffie"
 import {Envelope} from "./transport/Envelope"
-import {Dat} from "./transport/Dat"
+import {DatNode} from "./transport/Dat"
 import {Multichain} from "./transport/Multichain"
 import {Unloq} from "./partner/Unloq"
 import {Changely} from "./partner/Changely"
@@ -24,7 +24,7 @@ import * as User from './base/User';
 import { ManyKeys } from './secure/ManyKeys';
 /**
  * Coval main export
- * 
+ *
  * @export
  * @class Coval
  */
@@ -44,7 +44,7 @@ export class Coval {
 
 /**
  * Coval Secure Class
- * 
+ *
  * @export
  * @class Secure
  */
@@ -60,7 +60,7 @@ export class Secures {
 }
 /**
  * Partners of Coval
- * 
+ *
  * @export
  * @class Partner
  */
@@ -72,12 +72,12 @@ export class Partners {
 }
 /**
  * Coval Transport Class
- * 
+ *
  * @export
  * @class Transport
  */
 export class Transports {
     public Envelope = Envelope
-    public Dat = Dat
+    public DatNode = DatNode
     public Multichain = Multichain
 }
