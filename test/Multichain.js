@@ -33,6 +33,9 @@ describe('Multichain', () => {
     })
 
     describe('Streams', () => {
+        const mockStreamName = "TestStream"
+        const mockStreamValue = "TestValue"
+
         it('returns a list of streams', function (done) {
             multichain.Streams(function (error, streams) {
                 expect(error).to.not.exist
@@ -46,17 +49,19 @@ describe('Multichain', () => {
         })
 
         describe('StreamItemsByKey', () => {
+            const mockStreamKey = "TestItem"
+
             it('returns a stream of items by key', function (done) {
-                multichain.StreamItemsByKey(mock.streams[1].name, mock.streamitem.key, function (error, items) {
+                multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, items) {
                     expect(error).to.not.exist
                     expect(items).to.exist
-                    expect(items[0].value).to.equal(mock.streamitem.value)
+                    expect(items[0].value).to.equal(mockStreamValue)
                     done()
                 })
             })
 
             it('returns an empty list with no error when key not found', function (done) {
-                multichain.StreamItemsByKey(mock.streams[1].name, "InvalidKey", function (error, items) {
+                multichain.StreamItemsByKey(mockStreamName, "InvalidKey", function (error, items) {
                     expect(error).to.not.exist
                     expect(items).to.be.empty
                     done()
@@ -73,18 +78,20 @@ describe('Multichain', () => {
         })
 
         describe('StreamItemsByPublisher', () => {
+            const mockStreamPublisher = "1Ej2dEzyGd4o47XQRxkRNMkJE8TMNNaher"
+
             it('returns a stream of items by publisher', function (done) {
-                multichain.StreamItemsByPublisher(mock.streams[1].name, mock.streamitem.publisher, function (error, items) {
+                multichain.StreamItemsByPublisher(mockStreamName, mockStreamPublisher, function (error, items) {
                     expect(error).to.not.exist
                     expect(items).to.exist
                     expect(items).to.not.be.empty
-                    expect(items[0].value).to.equal(mock.streamitem.value)
+                    expect(items[0].value).to.equal(mockStreamValue)
                     done()
                 })
             })
 
             it('returns an error when stream not found', function (done) {
-                multichain.StreamItemsByPublisher("InvalidStream", mock.streamitem.publisher, function (error, items) {
+                multichain.StreamItemsByPublisher("InvalidStream", mockStreamPublisher, function (error, items) {
                     expect(error).to.exist
                     expect(error.message).to.equal('Stream with this name not found: InvalidStream')
                     done()
