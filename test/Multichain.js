@@ -22,16 +22,23 @@ describe('Multichain', () => {
         })
     })
 
-    it('allows instantiation without a connection object', () => {
+    it('allows instantiation without a connection object', (done) => {
         var empty_multichain = new Multichain()
         expect(empty_multichain).to.exist
-        expect(empty_multichain.hasConnection()).to.be.false
+        expect(function() {
+            empty_multichain.Info()
+        }).to.throw('multichain has no active connection')
+        done()
     })
 
-    it('allows for loading a connection after construction of an object', () => {
+    it('allows for loading a connection after construction of an object', (done) => {
         var empty_multichain = new Multichain()
         empty_multichain.Connect(empty_multichain.makeConnectionFromEnv())
-        expect(empty_multichain.hasConnection()).to.be.true
+        empty_multichain.Info((error, info) => {
+            expect(error).to.not.exist
+            expect(info).to.exist
+            done()
+        })
     })
 
     describe('Streams', () => {

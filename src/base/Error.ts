@@ -13,6 +13,13 @@ import {Logs} from "../base/Log"
         }
     }
 
+    export class NotConnectedError extends Error {
+        constructor(message: string) {
+            super(message);
+            this.name = 'NotConnectedError'
+        }
+    }
+
     export class Errors implements IErrors {
         errors = []
         

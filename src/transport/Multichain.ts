@@ -3,6 +3,7 @@
 import * as MultichainLib from "multichain-node"
 import * as UtilLib from "../Utils"
 import * as HDKeyLib from "../secure/HDKey"
+import { NotConnectedError } from "../base/Error";
 
 export class Multichain {
     multichain: { [x: string]: any; };
@@ -29,21 +30,16 @@ export class Multichain {
         return new Multichain(process.env.MULTICHAINADDRESS, this.makeConnectionFromEnv())
     }
 
-    hasConnection() {
+    Info(callback) {
         try {
-            this.multichain.getInfo((error, info) => {})
-        } catch(TypeError) {
+            this.multichain.getInfo((error, info) => {
+                return callback(error, info)
+            })
+        } catch (TypeError) {
             if (TypeError.message == 'this.multichain.getInfo is not a function')
-                return false
+                throw new NotConnectedError('multichain has no active connection')
             throw TypeError
         }
-        return true
-    }
-
-    Info(callback) {
-        this.multichain.getInfo((error, info) => {
-            return callback(error, info)
-        })
     }
 
     Connect(connection: MultichainConnection) {
@@ -203,7 +199,7 @@ export class Multichain {
         assets[asset] = 1
         ask[asking] = 1
         this.PrepareUnlockFrom(from, assets, function (error, unlocks) {
-            var payload = {unlocks: unlocks, prepared: '', offer: assets, asking: ask }
+            var payload = { unlocks: unlocks, prepared: '', offer: assets, asking: ask }
             parent.multichain.createRawExchange({
                 txid: payload.unlocks.txid,
                 vout: payload.unlocks.vout,
@@ -243,8 +239,8 @@ export class Multichain {
     PrepareUnlock(assets, callback) {
         this.multichain.prepareLockUnspent({
             assets: assets,
-             lock: false
-            }, function (error, transaction) {
+            lock: false
+        }, function (error, transaction) {
             return callback(error, transaction)
         })
     }
@@ -261,5 +257,5 @@ export class MultichainConnection {
         public port: Number,
         public host: string,
         public user: string,
-        public pass: string) {}
+        public pass: string) { }
 }

@@ -7,6 +7,9 @@ export declare class BaseError {
      */
     constructor(message: string);
 }
+export declare class NotConnectedError extends Error {
+    constructor(message: string);
+}
 export declare class Errors implements IErrors {
     errors: any[];
     Errors(): any[];

@@ -9,7 +9,6 @@ export declare class Multichain {
     constructor(address?: string, connection?: MultichainConnection, asset?: string, permissions?: string[]);
     makeConnectionFromEnv(): MultichainConnection;
     makeConnectedMultichainObject(): Multichain;
-    hasConnection(): boolean;
     Info(callback: any): void;
     Connect(connection: MultichainConnection): void;
     Streams(callback: any): void;
