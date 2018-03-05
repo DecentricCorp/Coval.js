@@ -45,6 +45,14 @@ describe('Multichain', () => {
         const mockStreamName = "TestStream"
         const mockStreamValue = "TestValue"
 
+        it('throws not connected error when no valid connection is present', function(done) {
+            var empty_multichain = new Multichain()
+            expect(function() {
+                empty_multichain.Streams()
+            }).to.throw('multichain has no active connection')
+            done()
+        })
+
         it('returns a list of streams', function (done) {
             multichain.Streams(function (error, streams) {
                 expect(error).to.not.exist
@@ -59,6 +67,14 @@ describe('Multichain', () => {
 
         describe('StreamItemsByKey', () => {
             const mockStreamKey = "TestItem"
+
+            it('throws not connected error when no valid connection is present', function(done) {
+                var empty_multichain = new Multichain()
+                expect(function() { 
+                    empty_multichain.StreamItemsByKey() 
+                }).to.throw('multichain has no active connection')
+                done()
+            })
 
             it('returns a stream of items by key', function (done) {
                 multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, items) {
@@ -89,6 +105,14 @@ describe('Multichain', () => {
         describe('StreamItemsByPublisher', () => {
             const mockStreamPublisher = "1Ej2dEzyGd4o47XQRxkRNMkJE8TMNNaher"
 
+            it('throws not connected error when no valid connection is present', function(done) {
+                var empty_multichain = new Multichain()
+                expect(function() { 
+                    empty_multichain.StreamItemsByPublisher() 
+                }).to.throw('multichain has no active connection')
+                done()
+            }) 
+
             it('returns a stream of items by publisher', function (done) {
                 multichain.StreamItemsByPublisher(mockStreamName, mockStreamPublisher, function (error, items) {
                     expect(error).to.not.exist
@@ -110,6 +134,31 @@ describe('Multichain', () => {
     })
 
     describe('Address', () => {
+
+        it('ImportAddress throws not connected error when no valid connection is present', function(done) {
+            var empty_multichain = new Multichain()
+            expect(function() { 
+                empty_multichain.ImportAddress() 
+            }).to.throw('multichain has no active connection')
+            done()
+        })
+
+        it('GrantPermissionToAddress throws not connected error when no valid connection is present', function(done) {
+            var empty_multichain = new Multichain()
+            expect(function() { 
+                empty_multichain.GrantPermissionToAddress() 
+            }).to.throw('multichain has no active connection')
+            done()
+        })
+
+        it('RevokePermissionToAddress throws not connected error when no valid connection is present', function(done) {
+            var empty_multichain = new Multichain()
+            expect(function() { 
+                empty_multichain.RevokePermissionToAddress() 
+            }).to.throw('multichain has no active connection')
+            done()
+        })
+
         it('imports an address', function (done) {
             multichain.ImportAddress(mock.import.from.address, "TestFromAddress", function (error, result) {
                 expect(error).to.not.exist
@@ -165,6 +214,30 @@ describe('Multichain', () => {
             rnd = Math.floor(Math.random() * (1000000 - 1) + 1)
             asset = "testasset" + rnd.toString()
             emblem = "emblem-" + rnd.toString()
+        })
+
+        it('Issue throws not connected error when no valid connection is present', function(done) {
+            var empty_multichain = new Multichain()
+            expect(function() { 
+                empty_multichain.Issue() 
+            }).to.throw('multichain has no active connection')
+            done()
+        })
+
+        it('IssueMore throws not connected error when no valid connection is present', function(done) {
+            var empty_multichain = new Multichain()
+            expect(function() { 
+                empty_multichain.IssueMore() 
+            }).to.throw('multichain has no active connection')
+            done()
+        })
+
+        it('SendAssetFrom throws not connected error when no valid connection is present', function(done) {
+            var empty_multichain = new Multichain()
+            expect(function() { 
+                empty_multichain.SendAssetFrom() 
+            }).to.throw('multichain has no active connection')
+            done()
         })
 
         it('issues asset to internal user', (done) => {

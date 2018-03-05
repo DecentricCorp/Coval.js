@@ -47,25 +47,43 @@ export class Multichain {
     }
 
     Streams(callback) {
-        this.multichain.listStreams((error, streams) => {
-            return callback(error, streams)
-        })
+        try {
+            this.multichain.listStreams((error, streams) => {
+                return callback(error, streams)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.listStreams is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     StreamItemsByKey(streamName, key, callback) {
-        this.multichain.listStreamKeyItems({
-            stream: streamName,
-            key: key,
-            verbose: true
-        }, (error, items) => { return this._StreamItems(error, items, callback) })
+        try {
+            this.multichain.listStreamKeyItems({
+                stream: streamName,
+                key: key,
+                verbose: true
+            }, (error, items) => { return this._StreamItems(error, items, callback) })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.listStreamKeyItems is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     StreamItemsByPublisher(streamName, publisherAddress, callback) {
-        this.multichain.listStreamPublisherItems({
-            stream: streamName,
-            address: publisherAddress,
-            verbose: true
-        }, (error, items) => { return this._StreamItems(error, items, callback) })
+        try {
+            this.multichain.listStreamPublisherItems({
+                stream: streamName,
+                address: publisherAddress,
+                verbose: true
+            }, (error, items) => { return this._StreamItems(error, items, callback) })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.listStreamPublisherItems is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     _StreamItems(error, items, callback) {
@@ -84,31 +102,49 @@ export class Multichain {
     }
 
     GrantPermissionToAddress(addresses, permissions, callback) {
-        this.multichain.grant({
-            addresses: addresses,
-            permissions: permissions
-        }, function (error, result) {
-            return callback(error, result)
-        })
+        try {
+            this.multichain.grant({
+                addresses: addresses,
+                permissions: permissions
+            }, function (error, result) {
+                return callback(error, result)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.grant is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     RevokePermissionToAddress(address, permissions, callback) {
-        this.multichain.revoke({
-            addresses: address,
-            permissions: permissions
-        }, function (error, result) {
-            return callback(error, result)
-        })
+        try {
+            this.multichain.revoke({
+                addresses: address,
+                permissions: permissions
+            }, function (error, result) {
+                return callback(error, result)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.revoke is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     ImportAddress(address, name, callback) {
-        this.multichain.importAddress({
-            address: address,
-            label: name,
-            rescan: false
-        }, function (error, result) {
-            return callback(error, result)
-        })
+        try {
+            this.multichain.importAddress({
+                address: address,
+                label: name,
+                rescan: false
+            }, function (error, result) {
+                return callback(error, result)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.importAddress is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     ImportPrivKey(key, callback) {
@@ -118,10 +154,10 @@ export class Multichain {
     }
 
     SendSignedTransaction(signed, callback) {
-        this.multichain.sendRawTransaction([signed.toString("hex")], function (error, transaction_id) {
-            return callback(error, transaction_id)
-        })
-    }
+            this.multichain.sendRawTransaction([signed.toString("hex")], function (error, transaction_id) {
+                return callback(error, transaction_id)
+            })
+        }
 
     CreateAndSignSend(from, to, asset, qty, callback) {
         var rawRequest = {}
@@ -130,66 +166,96 @@ export class Multichain {
         // TODO: Use promise with async and await instead of callback, to avoid race condition
         rawRequest[to][asset] = () => Number(qty)
         var parent = this
-        parent.multichain.createRawSendFrom([from.address, rawRequest], function (error, raw) {
-            parent.SignRaw(from, raw, function (error, signed) {
-                return callback(error, signed)
+            parent.multichain.createRawSendFrom([from.address, rawRequest], function (error, raw) {
+                parent.SignRaw(from, raw, function (error, signed) {
+                    return callback(error, signed)
+                })
             })
-        })
-    }
+        }
 
     SignRaw(from, hex, callback) {
         var HDKey = new HDKeyLib.HDKey()
         from.wif = HDKey.DeriveKeyWif(from, 0)
         var parent = this
-        parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], function (error, signed) {
-            return callback(error, signed)
-        })
+        try {
+            parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], function (error, signed) {
+                return callback(error, signed)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.signRawTransaction is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     GetAssetBalance(address, asset, callback) {
-        this.multichain.getAddressBalances({
-            minconf: 0,
-            address: address
-        }, function (error, result) {
-            var balance = 0
-            var filtered = result.filter(function (a) { return a.name === asset })
-            if (filtered.length > 0) {
-                balance = filtered[0].qty
-            }
-            return callback(null, balance)
-        })
+        try {
+            this.multichain.getAddressBalances({
+                minconf: 0,
+                address: address
+            }, function (error, result) {
+                var balance = 0
+                var filtered = result.filter(function (a) { return a.name === asset })
+                if (filtered.length > 0) {
+                    balance = filtered[0].qty
+                }
+                return callback(null, balance)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.getAddressBalances is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     SendAssetFrom(from, to, amount, asset, callback) {
-        this.multichain.sendAssetFrom({
-            from: from,
-            to: to,
-            asset: asset,
-            qty: amount
-        }, function (error, transaction) {
-            return callback(error, transaction)
-        })
+        try {
+            this.multichain.sendAssetFrom({
+                from: from,
+                to: to,
+                asset: asset,
+                qty: amount
+            }, function (error, transaction) {
+                return callback(error, transaction)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.sendAssetFrom is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     Issue(to, name, qty, callback) {
-        this.multichain.issue({
-            address: to,
-            asset: { name: name, open: true },
-            qty: qty,
-            units: 1
-        }, function (error, transaction) {
-            return callback(error, transaction)
-        })
+        try {
+            this.multichain.issue({
+                address: to,
+                asset: { name: name, open: true },
+                qty: qty,
+                units: 1
+            }, function (error, transaction) {
+                return callback(error, transaction)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.issue is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     IssueMore(to, name, qty, callback) {
-        this.multichain.issueMore({
-            address: to,
-            asset: name,
-            qty: qty
-        }, function (error, transaction) {
-            return callback(error, transaction)
-        })
+        try {
+            this.multichain.issueMore({
+                address: to,
+                asset: name,
+                qty: qty
+            }, function (error, transaction) {
+                return callback(error, transaction)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.issueMore is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     CreateExchange(from, asset, asking, callback) {
@@ -200,49 +266,73 @@ export class Multichain {
         ask[asking] = 1
         this.PrepareUnlockFrom(from, assets, function (error, unlocks) {
             var payload = { unlocks: unlocks, prepared: '', offer: assets, asking: ask }
-            parent.multichain.createRawExchange({
-                txid: payload.unlocks.txid,
-                vout: payload.unlocks.vout,
-                assets: ask
-            }, function (error, raw) {
-                payload.prepared = raw
-                return callback(error, payload)
-            })
+            try {
+                parent.multichain.createRawExchange({
+                    txid: payload.unlocks.txid,
+                    vout: payload.unlocks.vout,
+                    assets: ask
+                }, function (error, raw) {
+                    payload.prepared = raw
+                    return callback(error, payload)
+                })
+            } catch (TypeError) {
+                if (TypeError.message == 'this.multichain.createRawExchange is not a function')
+                    throw new NotConnectedError('multichain has no active connection')
+                throw TypeError
+            }
         })
     }
 
     FinalizeExchange(hex, txid, vout, assets, callback) {
         //console.log('--------- request', completeRequest)
-        this.multichain.completeRawExchange({
-            hexstring: hex,
-            txid: txid,
-            vout: vout,
-            assets: assets,
-            data: ''
-        }, function (error, complete) {
-            console.log('-------- Error', error)
-            console.log('-------- Complete', complete)
-            return callback(error, complete)
-        })
+        try {
+            this.multichain.completeRawExchange({
+                hexstring: hex,
+                txid: txid,
+                vout: vout,
+                assets: assets,
+                data: ''
+            }, function (error, complete) {
+                console.log('-------- Error', error)
+                console.log('-------- Complete', complete)
+                return callback(error, complete)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.completeRawExchange is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     PrepareUnlockFrom(from, assets, callback) {
-        this.multichain.prepareLockUnspentFrom({
-            from: from,
-            assets: assets,
-            lock: true
-        }, function (error, transaction) {
-            return callback(error, transaction)
-        })
+        try {
+            this.multichain.prepareLockUnspentFrom({
+                from: from,
+                assets: assets,
+                lock: true
+            }, function (error, transaction) {
+                return callback(error, transaction)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.PrepareUnlockFrom is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     PrepareUnlock(assets, callback) {
-        this.multichain.prepareLockUnspent({
-            assets: assets,
-            lock: false
-        }, function (error, transaction) {
-            return callback(error, transaction)
-        })
+        try {
+            this.multichain.prepareLockUnspent({
+                assets: assets,
+                lock: false
+            }, function (error, transaction) {
+                return callback(error, transaction)
+            })
+        } catch (TypeError) {
+            if (TypeError.message == 'this.multichain.prepareLockUnspent is not a function')
+                throw new NotConnectedError('multichain has no active connection')
+            throw TypeError
+        }
     }
 
     IssueEmblem(to, assetName, callback) {
