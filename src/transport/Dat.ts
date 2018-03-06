@@ -77,8 +77,7 @@ export class DatManager {
     // }
 
     public getDatNode(id:string) {
-        let me = this
-        return me._datnodes[id]
+        return this._datnodes[id]
     }
 
     public createDatNode(id:string, archive:string|{}, options:{}): Promise<DatNode> {
@@ -96,14 +95,13 @@ export class DatManager {
     public disposeDatNode(id:string): Promise<DatNode> {
         let me = this
         return new Promise<DatNode>(function(resolve, reject) {
-            let datnode:DatNode = me.getDatNode(id);
-            delete me._datnodes[id];
+            let datnode:DatNode = me.getDatNode(id)
+            delete me._datnodes[id]
             if (datnode) {
                 try {
                     datnode.close()
                 } catch (error) {
                     console.error("Error while closing '" + id)
-                    // console.error(error)
                     return reject(datnode)
                 }
             }
@@ -118,7 +116,6 @@ export class DatManager {
             subPromises.push(me.disposeDatNode(id)
                 .catch(function(error) {
                     console.error("Unexpected error while closing datnode " + id )
-                    // console.error(error)
                 }))
         })
         return Promise.all(subPromises)
@@ -173,9 +170,8 @@ export class DatNode extends EventEmitter {
 
     initializeArchive(callback?:(datnode:DatNode, err?:{}) => void): Promise<DatNode> {
         let me = this
-        if (callback) {
-            me.once('create', callback);
-        }
+        if (callback)
+            me.once('create', callback)
         return new Promise<DatNode>(function(resolve, reject) {
             Dat(me._archive, me._options, function(err, dat) {
                 if (err) {
@@ -194,10 +190,9 @@ export class DatNode extends EventEmitter {
     }
 
     joinNetwork(callback?:(datnode:DatNode, err?:{}) => void): Promise<DatNode> {
-        let me = this;
-        if (callback) {
-            me.once('join', callback);
-        }
+        let me = this
+        if (callback)
+            me.once('join', callback)
         return new Promise<DatNode>(function(resolve, reject) {
             me._dat.joinNetwork(function(err) {
                 if (err) {
@@ -209,15 +204,14 @@ export class DatNode extends EventEmitter {
                     me.emit('join', me)
                     return resolve(me)
                 }
-            });
+            })
         })
     }
 
     importFiles(callback?:(datnode:DatNode, err?:{}) => void): Promise<DatNode> {
-        let me = this;
-        if (callback) {
-            me.once('import', callback);
-        }
+        let me = this
+        if (callback)
+            me.once('import', callback)
         return new Promise<DatNode>(function(resolve, reject) {
             me._dat.importFiles(function(err) {
                 if (err) {
@@ -234,19 +228,18 @@ export class DatNode extends EventEmitter {
     }
 
     close(callback?:(datnode:DatNode) => void): Promise<DatNode> {
-        let me = this;
-        if (callback) {
-            me.once('close', callback);
-        }
+        let me = this
+        if (callback)
+            me.once('close', callback)
         return new Promise<DatNode>(function(resolve, reject) {
             try {
                 if (me._dat && me._dat.network) {
                     me._dat.network.close()
                 }
-                me.emit('close', me);
+                me.emit('close', me)
                 return resolve(me)
             } catch (error) {
-                me.emit('close', me);
+                me.emit('close', me)
                 return reject(error)
             }
         })

@@ -71,8 +71,7 @@ var DatManager = /** @class */ (function () {
     //     return this.createDatNode(id, ram, { key: key, temp: true })
     // }
     DatManager.prototype.getDatNode = function (id) {
-        var me = this;
-        return me._datnodes[id];
+        return this._datnodes[id];
     };
     DatManager.prototype.createDatNode = function (id, archive, options) {
         var me = this;
@@ -97,7 +96,6 @@ var DatManager = /** @class */ (function () {
                 }
                 catch (error) {
                     console.error("Error while closing '" + id);
-                    // console.error(error)
                     return reject(datnode);
                 }
             }
@@ -111,7 +109,6 @@ var DatManager = /** @class */ (function () {
             subPromises.push(me.disposeDatNode(id)
                 .catch(function (error) {
                 console.error("Unexpected error while closing datnode " + id);
-                // console.error(error)
             }));
         });
         return Promise.all(subPromises)
@@ -160,9 +157,8 @@ var DatNode = /** @class */ (function (_super) {
     };
     DatNode.prototype.initializeArchive = function (callback) {
         var me = this;
-        if (callback) {
+        if (callback)
             me.once('create', callback);
-        }
         return new Promise(function (resolve, reject) {
             Dat(me._archive, me._options, function (err, dat) {
                 if (err) {
@@ -182,9 +178,8 @@ var DatNode = /** @class */ (function (_super) {
     };
     DatNode.prototype.joinNetwork = function (callback) {
         var me = this;
-        if (callback) {
+        if (callback)
             me.once('join', callback);
-        }
         return new Promise(function (resolve, reject) {
             me._dat.joinNetwork(function (err) {
                 if (err) {
@@ -202,9 +197,8 @@ var DatNode = /** @class */ (function (_super) {
     };
     DatNode.prototype.importFiles = function (callback) {
         var me = this;
-        if (callback) {
+        if (callback)
             me.once('import', callback);
-        }
         return new Promise(function (resolve, reject) {
             me._dat.importFiles(function (err) {
                 if (err) {
@@ -222,9 +216,8 @@ var DatNode = /** @class */ (function (_super) {
     };
     DatNode.prototype.close = function (callback) {
         var me = this;
-        if (callback) {
+        if (callback)
             me.once('close', callback);
-        }
         return new Promise(function (resolve, reject) {
             try {
                 if (me._dat && me._dat.network) {
