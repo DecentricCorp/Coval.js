@@ -54,6 +54,9 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# Dat archive metadata
+**/.dat
+
 # dotenv environment variables file
 .env
 
