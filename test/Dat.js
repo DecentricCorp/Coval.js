@@ -10,13 +10,13 @@ var chaiAsPromised = require('chai-as-promised')
 var expect = chai.expect
 var should = chai.should()
 var fs = require("fs-extra")
-chai.use(chaiAsPromised);
+chai.use(chaiAsPromised)
 
-
+var DatTestUtility = require('./test_utility/DatTestUtility')
 
 describe('Dat Protocol', ()=> {
 
-    const existingOwnedArchiveKey = 'c5841a7f635fa01e7f93c7560bf0429ad75a06ac2e05ae930104779200b4ef69'
+    var existingOwnedArchiveKey // = 'c5841a7f635fa01e7f93c7560bf0429ad75a06ac2e05ae930104779200b4ef69'
     const datMetadataDirectory = '/.dat'
     var existingOwnedArchiveDirectory
     var newOwnedArchiveDirectory
@@ -32,11 +32,18 @@ describe('Dat Protocol', ()=> {
         }
     }
 
-    before(() => {
+    before(function() {
+        this.timeout(15000)
         existingOwnedArchiveDirectory = path.join(__dirname, "/datresources/oldshare")
         newOwnedArchiveDirectory = path.join(__dirname, "/datresources/newshare")
         peerArchiveDirectory = path.join(__dirname, "/datresources/download1")
+        return DatTestUtility.initialize_test_archive(existingOwnedArchiveDirectory)
+        .then((datnode) => {
+            existingOwnedArchiveKey = datnode.getArchiveKey()
+        })
     })
+
+
 
     beforeEach(() => {
         deleteFolder(path.join(newOwnedArchiveDirectory, datMetadataDirectory))
