@@ -16,7 +16,7 @@ var DatTestUtility = require('./test_utility/DatTestUtility')
 
 describe('Dat Protocol', ()=> {
 
-    var existingOwnedArchiveKey // = 'c5841a7f635fa01e7f93c7560bf0429ad75a06ac2e05ae930104779200b4ef69'
+    var existingOwnedArchiveKey
     const datMetadataDirectory = '/.dat'
     var existingOwnedArchiveDirectory
     var newOwnedArchiveDirectory
