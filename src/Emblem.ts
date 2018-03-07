@@ -1,36 +1,31 @@
 "use strict"
-import { Dat } from "./transport/Dat";
-import { IUser, UserType } from './base/User';
+import { DatNode } from "./transport/Dat";
 import { Envelope } from "./transport/Envelope";
 
-
 export class Emblem {
-    public dats: Array<Dat<IUser>> = []
+
+    private datNodes: DatNode[] = []
     public claimed: boolean = false
-    /**
-     * @deprecated 
-     */
-    public AddDat(dat: Dat<IUser>): Envelope {
+
+    public AddDatNode(dat: DatNode): Envelope {
         var envelope = new Envelope()
-        let found = this.dats.filter((d) => {return d.user.type === dat.user.type})
-        if (found.length > 0) {
+        if (this.findDatOfType(dat.getID())) {
             envelope.AddError("Dat of this type already exists")
         } else {
-            this.dats.push(dat)
+            this.datNodes.push(dat)
             envelope.AddValue("Sucessfully added dat")
         }
+        envelope.AddValue("Sucessfully added dat")
         return envelope
     }
 
-    /**
-     * @deprecated 
-     */
-    public HasRequiredDats() {
-        let serverDat = this.dats.filter((d) => {return d.user.type === UserType.Server})
-        let clientDat = this.dats.filter((d) => {return d.user.type === UserType.Client})
-        return serverDat.length > 0 && clientDat.length > 0
+    public findDatOfType(type:string):DatNode {
+        let found = this.datNodes.filter((d) => {return d.getID() === type})
+        return found.length > 0 ? found[0] : null
     }
 
+    public HasRequiredDats() {
+        return !!this.findDatOfType('client') && !!this.findDatOfType('server')
+    }
 
-    
 }

@@ -3,7 +3,7 @@ import { Mnemonic } from "./secure/Mnemonic";
 import { Shamir } from "./secure/Shamir";
 import { Diffie } from "./secure/Diffie";
 import { Envelope } from "./transport/Envelope";
-import { Dat } from "./transport/Dat";
+import { DatNode } from "./transport/Dat";
 import { Multichain } from "./transport/Multichain";
 import { Unloq } from "./partner/Unloq";
 import { Changely } from "./partner/Changely";
@@ -76,6 +76,6 @@ export declare class Partners {
  */
 export declare class Transports {
     Envelope: typeof Envelope;
-    Dat: typeof Dat;
+    DatNode: typeof DatNode;
     Multichain: typeof Multichain;
 }

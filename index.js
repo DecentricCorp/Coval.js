@@ -25,3 +25,4 @@ console.log('* new share + combined', JSON.stringify(newCombined, null, 2))
 //console.log('new plus new', servershares[0], clientshares[1], newShare)
 var twoCombined = secrets.combine([newshares[2], newshares[1]])
 console.log('* 2 combined', twoCombined)
+global.Promise = require('bluebird');
