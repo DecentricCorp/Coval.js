@@ -57,11 +57,7 @@ export class Multichain {
                 key: key,
                 verbose: true
             }, (error, items) => {
-                if (!!error) {
-                    callback(error, null)
-                } else {
-                    this._StreamItems(null, items, callback)
-                }
+                return !!error ? callback(error, null) : this._StreamItems(null, items, callback)
             })
         } catch (error) {
             callback(new MultichainError(error), null)
@@ -75,11 +71,7 @@ export class Multichain {
                 address: publisherAddress,
                 verbose: true
             }, (error, items) => {
-                if (!!error) {
-                    callback(error, null)
-                } else {
-                    return this._StreamItems(null, items, callback)
-                }
+                return !!error ? callback(error, null) : this._StreamItems(null, items, callback)
             })
         } catch (error) {
             callback(new MultichainError(error), null)
