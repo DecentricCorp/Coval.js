@@ -31,8 +31,8 @@ describe('Multichain', () => {
             expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
             expect(error.cause.name).to.equal('TypeError')
             expect(error.cause.message).to.equal('this.multichain.getInfo is not a function')
+            done()
         })
-        done()
     })
 
     it('allows for loading a connection after construction of an object', (done) => {
@@ -57,8 +57,8 @@ describe('Multichain', () => {
                 expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.listStreams is not a function')
+                done()
             })
-            done()
         })
 
         it('returns a list of streams', function (done) {
@@ -146,8 +146,8 @@ describe('Multichain', () => {
                     expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                     expect(error.cause.name).to.equal('TypeError')
                     expect(error.cause.message).to.equal('this.multichain.listStreamPublisherItems is not a function')
+                    done()
                 })
-                done()
             })
 
             it('returns a stream of items by publisher', function (done) {
@@ -179,8 +179,8 @@ describe('Multichain', () => {
                 expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.importAddress is not a function')
+                done()
             })
-            done()
         })
 
         it('GrantPermissionToAddress throws not connected error when no valid connection is present', function(done) {
@@ -191,8 +191,8 @@ describe('Multichain', () => {
                 expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.grant is not a function')
+                done()
             })
-            done()
         })
 
         it('RevokePermissionToAddress throws not connected error when no valid connection is present', function(done) {
@@ -203,8 +203,8 @@ describe('Multichain', () => {
                 expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.revoke is not a function')
+                done()
             })
-            done()
         })
 
         it('imports an address', function (done) {
@@ -281,8 +281,8 @@ describe('Multichain', () => {
                 expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.issue is not a function')
+                done()
             })
-            done()
         })
 
         it('IssueMore throws not connected error when no valid connection is present', function(done) {
@@ -293,8 +293,8 @@ describe('Multichain', () => {
                 expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.issueMore is not a function')
+                done()
             })
-            done()
         })
 
         it('SendAssetFrom throws not connected error when no valid connection is present', function(done) {
@@ -305,8 +305,8 @@ describe('Multichain', () => {
                 expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.sendAssetFrom is not a function')
+                done()
             })
-            done()
         })
 
         it('issues asset to internal user', (done) => {
