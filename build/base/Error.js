@@ -27,7 +27,8 @@ exports.BaseError = BaseError;
 var MultichainError = /** @class */ (function (_super) {
     __extends(MultichainError, _super);
     function MultichainError(cause) {
-        var _this = _super.call(this, 'Something went wrong in multichain, are you connected?') || this;
+        var _this = _super.call(this, 'An unexpected error occurred in multichain, are you connected?') || this;
+        // super('Something went wrong in multichain, are you connected?')
         _this.cause = cause;
         _this.name = 'MultichainError';
         return _this;

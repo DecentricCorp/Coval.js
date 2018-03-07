@@ -16,7 +16,8 @@ import {Logs} from "../base/Log"
     export class MultichainError extends Error {
         cause: any
         constructor(cause: any) {
-            super('Something went wrong in multichain, are you connected?')
+            super('An unexpected error occurred in multichain, are you connected?')
+            // super('Something went wrong in multichain, are you connected?')
             this.cause = cause
             this.name = 'MultichainError'
         }

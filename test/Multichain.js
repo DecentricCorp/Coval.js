@@ -28,7 +28,7 @@ describe('Multichain', () => {
         empty_multichain.Info(function (error, info) {
             expect(info).to.not.exist
             expect(error.name).to.equal('MultichainError')
-            expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+            expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
             expect(error.cause.name).to.equal('TypeError')
             expect(error.cause.message).to.equal('this.multichain.getInfo is not a function')
         })
@@ -54,7 +54,7 @@ describe('Multichain', () => {
             empty_multichain.Streams(function (error, info) {
                 expect(info).to.not.exist
                 expect(error.name).to.equal('MultichainError')
-                expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.listStreams is not a function')
             })
@@ -81,7 +81,7 @@ describe('Multichain', () => {
                 empty_multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, info) {
                     expect(info).to.not.exist
                     expect(error.name).to.equal('MultichainError')
-                    expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                    expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                     expect(error.cause.name).to.equal('TypeError')
                     expect(error.cause.message).to.equal('this.multichain.listStreamKeyItems is not a function')
                 })
@@ -122,7 +122,7 @@ describe('Multichain', () => {
                 empty_multichain.StreamItemsByPublisher(mockStreamName, mockStreamPublisher, function (error, info) {
                     expect(info).to.not.exist
                     expect(error.name).to.equal('MultichainError')
-                    expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                    expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                     expect(error.cause.name).to.equal('TypeError')
                     expect(error.cause.message).to.equal('this.multichain.listStreamPublisherItems is not a function')
                 })
@@ -155,7 +155,7 @@ describe('Multichain', () => {
             empty_multichain.ImportAddress(mock.import.from.address, mock.import.to.address, function (error, info) {
                 expect(info).to.not.exist
                 expect(error.name).to.equal('MultichainError')
-                expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.importAddress is not a function')
             })
@@ -167,7 +167,7 @@ describe('Multichain', () => {
             empty_multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (error, info) {
                 expect(info).to.not.exist
                 expect(error.name).to.equal('MultichainError')
-                expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.grant is not a function')
             })
@@ -179,7 +179,7 @@ describe('Multichain', () => {
             empty_multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (error, info) {
                 expect(info).to.not.exist
                 expect(error.name).to.equal('MultichainError')
-                expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.revoke is not a function')
             })
@@ -248,7 +248,7 @@ describe('Multichain', () => {
             empty_multichain.Issue(mock.multichain.address, asset, 2, function (error, info) {
                 expect(info).to.not.exist
                 expect(error.name).to.equal('MultichainError')
-                expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.issue is not a function')
             })
@@ -260,7 +260,7 @@ describe('Multichain', () => {
             empty_multichain.IssueMore(mock.import.from.address, asset, 1, function (error, info) {
                 expect(info).to.not.exist
                 expect(error.name).to.equal('MultichainError')
-                expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.issueMore is not a function')
             })
@@ -272,7 +272,7 @@ describe('Multichain', () => {
             empty_multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (error, info) {
                 expect(info).to.not.exist
                 expect(error.name).to.equal('MultichainError')
-                expect(error.message).to.equal('Something went wrong in multichain, are you connected?')
+                expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                 expect(error.cause.name).to.equal('TypeError')
                 expect(error.cause.message).to.equal('this.multichain.sendAssetFrom is not a function')
             })
