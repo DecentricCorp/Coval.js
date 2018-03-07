@@ -49,7 +49,7 @@ describe('Multichain', () => {
         const mockStreamName = "TestStream"
         const mockStreamValue = "TestValue"
 
-        it('throws not connected error when no valid connection is present', function(done) {
+        it('throws not connected error when no valid connection is present', function (done) {
             var empty_multichain = new Multichain()
             empty_multichain.Streams(function (error, info) {
                 expect(info).to.not.exist
@@ -76,9 +76,9 @@ describe('Multichain', () => {
         describe('StreamItemsByKey', () => {
             const mockStreamKey = "TestItem"
 
-            it('callback includes error and does not call stream items if error generated during listStreamKeyItems', function(done) {
+            it('callback includes error and does not call stream items if error generated during listStreamKeyItems', function (done) {
                 var realFunction = multichain.multichain.listStreamKeyItems
-                multichain.multichain.listStreamKeyItems = function(config, callback) {
+                multichain.multichain.listStreamKeyItems = function (config, callback) {
                     throw new Error("I'm jacked yo!")
                     //This is SOOO ugly; but will be fixed w/ promisification
                     realFunction(config, callback)
@@ -93,8 +93,8 @@ describe('Multichain', () => {
                 })
             })
 
-            
-            it('throws not connected error when no valid connection is present', function(done) {
+
+            it('throws not connected error when no valid connection is present', function (done) {
                 var empty_multichain = new Multichain()
                 empty_multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, info) {
                     expect(info).to.not.exist
@@ -105,7 +105,7 @@ describe('Multichain', () => {
                     done()
                 })
             })
-            
+
             it('returns a stream of items by key', function (done) {
                 multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, items) {
                     expect(error).to.not.exist
@@ -114,7 +114,7 @@ describe('Multichain', () => {
                     done()
                 })
             })
-            
+
             it('returns an empty list with no error when key not found', function (done) {
                 multichain.StreamItemsByKey(mockStreamName, "InvalidKey", function (error, items) {
                     expect(error).to.not.exist
@@ -122,7 +122,7 @@ describe('Multichain', () => {
                     done()
                 })
             })
-            
+
             it('returns an error when stream not found', function (done) {
                 multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function (error, items) {
                     expect(error).to.exist
@@ -131,14 +131,14 @@ describe('Multichain', () => {
                 })
             })
         })
-        
+
         describe('StreamItemsByPublisher', () => {
             const mockStreamPublisher = "1Ej2dEzyGd4o47XQRxkRNMkJE8TMNNaher"
 
             // see StreamItemsByKey
             it('callback includes error and does not call stream items if error generated during listStreamPublisherItems')
-            
-            it('throws not connected error when no valid connection is present', function(done) {
+
+            it('throws not connected error when no valid connection is present', function (done) {
                 var empty_multichain = new Multichain()
                 empty_multichain.StreamItemsByPublisher(mockStreamName, mockStreamPublisher, function (error, info) {
                     expect(info).to.not.exist
@@ -171,7 +171,7 @@ describe('Multichain', () => {
     })
 
     describe('Address', () => {
-        it('ImportAddress throws not connected error when no valid connection is present', function(done) {
+        it('ImportAddress throws not connected error when no valid connection is present', function (done) {
             var empty_multichain = new Multichain()
             empty_multichain.ImportAddress(mock.import.from.address, mock.import.to.address, function (error, info) {
                 expect(info).to.not.exist
@@ -183,7 +183,7 @@ describe('Multichain', () => {
             })
         })
 
-        it('GrantPermissionToAddress throws not connected error when no valid connection is present', function(done) {
+        it('GrantPermissionToAddress throws not connected error when no valid connection is present', function (done) {
             var empty_multichain = new Multichain()
             empty_multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (error, info) {
                 expect(info).to.not.exist
@@ -195,7 +195,7 @@ describe('Multichain', () => {
             })
         })
 
-        it('RevokePermissionToAddress throws not connected error when no valid connection is present', function(done) {
+        it('RevokePermissionToAddress throws not connected error when no valid connection is present', function (done) {
             var empty_multichain = new Multichain()
             empty_multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (error, info) {
                 expect(info).to.not.exist
@@ -243,7 +243,7 @@ describe('Multichain', () => {
         })
 
         // see StreamItemsByKey
-        it ('invokes callback with delegation errors when unhandled exceptions occur during CreateAndSignSend')
+        it('invokes callback with delegation errors when unhandled exceptions occur during CreateAndSignSend')
 
         it('allows sending of raw signed transaction', function (done) {
             multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function (error, result) {
@@ -268,12 +268,45 @@ describe('Multichain', () => {
         })
 
         // see StreamItemsByKey
-        it ('getAssetBalance error handling')
+        it('getAssetBalance error handling')
 
-        // Is there a test that asserts what's supposed to happen?
-        it ('getAssetBalance happy path')
+        it('returns no assets when no assets are assigned to the address', function (done) {
+            multichain.GetAssetBalance(mock.multichain.address, asset, function (error, balance) {
+                expect(error).to.not.exist
+                expect(balance).to.exist
+                expect(balance).to.be.a('number')
+                expect(balance).to.be.equal(0)
+                done()
+            })
+        })
 
-        it('Issue throws not connected error when no valid connection is present', function(done) {
+        it('returns one asset when one asset is assigned to the address', function (done) {
+            const new_asset = `newtestasset${rnd}`
+            multichain.Issue(mock.multichain.address, new_asset, 1, function (error, info) {
+                multichain.GetAssetBalance(mock.multichain.address, new_asset, function (error, balance) {
+                    expect(error).to.not.exist
+                    expect(balance).to.exist
+                    expect(balance).to.be.a('number')
+                    expect(balance).to.be.equal(1)
+                    done()
+                })
+            })
+        })
+
+        it('returns more than one asset when more than one asset is assigned to the address', function (done) {
+            const new_asset = `newtestasset${rnd}`
+            multichain.IssueMore(mock.multichain.address, new_asset, 1, function (error, info) {
+                multichain.GetAssetBalance(mock.multichain.address, new_asset, function (error, balance) {
+                    expect(error).to.not.exist
+                    expect(balance).to.exist
+                    expect(balance).to.be.a('number')
+                    expect(balance).to.be.equal(2)
+                    done()
+                })
+            })
+        })
+
+        it('Issue throws not connected error when no valid connection is present', function (done) {
             var empty_multichain = new Multichain()
             empty_multichain.Issue(mock.multichain.address, asset, 2, function (error, info) {
                 expect(info).to.not.exist
@@ -285,7 +318,7 @@ describe('Multichain', () => {
             })
         })
 
-        it('IssueMore throws not connected error when no valid connection is present', function(done) {
+        it('IssueMore throws not connected error when no valid connection is present', function (done) {
             var empty_multichain = new Multichain()
             empty_multichain.IssueMore(mock.import.from.address, asset, 1, function (error, info) {
                 expect(info).to.not.exist
@@ -297,7 +330,7 @@ describe('Multichain', () => {
             })
         })
 
-        it('SendAssetFrom throws not connected error when no valid connection is present', function(done) {
+        it('SendAssetFrom throws not connected error when no valid connection is present', function (done) {
             var empty_multichain = new Multichain()
             empty_multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (error, info) {
                 expect(info).to.not.exist
