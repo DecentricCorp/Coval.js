@@ -30,8 +30,6 @@ export declare class Multichain {
     PrepareUnlockFrom(from: any, assets: any, callback: any): void;
     PrepareUnlock(assets: any, callback: any): void;
     IssueEmblem(to: any, assetName: any, callback: any): void;
-    _convertToNotConnectedError(error: any): any;
-    _isNotConnectedError(error: any, subFunctionName: any): boolean;
     _StreamItems(error: any, items: any, callback: any): any;
     _elementValueCompute(items: any): any;
 }

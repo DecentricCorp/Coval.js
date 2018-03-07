@@ -13,10 +13,12 @@ import {Logs} from "../base/Log"
         }
     }
 
-    export class NotConnectedError extends Error {
-        constructor(message: string) {
-            super(message);
-            this.name = 'NotConnectedError'
+    export class MultichainError extends Error {
+        cause: any
+        constructor(cause: any) {
+            super('Something went wrong in multichain, are you connected?')
+            this.cause = cause
+            this.name = 'MultichainError'
         }
     }
 

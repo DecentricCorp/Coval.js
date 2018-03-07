@@ -24,16 +24,17 @@ var BaseError = /** @class */ (function () {
     return BaseError;
 }());
 exports.BaseError = BaseError;
-var NotConnectedError = /** @class */ (function (_super) {
-    __extends(NotConnectedError, _super);
-    function NotConnectedError(message) {
-        var _this = _super.call(this, message) || this;
-        _this.name = 'NotConnectedError';
+var MultichainError = /** @class */ (function (_super) {
+    __extends(MultichainError, _super);
+    function MultichainError(cause) {
+        var _this = _super.call(this, 'Something went wrong in multichain, are you connected?') || this;
+        _this.cause = cause;
+        _this.name = 'MultichainError';
         return _this;
     }
-    return NotConnectedError;
+    return MultichainError;
 }(Error));
-exports.NotConnectedError = NotConnectedError;
+exports.MultichainError = MultichainError;
 var Errors = /** @class */ (function () {
     function Errors() {
         this.errors = [];

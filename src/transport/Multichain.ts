@@ -3,7 +3,7 @@
 import * as MultichainLib from "multichain-node"
 import * as UtilLib from "../Utils"
 import * as HDKeyLib from "../secure/HDKey"
-import { NotConnectedError } from "../base/Error";
+import { MultichainError } from "../base/Error"
 
 export class Multichain {
     multichain: { [x: string]: any; };
@@ -36,9 +36,7 @@ export class Multichain {
                 return callback(error, info)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'getInfo'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -52,9 +50,7 @@ export class Multichain {
                 return callback(error, streams)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'listStreams'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -66,9 +62,7 @@ export class Multichain {
                 verbose: true
             }, (error, items) => { return this._StreamItems(error, items, callback) })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'listStreamKeyItems'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -80,9 +74,7 @@ export class Multichain {
                 verbose: true
             }, (error, items) => { return this._StreamItems(error, items, callback) })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'listStreamPublisherItems'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -95,9 +87,7 @@ export class Multichain {
                 return callback(error, result)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'grant'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -110,9 +100,7 @@ export class Multichain {
                 return callback(error, result)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'revoke'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -126,9 +114,7 @@ export class Multichain {
                 return callback(error, result)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'importAddress'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -167,9 +153,7 @@ export class Multichain {
                 return callback(error, signed)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'signRawTransaction'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -187,9 +171,7 @@ export class Multichain {
                 return callback(null, balance)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'getAddressBalances'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -204,9 +186,7 @@ export class Multichain {
                 return callback(error, transaction)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'sendAssetFrom'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -221,9 +201,7 @@ export class Multichain {
                 return callback(error, transaction)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'issue'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -237,9 +215,7 @@ export class Multichain {
                 return callback(error, transaction)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'issueMore'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -261,9 +237,7 @@ export class Multichain {
                     return callback(error, payload)
                 })
             } catch (error) {
-                if (this._isNotConnectedError(error, 'createRawExchange'))
-                    error = this._convertToNotConnectedError(error)
-                callback(error, null)
+                callback(new MultichainError(error), null)
             }
         })
     }
@@ -283,9 +257,7 @@ export class Multichain {
                 return callback(error, complete)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'completeRawExchange'))
-               error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -299,9 +271,7 @@ export class Multichain {
                 return callback(error, transaction)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'prepareLockUnspentFrom'))
-               error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -314,9 +284,7 @@ export class Multichain {
                 return callback(error, transaction)
             })
         } catch (error) {
-            if (this._isNotConnectedError(error, 'prepareLockUnspent'))
-                error = this._convertToNotConnectedError(error)
-            callback(error, null)
+            callback(new MultichainError(error), null)
         }
     }
 
@@ -324,16 +292,6 @@ export class Multichain {
         this.Issue(to, assetName, 1, function (error, transaction) {
             return callback(error, transaction)
         })
-    }
-
-    _convertToNotConnectedError(error) {
-        error.name = 'NotConnectedError'
-        error.message = 'multichain has no active connection'
-        return error
-    }
-
-    _isNotConnectedError(error, subFunctionName) {
-        return error.name == 'TypeError' && error.message == `this.multichain.${subFunctionName} is not a function`
     }
 
     _StreamItems(error, items, callback) {
