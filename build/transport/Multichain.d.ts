@@ -9,10 +9,10 @@ export declare class Multichain {
     constructor(address?: string, connection?: MultichainConnection, asset?: string, permissions?: string[]);
     makeConnectionFromEnv(): MultichainConnection;
     makeConnectedMultichainObject(): Multichain;
-    Info(callback: any): void;
+    Info(callback: (error: any, result: any) => void): void;
     Connect(connection: MultichainConnection): void;
-    Streams(callback: any): void;
-    StreamItemsByKey(streamName: any, key: any, callback: any): void;
+    Streams(callback: (error: any, result: any) => void): void;
+    StreamItemsByKey(streamName: string, key: string, callback: (error: any, result: any) => void): void;
     StreamItemsByPublisher(streamName: any, publisherAddress: any, callback: any): void;
     GrantPermissionToAddress(addresses: any, permissions: any, callback: any): void;
     RevokePermissionToAddress(address: any, permissions: any, callback: any): void;

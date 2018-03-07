@@ -30,11 +30,9 @@ export class Multichain {
         return new Multichain(process.env.MULTICHAINADDRESS, this.makeConnectionFromEnv())
     }
 
-    Info(callback) {
+    Info(callback:(error:any, result:any) => void) {
         try {
-            this.multichain.getInfo((error, info) => {
-                return callback(error, info)
-            })
+            this.multichain.getInfo(callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -44,17 +42,15 @@ export class Multichain {
         this.multichain = MultichainLib(connection)
     }
 
-    Streams(callback) {
+    Streams(callback:(error:any, result:any) => void) {
         try {
-            this.multichain.listStreams((error, streams) => {
-                return callback(error, streams)
-            })
+            this.multichain.listStreams(callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
     }
 
-    StreamItemsByKey(streamName, key, callback) {
+    StreamItemsByKey(streamName:string, key:string, callback:(error:any, result:any) => void) {
         try {
             this.multichain.listStreamKeyItems({
                 stream: streamName,
@@ -83,9 +79,7 @@ export class Multichain {
             this.multichain.grant({
                 addresses: addresses,
                 permissions: permissions
-            }, function (error, result) {
-                return callback(error, result)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -96,9 +90,7 @@ export class Multichain {
             this.multichain.revoke({
                 addresses: address,
                 permissions: permissions
-            }, function (error, result) {
-                return callback(error, result)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -110,24 +102,18 @@ export class Multichain {
                 address: address,
                 label: name,
                 rescan: false
-            }, function (error, result) {
-                return callback(error, result)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
     }
 
     ImportPrivKey(key, callback) {
-        this.multichain.importPrivKey([key], function (error, result) {
-            return callback(error, result)
-        })
+        this.multichain.importPrivKey([key], callback)
     }
 
     SendSignedTransaction(signed, callback) {
-            this.multichain.sendRawTransaction([signed.toString("hex")], function (error, transaction_id) {
-                return callback(error, transaction_id)
-            })
+            this.multichain.sendRawTransaction([signed.toString("hex")], callback)
         }
 
     CreateAndSignSend(from, to, asset, qty, callback) {
@@ -137,21 +123,17 @@ export class Multichain {
         // TODO: Use promise with async and await instead of callback, to avoid race condition
         rawRequest[to][asset] = () => Number(qty)
         var parent = this
-            parent.multichain.createRawSendFrom([from.address, rawRequest], function (error, raw) {
-                parent.SignRaw(from, raw, function (error, signed) {
-                    return callback(error, signed)
-                })
-            })
-        }
+        parent.multichain.createRawSendFrom([from.address, rawRequest], function (error, raw) {
+            parent.SignRaw(from, raw, callback)
+        })
+    }
 
     SignRaw(from, hex, callback) {
         var HDKey = new HDKeyLib.HDKey()
         from.wif = HDKey.DeriveKeyWif(from, 0)
         var parent = this
         try {
-            parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], function (error, signed) {
-                return callback(error, signed)
-            })
+            parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -182,9 +164,7 @@ export class Multichain {
                 to: to,
                 asset: asset,
                 qty: amount
-            }, function (error, transaction) {
-                return callback(error, transaction)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -197,9 +177,7 @@ export class Multichain {
                 asset: { name: name, open: true },
                 qty: qty,
                 units: 1
-            }, function (error, transaction) {
-                return callback(error, transaction)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -211,9 +189,7 @@ export class Multichain {
                 address: to,
                 asset: name,
                 qty: qty
-            }, function (error, transaction) {
-                return callback(error, transaction)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -243,7 +219,6 @@ export class Multichain {
     }
 
     FinalizeExchange(hex, txid, vout, assets, callback) {
-        //console.log('--------- request', completeRequest)
         try {
             this.multichain.completeRawExchange({
                 hexstring: hex,
@@ -251,11 +226,7 @@ export class Multichain {
                 vout: vout,
                 assets: assets,
                 data: ''
-            }, function (error, complete) {
-                console.log('-------- Error', error)
-                console.log('-------- Complete', complete)
-                return callback(error, complete)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -267,9 +238,7 @@ export class Multichain {
                 from: from,
                 assets: assets,
                 lock: true
-            }, function (error, transaction) {
-                return callback(error, transaction)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
@@ -280,18 +249,14 @@ export class Multichain {
             this.multichain.prepareLockUnspent({
                 assets: assets,
                 lock: false
-            }, function (error, transaction) {
-                return callback(error, transaction)
-            })
+            }, callback)
         } catch (error) {
             callback(new MultichainError(error), null)
         }
     }
 
     IssueEmblem(to, assetName, callback) {
-        this.Issue(to, assetName, 1, function (error, transaction) {
-            return callback(error, transaction)
-        })
+        this.Issue(to, assetName, 1, callback)
     }
 
     _StreamItems(error, items, callback) {

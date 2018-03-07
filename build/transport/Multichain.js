@@ -25,9 +25,7 @@ var Multichain = /** @class */ (function () {
     };
     Multichain.prototype.Info = function (callback) {
         try {
-            this.multichain.getInfo(function (error, info) {
-                return callback(error, info);
-            });
+            this.multichain.getInfo(callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -38,9 +36,7 @@ var Multichain = /** @class */ (function () {
     };
     Multichain.prototype.Streams = function (callback) {
         try {
-            this.multichain.listStreams(function (error, streams) {
-                return callback(error, streams);
-            });
+            this.multichain.listStreams(callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -77,9 +73,7 @@ var Multichain = /** @class */ (function () {
             this.multichain.grant({
                 addresses: addresses,
                 permissions: permissions
-            }, function (error, result) {
-                return callback(error, result);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -90,9 +84,7 @@ var Multichain = /** @class */ (function () {
             this.multichain.revoke({
                 addresses: address,
                 permissions: permissions
-            }, function (error, result) {
-                return callback(error, result);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -104,23 +96,17 @@ var Multichain = /** @class */ (function () {
                 address: address,
                 label: name,
                 rescan: false
-            }, function (error, result) {
-                return callback(error, result);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
         }
     };
     Multichain.prototype.ImportPrivKey = function (key, callback) {
-        this.multichain.importPrivKey([key], function (error, result) {
-            return callback(error, result);
-        });
+        this.multichain.importPrivKey([key], callback);
     };
     Multichain.prototype.SendSignedTransaction = function (signed, callback) {
-        this.multichain.sendRawTransaction([signed.toString("hex")], function (error, transaction_id) {
-            return callback(error, transaction_id);
-        });
+        this.multichain.sendRawTransaction([signed.toString("hex")], callback);
     };
     Multichain.prototype.CreateAndSignSend = function (from, to, asset, qty, callback) {
         var rawRequest = {};
@@ -129,9 +115,7 @@ var Multichain = /** @class */ (function () {
         rawRequest[to][asset] = function () { return Number(qty); };
         var parent = this;
         parent.multichain.createRawSendFrom([from.address, rawRequest], function (error, raw) {
-            parent.SignRaw(from, raw, function (error, signed) {
-                return callback(error, signed);
-            });
+            parent.SignRaw(from, raw, callback);
         });
     };
     Multichain.prototype.SignRaw = function (from, hex, callback) {
@@ -139,9 +123,7 @@ var Multichain = /** @class */ (function () {
         from.wif = HDKey.DeriveKeyWif(from, 0);
         var parent = this;
         try {
-            parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], function (error, signed) {
-                return callback(error, signed);
-            });
+            parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -172,9 +154,7 @@ var Multichain = /** @class */ (function () {
                 to: to,
                 asset: asset,
                 qty: amount
-            }, function (error, transaction) {
-                return callback(error, transaction);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -187,9 +167,7 @@ var Multichain = /** @class */ (function () {
                 asset: { name: name, open: true },
                 qty: qty,
                 units: 1
-            }, function (error, transaction) {
-                return callback(error, transaction);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -201,9 +179,7 @@ var Multichain = /** @class */ (function () {
                 address: to,
                 asset: name,
                 qty: qty
-            }, function (error, transaction) {
-                return callback(error, transaction);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -233,7 +209,6 @@ var Multichain = /** @class */ (function () {
         });
     };
     Multichain.prototype.FinalizeExchange = function (hex, txid, vout, assets, callback) {
-        //console.log('--------- request', completeRequest)
         try {
             this.multichain.completeRawExchange({
                 hexstring: hex,
@@ -241,11 +216,7 @@ var Multichain = /** @class */ (function () {
                 vout: vout,
                 assets: assets,
                 data: ''
-            }, function (error, complete) {
-                console.log('-------- Error', error);
-                console.log('-------- Complete', complete);
-                return callback(error, complete);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -257,9 +228,7 @@ var Multichain = /** @class */ (function () {
                 from: from,
                 assets: assets,
                 lock: true
-            }, function (error, transaction) {
-                return callback(error, transaction);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -270,18 +239,14 @@ var Multichain = /** @class */ (function () {
             this.multichain.prepareLockUnspent({
                 assets: assets,
                 lock: false
-            }, function (error, transaction) {
-                return callback(error, transaction);
-            });
+            }, callback);
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
         }
     };
     Multichain.prototype.IssueEmblem = function (to, assetName, callback) {
-        this.Issue(to, assetName, 1, function (error, transaction) {
-            return callback(error, transaction);
-        });
+        this.Issue(to, assetName, 1, callback);
     };
     Multichain.prototype._StreamItems = function (error, items, callback) {
         var itemArray = [];
