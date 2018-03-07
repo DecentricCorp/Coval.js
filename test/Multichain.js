@@ -25,9 +25,11 @@ describe('Multichain', () => {
     it('allows instantiation without a connection object', (done) => {
         var empty_multichain = new Multichain()
         expect(empty_multichain).to.exist
-        expect(function() {
-            empty_multichain.Info()
-        }).to.throw('multichain has no active connection')
+        empty_multichain.Info(function (error, info) {
+            expect(info).to.not.exist
+            expect(error.name).to.equal('NotConnectedError')
+            expect(error.message).to.equal('multichain has no active connection')
+        })
         done()
     })
 
@@ -47,9 +49,11 @@ describe('Multichain', () => {
 
         it('throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
-            expect(function() {
-                empty_multichain.Streams()
-            }).to.throw('multichain has no active connection')
+            empty_multichain.Streams(function (error, info) {
+                expect(info).to.not.exist
+                expect(error.name).to.equal('NotConnectedError')
+                expect(error.message).to.equal('multichain has no active connection')
+            })
             done()
         })
 
@@ -70,9 +74,11 @@ describe('Multichain', () => {
 
             it('throws not connected error when no valid connection is present', function(done) {
                 var empty_multichain = new Multichain()
-                expect(function() { 
-                    empty_multichain.StreamItemsByKey() 
-                }).to.throw('multichain has no active connection')
+                empty_multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, info) {
+                    expect(info).to.not.exist
+                    expect(error.name).to.equal('NotConnectedError')
+                    expect(error.message).to.equal('multichain has no active connection')
+                })
                 done()
             })
 
@@ -107,9 +113,11 @@ describe('Multichain', () => {
 
             it('throws not connected error when no valid connection is present', function(done) {
                 var empty_multichain = new Multichain()
-                expect(function() { 
-                    empty_multichain.StreamItemsByPublisher() 
-                }).to.throw('multichain has no active connection')
+                empty_multichain.StreamItemsByPublisher(mockStreamName, mockStreamPublisher, function (error, info) {
+                    expect(info).to.not.exist
+                    expect(error.name).to.equal('NotConnectedError')
+                    expect(error.message).to.equal('multichain has no active connection')
+                })
                 done()
             }) 
 
@@ -134,28 +142,33 @@ describe('Multichain', () => {
     })
 
     describe('Address', () => {
-
         it('ImportAddress throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
-            expect(function() { 
-                empty_multichain.ImportAddress() 
-            }).to.throw('multichain has no active connection')
+            empty_multichain.ImportAddress(mock.import.from.address, mock.import.to.address, function (error, info) {
+                expect(info).to.not.exist
+                expect(error.name).to.equal('NotConnectedError')
+                expect(error.message).to.equal('multichain has no active connection')
+            })
             done()
         })
 
         it('GrantPermissionToAddress throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
-            expect(function() { 
-                empty_multichain.GrantPermissionToAddress() 
-            }).to.throw('multichain has no active connection')
+            empty_multichain.GrantPermissionToAddress(mock.import.from.address, "send,receive", function (error, info) {
+                expect(info).to.not.exist
+                expect(error.name).to.equal('NotConnectedError')
+                expect(error.message).to.equal('multichain has no active connection')
+            })
             done()
         })
 
         it('RevokePermissionToAddress throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
-            expect(function() { 
-                empty_multichain.RevokePermissionToAddress() 
-            }).to.throw('multichain has no active connection')
+            empty_multichain.RevokePermissionToAddress(mock.import.from.address, "send,receive", function (error, info) {
+                expect(info).to.not.exist
+                expect(error.name).to.equal('NotConnectedError')
+                expect(error.message).to.equal('multichain has no active connection')
+            })
             done()
         })
 
@@ -218,25 +231,31 @@ describe('Multichain', () => {
 
         it('Issue throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
-            expect(function() { 
-                empty_multichain.Issue() 
-            }).to.throw('multichain has no active connection')
+            empty_multichain.Issue(mock.multichain.address, asset, 2, function (error, info) {
+                expect(info).to.not.exist
+                expect(error.name).to.equal('NotConnectedError')
+                expect(error.message).to.equal('multichain has no active connection')
+            })
             done()
         })
 
         it('IssueMore throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
-            expect(function() { 
-                empty_multichain.IssueMore() 
-            }).to.throw('multichain has no active connection')
+            empty_multichain.IssueMore(mock.import.from.address, asset, 1, function (error, info) {
+                expect(info).to.not.exist
+                expect(error.name).to.equal('NotConnectedError')
+                expect(error.message).to.equal('multichain has no active connection')
+            })
             done()
         })
 
         it('SendAssetFrom throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
-            expect(function() { 
-                empty_multichain.SendAssetFrom() 
-            }).to.throw('multichain has no active connection')
+            empty_multichain.SendAssetFrom(mock.multichain.address, mock.info.burnaddress, 1, asset, function (error, info) {
+                expect(info).to.not.exist
+                expect(error.name).to.equal('NotConnectedError')
+                expect(error.message).to.equal('multichain has no active connection')
+            })
             done()
         })
 

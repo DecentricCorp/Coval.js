@@ -14,8 +14,6 @@ export declare class Multichain {
     Streams(callback: any): void;
     StreamItemsByKey(streamName: any, key: any, callback: any): void;
     StreamItemsByPublisher(streamName: any, publisherAddress: any, callback: any): void;
-    _StreamItems(error: any, items: any, callback: any): any;
-    _elementValueCompute(items: any): any;
     GrantPermissionToAddress(addresses: any, permissions: any, callback: any): void;
     RevokePermissionToAddress(address: any, permissions: any, callback: any): void;
     ImportAddress(address: any, name: any, callback: any): void;
@@ -32,6 +30,10 @@ export declare class Multichain {
     PrepareUnlockFrom(from: any, assets: any, callback: any): void;
     PrepareUnlock(assets: any, callback: any): void;
     IssueEmblem(to: any, assetName: any, callback: any): void;
+    _convertToNotConnectedError(error: any): any;
+    _isNotConnectedError(error: any, subFunctionName: any): boolean;
+    _StreamItems(error: any, items: any, callback: any): any;
+    _elementValueCompute(items: any): any;
 }
 export declare class MultichainConnection {
     port: Number;

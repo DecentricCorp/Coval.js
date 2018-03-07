@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var MultichainLib = require("multichain-node");
 var UtilLib = require("../Utils");
 var HDKeyLib = require("../secure/HDKey");
-var Error_1 = require("../base/Error");
 var Multichain = /** @class */ (function () {
     function Multichain(address, connection, asset, permissions) {
         this.address = address;
@@ -29,10 +28,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, info);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.getInfo is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'getInfo'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.Connect = function (connection) {
@@ -44,10 +43,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, streams);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.listStreams is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'listStreams'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.StreamItemsByKey = function (streamName, key, callback) {
@@ -59,10 +58,10 @@ var Multichain = /** @class */ (function () {
                 verbose: true
             }, function (error, items) { return _this._StreamItems(error, items, callback); });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.listStreamKeyItems is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'listStreamKeyItems'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.StreamItemsByPublisher = function (streamName, publisherAddress, callback) {
@@ -74,24 +73,11 @@ var Multichain = /** @class */ (function () {
                 verbose: true
             }, function (error, items) { return _this._StreamItems(error, items, callback); });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.listStreamPublisherItems is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'listStreamPublisherItems'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
-    };
-    Multichain.prototype._StreamItems = function (error, items, callback) {
-        var itemArray = [];
-        if (items && items.length > 0)
-            itemArray = this._elementValueCompute(items);
-        return callback(error, itemArray);
-    };
-    Multichain.prototype._elementValueCompute = function (items) {
-        var Utils = this.Utils;
-        return items.map(function (element) {
-            element.value = Utils.HexToAscii(element.data);
-            return element;
-        });
     };
     Multichain.prototype.GrantPermissionToAddress = function (addresses, permissions, callback) {
         try {
@@ -102,10 +88,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, result);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.grant is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'grant'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.RevokePermissionToAddress = function (address, permissions, callback) {
@@ -117,10 +103,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, result);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.revoke is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'revoke'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.ImportAddress = function (address, name, callback) {
@@ -133,10 +119,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, result);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.importAddress is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'importAddress'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.ImportPrivKey = function (key, callback) {
@@ -170,10 +156,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, signed);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.signRawTransaction is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'signRawTransaction'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.GetAssetBalance = function (address, asset, callback) {
@@ -190,10 +176,10 @@ var Multichain = /** @class */ (function () {
                 return callback(null, balance);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.getAddressBalances is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'getAddressBalances'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.SendAssetFrom = function (from, to, amount, asset, callback) {
@@ -207,10 +193,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, transaction);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.sendAssetFrom is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'sendAssetFrom'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.Issue = function (to, name, qty, callback) {
@@ -224,10 +210,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, transaction);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.issue is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'issue'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.IssueMore = function (to, name, qty, callback) {
@@ -240,10 +226,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, transaction);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.issueMore is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'issueMore'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.CreateExchange = function (from, asset, asking, callback) {
@@ -264,10 +250,10 @@ var Multichain = /** @class */ (function () {
                     return callback(error, payload);
                 });
             }
-            catch (TypeError) {
-                if (TypeError.message == 'this.multichain.createRawExchange is not a function')
-                    throw new Error_1.NotConnectedError('multichain has no active connection');
-                throw TypeError;
+            catch (error) {
+                if (this._isNotConnectedError(error, 'createRawExchange'))
+                    error = this._convertToNotConnectedError(error);
+                callback(error, null);
             }
         });
     };
@@ -286,10 +272,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, complete);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.completeRawExchange is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'completeRawExchange'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.PrepareUnlockFrom = function (from, assets, callback) {
@@ -302,10 +288,10 @@ var Multichain = /** @class */ (function () {
                 return callback(error, transaction);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.PrepareUnlockFrom is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'prepareLockUnspentFrom'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.PrepareUnlock = function (assets, callback) {
@@ -317,15 +303,36 @@ var Multichain = /** @class */ (function () {
                 return callback(error, transaction);
             });
         }
-        catch (TypeError) {
-            if (TypeError.message == 'this.multichain.prepareLockUnspent is not a function')
-                throw new Error_1.NotConnectedError('multichain has no active connection');
-            throw TypeError;
+        catch (error) {
+            if (this._isNotConnectedError(error, 'prepareLockUnspent'))
+                error = this._convertToNotConnectedError(error);
+            callback(error, null);
         }
     };
     Multichain.prototype.IssueEmblem = function (to, assetName, callback) {
         this.Issue(to, assetName, 1, function (error, transaction) {
             return callback(error, transaction);
+        });
+    };
+    Multichain.prototype._convertToNotConnectedError = function (error) {
+        error.name = 'NotConnectedError';
+        error.message = 'multichain has no active connection';
+        return error;
+    };
+    Multichain.prototype._isNotConnectedError = function (error, subFunctionName) {
+        return error.name == 'TypeError' && error.message == "this.multichain." + subFunctionName + " is not a function";
+    };
+    Multichain.prototype._StreamItems = function (error, items, callback) {
+        var itemArray = [];
+        if (items && items.length > 0)
+            itemArray = this._elementValueCompute(items);
+        return callback(error, itemArray);
+    };
+    Multichain.prototype._elementValueCompute = function (items) {
+        var Utils = this.Utils;
+        return items.map(function (element) {
+            element.value = Utils.HexToAscii(element.data);
+            return element;
         });
     };
     return Multichain;
