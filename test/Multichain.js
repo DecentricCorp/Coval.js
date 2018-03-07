@@ -9,7 +9,7 @@ require("dotenv").config({ path: path.join(__dirname, "..", "build", "test.env")
 
 describe('Multichain', () => {
     var multichain
-    before(function () {
+    beforeEach(function () {
         multichain = Multichain.makeConnectedMultichainObject()
     })
 
@@ -77,29 +77,23 @@ describe('Multichain', () => {
             const mockStreamKey = "TestItem"
 
             it('callback includes error and does not call stream items if error generated during listStreamKeyItems', function(done) {
-                var jackedMultichain = Multichain.makeConnectedMultichainObject()
-                var realFunction = jackedMultichain.multichain.listStreamKeyItems
-                jackedMultichain.multichain.listStreamKeyItems = function(config, callback) {
+                var realFunction = multichain.multichain.listStreamKeyItems
+                multichain.multichain.listStreamKeyItems = function(config, callback) {
                     throw new Error("I'm jacked yo!")
                     //This is SOOO ugly; but will be fixed w/ promisification
                     realFunction(config, callback)
                 }
-                jackedMultichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, info) {
+                multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, info) {
                     expect(info).to.not.exist
                     expect(error.name).to.equal('MultichainError')
                     expect(error.message).to.equal('An unexpected error occurred in multichain, are you connected?')
                     expect(error.cause.name).to.equal('Error')
                     expect(error.cause.message).to.equal("I'm jacked yo!")
-                    expect(true).to.be.false
                     done()
                 })
             })
 
-            it('callback includes error and does not call stream items if error generated during listStreamPublisherItems', function(done) {
-                expect(true).to.be.false
-                // see StreamItemsByKey
-            })
-
+            
             it('throws not connected error when no valid connection is present', function(done) {
                 var empty_multichain = new Multichain()
                 empty_multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, info) {
@@ -111,7 +105,7 @@ describe('Multichain', () => {
                     done()
                 })
             })
-
+            
             it('returns a stream of items by key', function (done) {
                 multichain.StreamItemsByKey(mockStreamName, mockStreamKey, function (error, items) {
                     expect(error).to.not.exist
@@ -120,7 +114,7 @@ describe('Multichain', () => {
                     done()
                 })
             })
-
+            
             it('returns an empty list with no error when key not found', function (done) {
                 multichain.StreamItemsByKey(mockStreamName, "InvalidKey", function (error, items) {
                     expect(error).to.not.exist
@@ -128,7 +122,7 @@ describe('Multichain', () => {
                     done()
                 })
             })
-
+            
             it('returns an error when stream not found', function (done) {
                 multichain.StreamItemsByKey("InvalidStream", "InvalidKey", function (error, items) {
                     expect(error).to.exist
@@ -137,10 +131,13 @@ describe('Multichain', () => {
                 })
             })
         })
-
+        
         describe('StreamItemsByPublisher', () => {
             const mockStreamPublisher = "1Ej2dEzyGd4o47XQRxkRNMkJE8TMNNaher"
 
+            // see StreamItemsByKey
+            it('callback includes error and does not call stream items if error generated during listStreamPublisherItems')
+            
             it('throws not connected error when no valid connection is present', function(done) {
                 var empty_multichain = new Multichain()
                 empty_multichain.StreamItemsByPublisher(mockStreamName, mockStreamPublisher, function (error, info) {
@@ -245,10 +242,8 @@ describe('Multichain', () => {
             })
         })
 
-        it ('invokes callback with delegation errors when unhandled exceptions occur during CreateAndSignSend', function (done) {
-            expect(true).to.be.false
-            // see StreamItemsByKey
-        })
+        // see StreamItemsByKey
+        it ('invokes callback with delegation errors when unhandled exceptions occur during CreateAndSignSend')
 
         it('allows sending of raw signed transaction', function (done) {
             multichain.GrantPermissionToAddress(mock.import.to.address, "send,receive", function (error, result) {
@@ -272,15 +267,11 @@ describe('Multichain', () => {
             emblem = "emblem-" + rnd.toString()
         })
 
-        it ('getAssetBalance error handling', function (done) {
-            expect(true).to.be.false
-            // see StreamItemsByKey
-        })
+        // see StreamItemsByKey
+        it ('getAssetBalance error handling')
 
-        it ('getAssetBalance happy path', function (done) {
-            expect(true).to.be.false
-            // Is there a test that asserts what's supposed to happen?
-        })
+        // Is there a test that asserts what's supposed to happen?
+        it ('getAssetBalance happy path')
 
         it('Issue throws not connected error when no valid connection is present', function(done) {
             var empty_multichain = new Multichain()
