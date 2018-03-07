@@ -14,14 +14,14 @@ var Multichain = /** @class */ (function () {
             this.multichain = MultichainLib(connection);
         }
         else {
-            this.multichain = this.makeConnectedMultichainObject();
+            this.multichain = Multichain.makeConnectedMultichainObject();
         }
     }
-    Multichain.prototype.makeConnectionFromEnv = function () {
+    Multichain.makeConnectionFromEnv = function () {
         return new MultichainConnection(Number(process.env.MULTICHAINport), process.env.MULTICHAINhost, process.env.MULTICHAINuser, process.env.MULTICHAINpass);
     };
-    Multichain.prototype.makeConnectedMultichainObject = function () {
-        return new Multichain(process.env.MULTICHAINADDRESS, this.makeConnectionFromEnv());
+    Multichain.makeConnectedMultichainObject = function () {
+        return new Multichain(process.env.MULTICHAINADDRESS, Multichain.makeConnectionFromEnv());
     };
     Multichain.prototype.Info = function (callback) {
         try {
@@ -49,7 +49,14 @@ var Multichain = /** @class */ (function () {
                 stream: streamName,
                 key: key,
                 verbose: true
-            }, function (error, items) { return _this._StreamItems(error, items, callback); });
+            }, function (error, items) {
+                if (!!error) {
+                    callback(error, null);
+                }
+                else {
+                    _this._StreamItems(null, items, callback);
+                }
+            });
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);
@@ -62,7 +69,14 @@ var Multichain = /** @class */ (function () {
                 stream: streamName,
                 address: publisherAddress,
                 verbose: true
-            }, function (error, items) { return _this._StreamItems(error, items, callback); });
+            }, function (error, items) {
+                if (!!error) {
+                    callback(error, null);
+                }
+                else {
+                    return _this._StreamItems(null, items, callback);
+                }
+            });
         }
         catch (error) {
             callback(new Error_1.MultichainError(error), null);

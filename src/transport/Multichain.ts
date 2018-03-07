@@ -6,18 +6,18 @@ import * as HDKeyLib from "../secure/HDKey"
 import { MultichainError } from "../base/Error"
 
 export class Multichain {
-    multichain: { [x: string]: any; };
+    multichain: { [x: string]: any; }
     Utils
     constructor(public address?: string, connection?: MultichainConnection, public asset?: string, public permissions?: string[]) {
         this.Utils = new UtilLib.Utils()
         if (connection) {
             this.multichain = MultichainLib(connection)
         } else {
-            this.multichain = this.makeConnectedMultichainObject()
+            this.multichain = Multichain.makeConnectedMultichainObject()
         }
     }
 
-    makeConnectionFromEnv() {
+    static makeConnectionFromEnv():MultichainConnection {
         return new MultichainConnection(
             Number(process.env.MULTICHAINport),
             process.env.MULTICHAINhost,
@@ -26,11 +26,11 @@ export class Multichain {
         )
     }
 
-    makeConnectedMultichainObject() {
-        return new Multichain(process.env.MULTICHAINADDRESS, this.makeConnectionFromEnv())
+    static makeConnectedMultichainObject():Multichain {
+        return new Multichain(process.env.MULTICHAINADDRESS, Multichain.makeConnectionFromEnv())
     }
 
-    Info(callback:(error:any, result:any) => void) {
+    Info(callback:(error:any, result:any) => void):void {
         try {
             this.multichain.getInfo(callback)
         } catch (error) {
@@ -38,11 +38,11 @@ export class Multichain {
         }
     }
 
-    Connect(connection: MultichainConnection) {
+    Connect(connection: MultichainConnection):void {
         this.multichain = MultichainLib(connection)
     }
 
-    Streams(callback:(error:any, result:any) => void) {
+    Streams(callback:(error:any, result:any) => void):void {
         try {
             this.multichain.listStreams(callback)
         } catch (error) {
@@ -50,25 +50,37 @@ export class Multichain {
         }
     }
 
-    StreamItemsByKey(streamName:string, key:string, callback:(error:any, result:any) => void) {
+    StreamItemsByKey(streamName:string, key:string, callback:(error:any, result:any) => void):void {
         try {
             this.multichain.listStreamKeyItems({
                 stream: streamName,
                 key: key,
                 verbose: true
-            }, (error, items) => { return this._StreamItems(error, items, callback) })
+            }, (error, items) => {
+                if (!!error) {
+                    callback(error, null)
+                } else {
+                    this._StreamItems(null, items, callback)
+                }
+            })
         } catch (error) {
             callback(new MultichainError(error), null)
         }
     }
 
-    StreamItemsByPublisher(streamName, publisherAddress, callback) {
+    StreamItemsByPublisher(streamName, publisherAddress, callback):void {
         try {
             this.multichain.listStreamPublisherItems({
                 stream: streamName,
                 address: publisherAddress,
                 verbose: true
-            }, (error, items) => { return this._StreamItems(error, items, callback) })
+            }, (error, items) => {
+                if (!!error) {
+                    callback(error, null)
+                } else {
+                    return this._StreamItems(null, items, callback)
+                }
+            })
         } catch (error) {
             callback(new MultichainError(error), null)
         }

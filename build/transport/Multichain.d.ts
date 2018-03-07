@@ -7,8 +7,8 @@ export declare class Multichain {
     };
     Utils: any;
     constructor(address?: string, connection?: MultichainConnection, asset?: string, permissions?: string[]);
-    makeConnectionFromEnv(): MultichainConnection;
-    makeConnectedMultichainObject(): Multichain;
+    static makeConnectionFromEnv(): MultichainConnection;
+    static makeConnectedMultichainObject(): Multichain;
     Info(callback: (error: any, result: any) => void): void;
     Connect(connection: MultichainConnection): void;
     Streams(callback: (error: any, result: any) => void): void;
