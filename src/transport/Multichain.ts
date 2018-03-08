@@ -3,20 +3,21 @@
 import * as MultichainLib from "multichain-node"
 import * as UtilLib from "../Utils"
 import * as HDKeyLib from "../secure/HDKey"
+import { MultichainError } from "../base/Error"
 
 export class Multichain {
-    multichain: { [x: string]: any; };
+    multichain: { [x: string]: any; }
     Utils
     constructor(public address?: string, connection?: MultichainConnection, public asset?: string, public permissions?: string[]) {
         this.Utils = new UtilLib.Utils()
         if (connection) {
             this.multichain = MultichainLib(connection)
         } else {
-            this.multichain = this.makeConnectedMultichainObject()
+            this.multichain = Multichain.makeConnectedMultichainObject()
         }
     }
 
-    makeConnectionFromEnv() {
+    static makeConnectionFromEnv():MultichainConnection {
         return new MultichainConnection(
             Number(process.env.MULTICHAINport),
             process.env.MULTICHAINhost,
@@ -25,109 +26,109 @@ export class Multichain {
         )
     }
 
-    makeConnectedMultichainObject() {
-        return new Multichain(process.env.MULTICHAINADDRESS, this.makeConnectionFromEnv())
+    static makeConnectedMultichainObject():Multichain {
+        return new Multichain(process.env.MULTICHAINADDRESS, Multichain.makeConnectionFromEnv())
     }
 
-    Info(callback) {
-        this.multichain.getInfo((err, info) => {
-            return callback(err, info)
-        })
+    Info(callback:(error:any, result:any) => void):void {
+        try {
+            this.multichain.getInfo(callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    Connect(connection: MultichainConnection) {
+    Connect(connection: MultichainConnection):void {
         this.multichain = MultichainLib(connection)
     }
 
-    Streams(callback) {
-        this.multichain.listStreams((err, streams) => {
-            return callback(err, streams)
-        })
+    Streams(callback:(error:any, result:any) => void):void {
+        try {
+            this.multichain.listStreams(callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    StreamItemsByKey(streamName, key, callback) {
-        let Utils = this.Utils
-        this.multichain.listStreamKeyItems({
-            stream: streamName,
-            key: key,
-            verbose: true
-        }, function (error, items) {
-            var itemArray = []
-            if(items && items.length > 0) {
-                items.forEach(function (element, index) {
-                    var item = element                
-                    item.value = Utils.HexToAscii(element.data)
-                    itemArray[index] = item
-                    if (index == items.length -1) {
-                        return callback(error, itemArray)
-                    }
-                })
-            } else {
-                return callback(error, itemArray)
-            }
-        })
-    }
-    /* TODO: refactor like StreamItemsByKey */
-    StreamItemsByPublisher(streamName, publisherAddress, cb) {
-        let Utils = this.Utils
-        this.multichain.listStreamPublisherItems({
-            stream: streamName,
-            address: publisherAddress,
-            verbose: true
-        }, function (error, items) {
-            var itemArray = []
-            if (error) { return cb(error, null) } 
-            items.forEach(function (element, index) {
-                var item = Utils.HexToAscii(element.data)
-                return cb(null, item)
-            }, this)
-        })
+    StreamItemsByKey(streamName:string, key:string, callback:(error:any, result:any) => void):void {
+        try {
+            this.multichain.listStreamKeyItems({
+                stream: streamName,
+                key: key,
+                verbose: true
+            }, (error, items) => {
+                return !!error ? callback(error, null) : this._StreamItems(null, items, callback)
+            })
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    GrantPermissionToAddress(addresses, permissions, callback){
-        this.multichain.grant({addresses: addresses, permissions: permissions}, function(a,b){
-            return callback(a,b)
-        })
+    StreamItemsByPublisher(streamName, publisherAddress, callback):void {
+        try {
+            this.multichain.listStreamPublisherItems({
+                stream: streamName,
+                address: publisherAddress,
+                verbose: true
+            }, (error, items) => {
+                return !!error ? callback(error, null) : this._StreamItems(null, items, callback)
+            })
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    RevokePermissionToAddress(address, permissions, callback){
-        this.multichain.revoke({ addresses: address, permissions: permissions }, function(err, result){
-            return callback(err, result)
-        })
+    GrantPermissionToAddress(addresses, permissions, callback) {
+        try {
+            this.multichain.grant({
+                addresses: addresses,
+                permissions: permissions
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    ImportAddress(address, name, callback){
-        this.multichain.importAddress({address: address, label: name, rescan: false}, function(a,b){
-            return callback(a,b)
-        })
+    RevokePermissionToAddress(address, permissions, callback) {
+        try {
+            this.multichain.revoke({
+                addresses: address,
+                permissions: permissions
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    ImportPrivKey(key, callback){
-        this.multichain.importPrivKey([key], function(a,b){
-            return callback(a,b)
-        })
+    ImportAddress(address, name, callback) {
+        try {
+            this.multichain.importAddress({
+                address: address,
+                label: name,
+                rescan: false
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
+    }
+
+    ImportPrivKey(key, callback) {
+        this.multichain.importPrivKey([key], callback)
     }
 
     SendSignedTransaction(signed, callback) {
-        this.multichain.sendRawTransaction([signed.toString("hex")], function(err, txid){
-            return callback(err, txid)
-        })
-    }
+            this.multichain.sendRawTransaction([signed.toString("hex")], callback)
+        }
 
     CreateAndSignSend(from, to, asset, qty, callback) {
-        //var HDKey = new HDKeyLib.HDKey()
         var rawRequest = {}
         rawRequest[to] = {}
-        rawRequest[to][asset] = Number(qty)
+
+        // TODO: Use promise with async and await instead of callback, to avoid race condition
+        rawRequest[to][asset] = () => Number(qty)
         var parent = this
-        parent.multichain.createRawSendFrom([from.address, rawRequest], function (err, raw) {
-            //from.wif = HDKey.DeriveKeyWif(from, 0)
-            /* parent.multichain.signRawTransaction([raw, [], [from.wif.wif]], function (err, signed) {
-                return callback(err, signed)
-            }) */
-            parent.SignRaw(from, raw, function(err, signed){
-                return callback(err, signed)
-            })
+        parent.multichain.createRawSendFrom([from.address, rawRequest], function (error, raw) {
+            parent.SignRaw(from, raw, callback)
         })
     }
 
@@ -135,91 +136,153 @@ export class Multichain {
         var HDKey = new HDKeyLib.HDKey()
         from.wif = HDKey.DeriveKeyWif(from, 0)
         var parent = this
-        parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], function (err, signed) {
-            return callback(err, signed)
-        })
+        try {
+            parent.multichain.signRawTransaction([hex, [], [from.wif.wif]], callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    GetAssetBalance(address, asset, callback){
-        this.multichain.getAddressBalances({
-            minconf: 0,
-            address: address
-        }, function(err, result){
-            var balance = 0
-            var filtered = result.filter(function(a){return a.name === asset})
-            if (filtered.length > 0) {
-                balance = filtered[0].qty
-            }
-            return callback(null, balance)
-        })
+    GetAssetBalance(address, asset, callback) {
+        try {
+            this.multichain.getAddressBalances({
+                minconf: 0,
+                address: address
+            }, function (error, result) {
+                var balance = 0
+                var filtered = result.filter(function (a) { return a.name === asset })
+                if (filtered.length > 0) {
+                    balance = filtered[0].qty
+                }
+                return callback(null, balance)
+            })
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
-    SendAssetFrom(from, to, amount, asset, callback){
-        this.multichain.sendAssetFrom({
-            from: from,
-            to: to,
-            asset: asset,
-            qty: amount
-        }, function(a,b){
-            return callback(a,b)
-        })
+    SendAssetFrom(from, to, amount, asset, callback) {
+        try {
+            this.multichain.sendAssetFrom({
+                from: from,
+                to: to,
+                asset: asset,
+                qty: amount
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
     Issue(to, name, qty, callback) {
-        this.multichain.issue({address: to, asset: { name:name, open: true }, qty: qty, units: 1}, function(a,b){
-            return callback(a,b)
-        })
+        try {
+            this.multichain.issue({
+                address: to,
+                asset: { name: name, open: true },
+                qty: qty,
+                units: 1
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
     IssueMore(to, name, qty, callback) {
-        this.multichain.issueMore({address: to, asset: name, qty: qty}, function(a,b){
-            return callback(a,b)
-        })
+        try {
+            this.multichain.issueMore({
+                address: to,
+                asset: name,
+                qty: qty
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
     CreateExchange(from, asset, asking, callback) {
         var parent = this
-        var assets = {} 
+        var assets = {}
         var ask = {}
-        assets[asset] =  1
+        assets[asset] = 1
         ask[asking] = 1
-        this.PrepareUnlockFrom(from, assets, function(err, unlocks){
-            var payload =  {unlocks: unlocks, prepared: '', offer: assets, asking: ask}
-            parent.multichain.createRawExchange({txid: payload.unlocks.txid, vout: payload.unlocks.vout, assets: ask}, function(err, raw){
-                payload.prepared = raw
-                return callback(err, payload)
-            })            
-        })        
+        this.PrepareUnlockFrom(from, assets, function (error, unlocks) {
+            var payload = { unlocks: unlocks, prepared: '', offer: assets, asking: ask }
+            try {
+                parent.multichain.createRawExchange({
+                    txid: payload.unlocks.txid,
+                    vout: payload.unlocks.vout,
+                    assets: ask
+                }, function (error, raw) {
+                    payload.prepared = raw
+                    return callback(error, payload)
+                })
+            } catch (error) {
+                callback(new MultichainError(error), null)
+            }
+        })
     }
 
     FinalizeExchange(hex, txid, vout, assets, callback) {
-    //console.log('--------- request', completeRequest)
-        this.multichain.completeRawExchange({hexstring: hex, txid: txid, vout: vout, assets: assets, data: ''}, function(err, complete){
-            console.log('-------- Error', err)
-            console.log('-------- Complete', complete)
-            return callback(err, complete)
-        })
+        try {
+            this.multichain.completeRawExchange({
+                hexstring: hex,
+                txid: txid,
+                vout: vout,
+                assets: assets,
+                data: ''
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
- 
+
     PrepareUnlockFrom(from, assets, callback) {
-        this.multichain.prepareLockUnspentFrom({from: from, assets: assets, lock: true}, function(a,b){
-            return callback(a,b)
-        })
+        try {
+            this.multichain.prepareLockUnspentFrom({
+                from: from,
+                assets: assets,
+                lock: true
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
     PrepareUnlock(assets, callback) {
-        this.multichain.prepareLockUnspent({assets: assets, lock: false}, function(a,b){
-            return callback(a,b)
-        })
+        try {
+            this.multichain.prepareLockUnspent({
+                assets: assets,
+                lock: false
+            }, callback)
+        } catch (error) {
+            callback(new MultichainError(error), null)
+        }
     }
 
     IssueEmblem(to, assetName, callback) {
-        this.Issue(to, assetName, 1, function(err, tx){
-            return callback(err, tx)
+        this.Issue(to, assetName, 1, callback)
+    }
+
+    _StreamItems(error, items, callback) {
+        var itemArray = []
+        if (items && items.length > 0)
+            itemArray = this._elementValueCompute(items)
+        return callback(error, itemArray)
+    }
+
+    _elementValueCompute(items) {
+        let Utils = this.Utils
+        return items.map(function (element) {
+            element.value = Utils.HexToAscii(element.data)
+            return element
         })
     }
 }
 
 export class MultichainConnection {
-    constructor(public port: Number, public host: string, public user: string, public pass: string){}
+    constructor(
+        public port: Number,
+        public host: string,
+        public user: string,
+        public pass: string) { }
 }

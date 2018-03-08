@@ -7,6 +7,10 @@ export declare class BaseError {
      */
     constructor(message: string);
 }
+export declare class MultichainError extends Error {
+    cause: any;
+    constructor(cause: any);
+}
 export declare class Errors implements IErrors {
     errors: any[];
     Errors(): any[];

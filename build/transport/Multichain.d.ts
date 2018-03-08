@@ -7,13 +7,13 @@ export declare class Multichain {
     };
     Utils: any;
     constructor(address?: string, connection?: MultichainConnection, asset?: string, permissions?: string[]);
-    makeConnectionFromEnv(): MultichainConnection;
-    makeConnectedMultichainObject(): Multichain;
-    Info(callback: any): void;
+    static makeConnectionFromEnv(): MultichainConnection;
+    static makeConnectedMultichainObject(): Multichain;
+    Info(callback: (error: any, result: any) => void): void;
     Connect(connection: MultichainConnection): void;
-    Streams(callback: any): void;
-    StreamItemsByKey(streamName: any, key: any, callback: any): void;
-    StreamItemsByPublisher(streamName: any, publisherAddress: any, cb: any): void;
+    Streams(callback: (error: any, result: any) => void): void;
+    StreamItemsByKey(streamName: string, key: string, callback: (error: any, result: any) => void): void;
+    StreamItemsByPublisher(streamName: any, publisherAddress: any, callback: any): void;
     GrantPermissionToAddress(addresses: any, permissions: any, callback: any): void;
     RevokePermissionToAddress(address: any, permissions: any, callback: any): void;
     ImportAddress(address: any, name: any, callback: any): void;
@@ -30,6 +30,8 @@ export declare class Multichain {
     PrepareUnlockFrom(from: any, assets: any, callback: any): void;
     PrepareUnlock(assets: any, callback: any): void;
     IssueEmblem(to: any, assetName: any, callback: any): void;
+    _StreamItems(error: any, items: any, callback: any): any;
+    _elementValueCompute(items: any): any;
 }
 export declare class MultichainConnection {
     port: Number;
