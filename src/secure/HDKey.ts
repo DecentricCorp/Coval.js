@@ -59,6 +59,9 @@ export class HDKey {
             ns = service+":"+teamId+":"+userId
         return ns
     }
+    public GetBitcore() {
+        return bitcore
+    }
     /* public MakeNamespaceOverride(userId: string, req: any) {
         var teamId, service, ns
             teamId = req.body.originalRequest.data.team_id
