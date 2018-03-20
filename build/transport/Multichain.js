@@ -51,11 +51,6 @@ var Multichain = /** @class */ (function () {
                 verbose: true
             }, function (error, items) {
                 return !!error ? callback(error, null) : _this._StreamItems(null, items, callback);
-                // if (!!error) {
-                // callback(error, null)
-                // } else {
-                // this._StreamItems(null, items, callback)
-                // }
             });
         }
         catch (error) {
@@ -71,11 +66,6 @@ var Multichain = /** @class */ (function () {
                 verbose: true
             }, function (error, items) {
                 return !!error ? callback(error, null) : _this._StreamItems(null, items, callback);
-                // if (!!error) {
-                // callback(error, null)
-                // } else {
-                // return this._StreamItems(null, items, callback)
-                // }
             });
         }
         catch (error) {

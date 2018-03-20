@@ -3,6 +3,7 @@ export declare class HDKey {
     DecodeKey(encrypted: string, sha256Password?: string, plainTextPassword?: string, walletPath?: number): any;
     StandardHDKey(walletPath: number, cb: any): any;
     MakeNamespace(req: any): any;
+    GetBitcore(): any;
     MakeWalletFromNs(ns: string): any;
     CreateKeysFromEncrypted(encrypted: string): {
         derived: any;

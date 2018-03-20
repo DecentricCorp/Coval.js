@@ -59,6 +59,9 @@ var HDKey = /** @class */ (function () {
         ns = service + ":" + teamId + ":" + userId;
         return ns;
     };
+    HDKey.prototype.GetBitcore = function () {
+        return bitcore;
+    };
     /* public MakeNamespaceOverride(userId: string, req: any) {
         var teamId, service, ns
             teamId = req.body.originalRequest.data.team_id
