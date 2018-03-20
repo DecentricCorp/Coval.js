@@ -2,25 +2,25 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Protected_1 = require("./secure/Protected");
 var Mnemonic_1 = require("./secure/Mnemonic");
-var Shamir_1 = require("./secure/Shamir");
-var Diffie_1 = require("./secure/Diffie");
+//import {Shamir} from "./secure/Shamir"
+//import {Diffie} from "./secure/Diffie"
 var Envelope_1 = require("./transport/Envelope");
-var Dat_1 = require("./transport/Dat");
-var Multichain_1 = require("./transport/Multichain");
-var Unloq_1 = require("./partner/Unloq");
-var Changely_1 = require("./partner/Changely");
-var Shapeshift_1 = require("./partner/Shapeshift");
-var Vocal_1 = require("./Vocal");
+//import {DatNode} from "./transport/Dat"
+//import {Multichain} from "./transport/Multichain"
+//import {Unloq} from "./partner/Unloq"
+//import {Changely} from "./partner/Changely"
+//import {Shapeshift} from "./partner/Shapeshift"
+//import {Vocal} from "./Vocal"
 var Emblem_1 = require("./Emblem");
-var Caesar_1 = require("./secure/Caesar");
+//import {Caesar} from "./secure/Caesar"
 var HDKey_1 = require("./secure/HDKey");
-var Pre_1 = require("./secure/Pre");
-var Lightrail_1 = require("./partner/Lightrail");
+//import {Pre} from "./secure/Pre"
+//import { Lightrail } from "./partner/Lightrail"
 var Agent_1 = require("./Agent");
 var Error_1 = require("./base/Error");
 var Log_1 = require("./base/Log");
 var Msgs_1 = require("./base/Msgs");
-var PyShell_1 = require("./base/PyShell");
+//import { PyShell } from './base/PyShell';
 var User = require("./base/User");
 var ManyKeys_1 = require("./secure/ManyKeys");
 /**
@@ -34,13 +34,13 @@ var Coval = /** @class */ (function () {
         this.Secure = new Secures();
         this.Partner = new Partners();
         this.Transport = new Transports();
-        this.Vocal = Vocal_1.Vocal;
+        //public Vocal = Vocal
         this.Emblem = Emblem_1.Emblem;
         this.Agent = Agent_1.Agent;
         this.Error = Error_1.BaseError;
         this.Log = Log_1.Log;
         this.Msgs = Msgs_1.Msgs;
-        this.PyShell = PyShell_1.PyShell;
+        //public PyShell = PyShell
         this.User = User;
     }
     return Coval;
@@ -54,13 +54,13 @@ exports.Coval = Coval;
  */
 var Secures = /** @class */ (function () {
     function Secures() {
-        this.Shamir = Shamir_1.Shamir;
+        //public Shamir = Shamir
         this.Protected = Protected_1.Protected;
-        this.Diffie = Diffie_1.Diffie;
+        //public Diffie = Diffie
         this.Mnemonic = Mnemonic_1.Mnemonic;
-        this.Caesar = Caesar_1.Caesar;
+        //public Caesar = Caesar
         this.HDKey = HDKey_1.HDKey;
-        this.Pre = Pre_1.Pre;
+        //public Pre = Pre
         this.ManyKeys = ManyKeys_1.ManyKeys;
     }
     return Secures;
@@ -74,10 +74,6 @@ exports.Secures = Secures;
  */
 var Partners = /** @class */ (function () {
     function Partners() {
-        this.Unloq = Unloq_1.Unloq;
-        this.Shapeshift = Shapeshift_1.Shapeshift;
-        this.Changely = Changely_1.Changely;
-        this.Lightrail = Lightrail_1.Lightrail;
     }
     return Partners;
 }());
@@ -91,8 +87,8 @@ exports.Partners = Partners;
 var Transports = /** @class */ (function () {
     function Transports() {
         this.Envelope = Envelope_1.Envelope;
-        this.DatNode = Dat_1.DatNode;
-        this.Multichain = Multichain_1.Multichain;
+        //public DatNode = DatNode
+        //public Multichain = Multichain
     }
     return Transports;
 }());

@@ -1,25 +1,25 @@
 "use strict"
 import {Protected} from "./secure/Protected"
 import {Mnemonic} from "./secure/Mnemonic"
-import {Shamir} from "./secure/Shamir"
-import {Diffie} from "./secure/Diffie"
+//import {Shamir} from "./secure/Shamir"
+//import {Diffie} from "./secure/Diffie"
 import {Envelope} from "./transport/Envelope"
-import {DatNode} from "./transport/Dat"
-import {Multichain} from "./transport/Multichain"
-import {Unloq} from "./partner/Unloq"
-import {Changely} from "./partner/Changely"
-import {Shapeshift} from "./partner/Shapeshift"
-import {Vocal} from "./Vocal"
+//import {DatNode} from "./transport/Dat"
+//import {Multichain} from "./transport/Multichain"
+//import {Unloq} from "./partner/Unloq"
+//import {Changely} from "./partner/Changely"
+//import {Shapeshift} from "./partner/Shapeshift"
+//import {Vocal} from "./Vocal"
 import {Emblem} from "./Emblem"
-import {Caesar} from "./secure/Caesar"
+//import {Caesar} from "./secure/Caesar"
 import {HDKey} from "./secure/HDKey"
-import {Pre} from "./secure/Pre"
-import { Lightrail } from "./partner/Lightrail"
+//import {Pre} from "./secure/Pre"
+//import { Lightrail } from "./partner/Lightrail"
 import { Agent } from './Agent'
 import { BaseError } from './base/Error'
 import { Log } from './base/Log';
 import { Msgs } from './base/Msgs';
-import { PyShell } from './base/PyShell';
+//import { PyShell } from './base/PyShell';
 import * as User from './base/User';
 import { ManyKeys } from './secure/ManyKeys';
 /**
@@ -32,13 +32,13 @@ export class Coval {
     public Secure = new Secures()
     public Partner = new Partners()
     public Transport = new Transports()
-    public Vocal = Vocal
+    //public Vocal = Vocal
     public Emblem = Emblem
     public Agent = Agent
     public Error = BaseError
     public Log = Log
     public Msgs = Msgs
-    public PyShell = PyShell
+    //public PyShell = PyShell
     public User = User
 }
 
@@ -49,13 +49,13 @@ export class Coval {
  * @class Secure
  */
 export class Secures {
-    public Shamir = Shamir
+    //public Shamir = Shamir
     public Protected = Protected
-    public Diffie = Diffie
+    //public Diffie = Diffie
     public Mnemonic = Mnemonic
-    public Caesar = Caesar
+    //public Caesar = Caesar
     public HDKey = HDKey
-    public Pre = Pre
+    //public Pre = Pre
     public ManyKeys = ManyKeys
 }
 /**
@@ -65,10 +65,10 @@ export class Secures {
  * @class Partner
  */
 export class Partners {
-    public Unloq = Unloq
-    public Shapeshift = Shapeshift
-    public Changely = Changely
-    public Lightrail = Lightrail
+    //public Unloq = Unloq
+    //public Shapeshift = Shapeshift
+    //public Changely = Changely
+    //public Lightrail = Lightrail
 }
 /**
  * Coval Transport Class
@@ -78,6 +78,6 @@ export class Partners {
  */
 export class Transports {
     public Envelope = Envelope
-    public DatNode = DatNode
-    public Multichain = Multichain
+    //public DatNode = DatNode
+    //public Multichain = Multichain
 }
