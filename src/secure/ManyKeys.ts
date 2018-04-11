@@ -1,5 +1,5 @@
 "use strict"
-import * as bitcore from "bitcore"
+import * as bitcore from "bitcore-lib"
 import {coininfo, supportedCoins} from "coininfo"
 import * as CryptoJS from "crypto-js"
 import * as _Utils from "../Utils"
