@@ -10,4 +10,8 @@ export declare class ManyKeys {
         privateKey: any;
         address: any;
     };
+    createAddressDict(coin: any): {};
+    createKeyDict(coin: any): {};
+    createCoinKey(coin: any): any;
+    static combineDicts(item1: any, item2: any): any;
 }

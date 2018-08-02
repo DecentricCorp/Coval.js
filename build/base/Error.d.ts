@@ -19,7 +19,7 @@ export declare class Errors implements IErrors {
      * Internal because Error interface is
      * @param error
      */
-    private _internalAddError(error);
+    private _internalAddError;
     AddError(error: string): void;
 }
 /**

@@ -11,7 +11,7 @@ describe('Manykeys', () => {
         var all = manykeys.GetAllAddresses()
         expect(all).to.deep.equal(addressMock)
     })
-    it('generates every possible address from provided seed', function(){
+    it('generates every possible key from provided seed', function(){
         var key = entropyMock
         var manykeys = new ManyKeys.ManyKeys(key)
         var all = manykeys.GetAllKeys()
