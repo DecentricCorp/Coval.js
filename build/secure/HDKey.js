@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var bitcore = require("bitcore");
+var bitcore = require("bitcore-lib");
 var coininfo_1 = require("coininfo");
 var CryptoJS = require("crypto-js");
 var _Utils = require("../Utils");
