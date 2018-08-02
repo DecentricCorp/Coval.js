@@ -3,17 +3,17 @@ import * as bitcore from "bitcore-lib"
 import {coininfo, supportedCoins} from "coininfo"
 import * as CryptoJS from "crypto-js"
 import * as _Utils from "../Utils"
-import {Envelope} from "../transport/Envelope"
+import { Envelope } from "../transport/Envelope"
 import * as CoinKey from "coinkey"
-let bitcoin = coininfo.bitcoin.main
-let bitcoinBitcoreLib = bitcoin.toBitcore()
+const bitcoin = coininfo.bitcoin.main
+const bitcoinBitcoreLib = bitcoin.toBitcore()
 
 export class ManyKeys {
     seed: any;
     ck: any;
     constructor(seed?) {
         if (seed) {
-            this.seed = new Buffer(seed, 'hex')
+            this.seed = Buffer.from(seed, 'hex')
         }
     }
 
@@ -23,37 +23,44 @@ export class ManyKeys {
     }
 
     As(type, network?) {
-        let coin = type
-        if (network) {
-            coin = coin + '-' + network
-        } 
-        this.ck = new CoinKey(this.seed, coininfo(coin).versions)
+        this.ck = new CoinKey(this.seed, coininfo(network ? type + '-' + network : type).versions)
         return this.ck
     }
 
     GetAllAddresses() {
-        var parent = this
-        var addresses = {}
-        Object.keys(supportedCoins).forEach(_coin => {
-            addresses[_coin] = {address: new CoinKey(parent.seed, coininfo(supportedCoins[_coin].name).versions).publicAddress, unit: supportedCoins[_coin].unit }
-        })
-        return addresses
+        return Object.keys(supportedCoins)
+            .map((coin) => this.createAddressDict(coin))
+            .reduce((address1, address2) => ManyKeys.combineDicts(address1, address2))
     }
 
     GetAllKeys() {
-        var parent = this
-        var addresses = {}
-        Object.keys(supportedCoins).forEach(_coin => {
-            var key = new CoinKey(parent.seed, coininfo(supportedCoins[_coin].name).versions)
-            addresses[_coin] = {wif: key.privateWif, unit: supportedCoins[_coin].unit}
-        })
-        return addresses
+        return Object.keys(supportedCoins)
+            .map((coin) => this.createKeyDict(coin))
+            .reduce((key1, key2) => ManyKeys.combineDicts(key1, key2))
     }
 
     KeyFromWif(wif) {
-        var ck = CoinKey.fromWif(wif)
-        return {privateKey: ck.privateKey.toString('hex'), address: ck.publicAddress}
+        const ck = CoinKey.fromWif(wif)
+        return { privateKey: ck.privateKey.toString('hex'), address: ck.publicAddress }
     }
 
-    
+    createAddressDict(coin) {
+        const addresses = {}
+        addresses[coin] = { address: this.createCoinKey(coin).publicAddress, unit: supportedCoins[coin].unit }
+        return addresses
+    }
+
+    createKeyDict(coin) {
+        const keys = {}
+        keys[coin] = { wif: this.createCoinKey(coin).privateWif, unit: supportedCoins[coin].unit }
+        return keys
+    }
+
+    createCoinKey(coin) {
+        return new CoinKey(this.seed, coininfo(supportedCoins[coin].name).versions)
+    }
+
+    static combineDicts(item1, item2) {
+        return { ...item1, ...item2 }
+    }
 }

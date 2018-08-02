@@ -65,10 +65,11 @@ describe('Multichain', () => {
             multichain.Streams(function (error, streams) {
                 expect(error).to.not.exist
                 expect(streams).to.exist
-                expect(streams.length).to.equal(3)
+                expect(streams.length).to.equal(4)
                 expect(streams[0].name).to.equal("root")
                 expect(streams[1].name).to.equal("TestStream")
                 expect(streams[2].name).to.equal("emblems")
+                expect(streams[3].name).to.equal("keychain")
                 done()
             })
         })

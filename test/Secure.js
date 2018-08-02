@@ -178,7 +178,7 @@ describe('HDKey', () => {
       from = from.GetValue()
       var fromKey = hdKey.CreateKeysFromEncrypted(from.encrypted)
       from.wif = fromKey.wif
-      var hdWallet = JSON.parse(JSON.parse(JSON.stringify(fromKey.pk)))
+      var hdWallet = JSON.parse(JSON.stringify(fromKey.pk))
       expect(from.address).to.equal(fromExpected.address)
       expect(hdWallet.chainCode).to.equal(fromExpected.key.chainCode)
       expect(hdWallet.privateKey).to.equal(fromExpected.key.privateKey)
