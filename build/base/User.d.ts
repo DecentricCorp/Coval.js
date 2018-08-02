@@ -9,7 +9,7 @@ export declare class IdentityProvider implements IIdentity {
     type: string;
     constructor(_type?: string);
 }
-export declare function As<DynamicUserType extends User>(UserObject: new (IdentityType?: any, Opts?: any) => DynamicUserType, IdentityType?: any, Opts?: any): DynamicUserType;
+export declare function As<DynamicUserType extends User>(UserObject: new (IdentityType?, Opts?) => DynamicUserType, IdentityType?: any, Opts?: any): DynamicUserType;
 export interface IUser {
     type: UserType;
 }
@@ -44,11 +44,11 @@ export declare class Server extends User implements IEncryptionUser, IMultichain
 export declare class Identity<B> extends User {
     identity: any;
     constructor(IdentityType: any, Opts: any);
-    As<IdentityType extends IdentityProvider>(IdentityObject: new (Opts: any) => IdentityType, Opts?: any): IdentityType;
+    As<IdentityType extends IdentityProvider>(IdentityObject: new (Opts) => IdentityType, Opts?: any): IdentityType;
 }
 export declare enum UserType {
     Server = 0,
     Identity = 1,
     Client = 2,
-    Generic = 3
+    Generic = 3,
 }

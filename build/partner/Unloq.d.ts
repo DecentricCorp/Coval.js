@@ -2,7 +2,7 @@ export interface IIdentity {
     type: string;
 }
 export declare class Unloq implements IIdentity {
-    key?: any;
+    key: any;
     type: string;
     Api: any;
     client: any;

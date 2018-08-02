@@ -6,7 +6,7 @@ export declare class Logs implements ILogs {
     env_logs: any[];
     _Logs(): any[];
     HasLogs(): boolean;
-    private _internalAddError;
+    private _internalAddError(_log);
     AddError(_log: string): void;
 }
 /**

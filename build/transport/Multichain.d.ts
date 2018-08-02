@@ -1,7 +1,7 @@
 export declare class Multichain {
-    address?: string;
-    asset?: string;
-    permissions?: string[];
+    address: string;
+    asset: string;
+    permissions: string[];
     multichain: {
         [x: string]: any;
     };
