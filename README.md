@@ -4,7 +4,7 @@ Coval strongly typed cryptocurrency framework
 [![Build Status](https://travis-ci.org/DecentricCorp/Coval.js.svg?branch=master)](https://travis-ci.org/DecentricCorp/Coval.js)
 
 # Build
-
+OUTDATED
 Coval.js requires a private submodule called Coval.py
 This repo is located: ./build/python 
 
