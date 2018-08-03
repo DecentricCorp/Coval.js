@@ -1,6 +1,5 @@
-import * as bitcoin from 'bitcoinjs-lib';
 export declare class GenerateKey {
-    GenerateRandomKeyPair(rng: any): bitcoin.ECPair;
+    GenerateRandomKeyPair(rng: any): any;
     CalculateBip32(seed: any, coin: any): {
         pk: any;
         pubkey: any;
