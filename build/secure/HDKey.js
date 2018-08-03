@@ -7,7 +7,7 @@ var _Utils = require("../Utils");
 var Envelope_1 = require("../transport/Envelope");
 var bitcoin = coininfo_1.coininfo.bitcoin.main;
 var bitcoinBitcoreLib = bitcoin.toBitcore();
-var APIKey = "3031323334353637383931323334353637383930";
+var APIKey = /* process.env.APIKey ||  */ "3031323334353637383931323334353637383930";
 var Utils = new _Utils.Utils();
 var HDKey = /** @class */ (function () {
     function HDKey() {

@@ -53,7 +53,8 @@ var ManyKeys = /** @class */ (function () {
         return keys;
     };
     ManyKeys.prototype.createCoinKey = function (coin) {
-        return new CoinKey(this.seed, coininfo_1.coininfo(coininfo_1.supportedCoins[coin].name).versions);
+        var ck = new CoinKey(this.seed, coininfo_1.coininfo(coininfo_1.supportedCoins[coin].name).versions);
+        return ck;
     };
     ManyKeys.combineDicts = function (item1, item2) {
         return __assign({}, item1, item2);

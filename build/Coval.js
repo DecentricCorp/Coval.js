@@ -23,6 +23,7 @@ var Msgs_1 = require("./base/Msgs");
 var PyShell_1 = require("./base/PyShell");
 var User = require("./base/User");
 var ManyKeys_1 = require("./secure/ManyKeys");
+var GenerateKey = require("./secure/GenerateKey");
 /**
  * Coval main export
  *
@@ -62,6 +63,7 @@ var Secures = /** @class */ (function () {
         this.HDKey = HDKey_1.HDKey;
         this.Pre = Pre_1.Pre;
         this.ManyKeys = ManyKeys_1.ManyKeys;
+        this.GenerateKey = GenerateKey;
     }
     return Secures;
 }());

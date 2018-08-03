@@ -22,6 +22,7 @@ import { Msgs } from './base/Msgs';
 import { PyShell } from './base/PyShell';
 import * as User from './base/User';
 import { ManyKeys } from './secure/ManyKeys';
+import * as GenerateKey from './secure/GenerateKey';
 /**
  * Coval main export
  *
@@ -57,6 +58,7 @@ export class Secures {
     public HDKey = HDKey
     public Pre = Pre
     public ManyKeys = ManyKeys
+    public GenerateKey = GenerateKey
 }
 /**
  * Partners of Coval

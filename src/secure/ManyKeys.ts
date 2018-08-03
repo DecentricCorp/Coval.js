@@ -56,8 +56,11 @@ export class ManyKeys {
         return keys
     }
 
+
+
     createCoinKey(coin) {
-        return new CoinKey(this.seed, coininfo(supportedCoins[coin].name).versions)
+        var ck = new CoinKey(this.seed, coininfo(supportedCoins[coin].name).versions)
+        return ck
     }
 
     static combineDicts(item1, item2) {
