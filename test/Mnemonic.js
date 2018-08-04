@@ -16,9 +16,9 @@ describe('Mnemonic', () => {
         var entropy = mnemonic.ToEntropy(entropyPhrase)
         expect(entropy).to.eq(entropyMock)
     })
-    it('generates expected entropy hex from known phrase', function(){
+    it('generates expected seed hex from known phrase', function(){
         var mnemonic = new Mnemonic()
-        var seedHex = mnemonic.ToSeedHex(entropyPhrase)
+        var seedHex = mnemonic.ToSeedHex(seedPhrase)
         expect(seedHex).to.eq(seedHexMock)
     })
     it('generates unique phrase when using multiple mnemonic objects', function(){
@@ -49,7 +49,8 @@ describe('Mnemonic', () => {
 
 var entropyMock = 'ce16d8441c79fd5966098b7c55a0740f268355fc7806aa2193e5e99b53909fcb'
 var entropyPhrase = "sock replace baby decline panther protect oblige cousin labor public brown bundle habit priority vehicle absorb pretty arrive west spring release sign left head"
-var seedHexMock = "f7b57651f856592e75adac99f1eb658e9eb7b9690423833d0d7899900da6592a5a65aa2a4ecdff4d3f60fcec54300f167d9feeefad2b414823c53a3326c4c582"
+var seedPhrase = "disorder poet menu matrix enroll cushion horn sort limit egg churn echo area voyage enroll"
+var seedHexMock = "2c42ea4ca162d781fb38a52cf8dc1c5e52ac9cccf621e1eccaced5adaa3c1ca0e0c5302ce7290a8541a97832622df5e8101b9a94fb83a3489128a72ca589c3f2"
 var phraseMock = "clever broken shaft worth act tumble another setup image weekend alcohol harsh"
 var splitPhraseMock =[ 'absurd ozone enjoy lazy traffic custom harbor tomato shoulder entire issue mistake render tail unfold',
 'acquire curious still design either jealous puppy gown utility pelican course advice pretty calm switch',

@@ -42,6 +42,15 @@
     - [ZK] sends re-encrypted data pieces to (Recipient)
     - [ZK] dies
 
+- Card Claim
+    - MasterKey: c5ce2ffda1713e5b90de2791c1981469aea3949630664711617d84a86d0989ca
+        - Claim1: 20072A
+            - ClaimKey1 (Sha256(MasterKey + Claim1): 35cb5a918968184ca06bac210a1e730122a5f8140fc9121beef5f168edfc08e2
+        - Claim2: 1EF5BA
+            - ClaimKey2 (Sha256(MasterKey + Claim1): 0b746ad8cd39ba1f03f907eb44b0d1fbadeec3d3c7e8cc362e5ed9f308595216
+
+
+
 
 
 
