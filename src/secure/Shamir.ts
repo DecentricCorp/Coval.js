@@ -1,6 +1,7 @@
 "use strict"
 import * as secrets from "secrets.js-grempe"
 import { Envelope } from "../transport/Envelope"
+import * as Mnemonic from "../secure/Mnemonic"
 export module Shamir {
     export class Key {
         constructor() { }
@@ -10,7 +11,10 @@ export module Shamir {
         public GetKey(length?) {
             let _envelope = new Envelope()
             if (!this.key) {
-                this.key = secrets.random(length || 512)
+                var mnemonic = new Mnemonic.Mnemonic()
+                var phrase = mnemonic.Generate()
+                var key = mnemonic.ToEntropy(phrase)
+                this.key = key //secrets.random(length || 512)
             } else {
                 _envelope.AddError("Key accessed twice!")
             }

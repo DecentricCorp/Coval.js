@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var secrets = require("secrets.js-grempe");
 var Envelope_1 = require("../transport/Envelope");
+var Mnemonic = require("../secure/Mnemonic");
 var Shamir;
 (function (Shamir) {
     var Key = /** @class */ (function () {
@@ -10,7 +11,10 @@ var Shamir;
         Key.prototype.GetKey = function (length) {
             var _envelope = new Envelope_1.Envelope();
             if (!this.key) {
-                this.key = secrets.random(length || 512);
+                var mnemonic = new Mnemonic.Mnemonic();
+                var phrase = mnemonic.Generate();
+                var key = mnemonic.ToEntropy(phrase);
+                this.key = key; //secrets.random(length || 512)
             }
             else {
                 _envelope.AddError("Key accessed twice!");

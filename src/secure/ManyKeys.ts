@@ -56,8 +56,6 @@ export class ManyKeys {
         return keys
     }
 
-
-
     createCoinKey(coin) {
         var ck = new CoinKey(this.seed, coininfo(supportedCoins[coin].name).versions)
         return ck
