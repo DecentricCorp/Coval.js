@@ -48,14 +48,14 @@ var GenerateKey = /** @class */ (function () {
             }
         }
     };
-    GenerateKey.prototype.GetAllAddresses = function (seed, cb) {
+    GenerateKey.prototype.GetAllAddresses = function (phrase, cb) {
         var root_class = this;
         var coins = Object.keys(coininfo_1.supportedCoins);
         var addresses = {};
         getAddress(0);
         function getAddress(index) {
             var coin = coins[index];
-            var root = root_class.CalculateBip32FromSeed(seed, coin);
+            var root = root_class.CalculateBip32FromPhrase(phrase, coin);
             root_class.DeriveBip44(root, coin, 1, function (address) {
                 addresses[coin] = { address: address[0], unit: coininfo_1.supportedCoins[coin].unit };
                 return handleReturn();

@@ -7,6 +7,7 @@ var Diffie_1 = require("./secure/Diffie");
 var Envelope_1 = require("./transport/Envelope");
 var Dat_1 = require("./transport/Dat");
 var Multichain_1 = require("./transport/Multichain");
+var GenerateKey_1 = require("./secure/GenerateKey");
 var Unloq_1 = require("./partner/Unloq");
 var Changely_1 = require("./partner/Changely");
 var Shapeshift_1 = require("./partner/Shapeshift");
@@ -23,7 +24,6 @@ var Msgs_1 = require("./base/Msgs");
 var PyShell_1 = require("./base/PyShell");
 var User = require("./base/User");
 var ManyKeys_1 = require("./secure/ManyKeys");
-var GenerateKey = require("./secure/GenerateKey");
 /**
  * Coval main export
  *
@@ -63,7 +63,7 @@ var Secures = /** @class */ (function () {
         this.HDKey = HDKey_1.HDKey;
         this.Pre = Pre_1.Pre;
         this.ManyKeys = ManyKeys_1.ManyKeys;
-        this.GenerateKey = GenerateKey;
+        this.GenerateKey = GenerateKey_1.GenerateKey;
     }
     return Secures;
 }());

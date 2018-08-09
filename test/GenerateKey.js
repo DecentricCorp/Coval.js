@@ -26,15 +26,17 @@ describe('GenerateKey', () => {
     it('generates correct bip44 address at index 0', function(done){
         var generator = new GenerateKey()
         var bip32 = generator.CalculateBip32FromPhrase(phraseMock, "defcoin")
+        //console.log(generator.CalculateBip32FromSeed("adfdf3910aba40c404e8154d1580dcc131dd201d953723b2c28e4e901a5c611a"))
         generator.DeriveBip44(bip32, "defcoin", 1, function(addresses){
+            console.log(addresses[0])
             expect(addresses[0]).to.eq(defcoinAddresses[0])
             done()
         })
     })
     it('returns a list of supported coins', function(){
         var generator = new GenerateKey()
-        var coins = generator.GetAllAddresses(phraseSeedMock, function(coins){
-            //console.log("coins", coins)
+        var coins = generator.GetAllAddresses("sock replace baby decline panther protect oblige cousin labor public brown bundle habit priority vehicle absorb pretty arrive west spring release sign left head", function(coins){
+           //console.log("coins", coins)
         })
     })
 })

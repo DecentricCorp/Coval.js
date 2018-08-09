@@ -5,6 +5,7 @@ import { Diffie } from "./secure/Diffie";
 import { Envelope } from "./transport/Envelope";
 import { DatNode } from "./transport/Dat";
 import { Multichain } from "./transport/Multichain";
+import { GenerateKey } from "./secure/GenerateKey";
 import { Unloq } from "./partner/Unloq";
 import { Changely } from "./partner/Changely";
 import { Shapeshift } from "./partner/Shapeshift";
@@ -21,7 +22,6 @@ import { Msgs } from './base/Msgs';
 import { PyShell } from './base/PyShell';
 import * as User from './base/User';
 import { ManyKeys } from './secure/ManyKeys';
-import * as GenerateKey from './secure/GenerateKey';
 /**
  * Coval main export
  *
