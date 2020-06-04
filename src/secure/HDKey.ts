@@ -47,7 +47,7 @@ export class HDKey {
     }
     public StandardHDKey(walletPath: number, cb: any) {
         var pk = new bitcore.HDPrivateKey(bitcore.Networks.mainnet)
-        var d = pk.derive("m/0'/0/"+walletPath, false)
+        var d = pk.derive("m/44'/0'/0'/0/"+walletPath + "'", false)
         var address = d.privateKey.toAddress().toString()
         return cb(address, pk)
     }
