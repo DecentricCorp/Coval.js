@@ -13,7 +13,7 @@ var Mnemonic = /** @class */ (function () {
             return mneumonic.entropyToMnemonic(this.seed);
         }
         else {
-            return mneumonic.generateMnemonic(strength || 256);
+            return mneumonic.generateMnemonic(strength || 128);
         }
     };
     Mnemonic.prototype.ToSeedHex = function (phrase) {
